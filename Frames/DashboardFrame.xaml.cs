@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ServiceDesk.Frames
 {
     /// <summary>
-    /// Логика взаимодействия для Dashboard.xaml
+    /// Логика взаимодействия для DashboardFrame.xaml
     /// </summary>
-    public partial class Dashboard : Page
+    public partial class DashboardFrame : Page
     {
-        public Dashboard()
+        public DashboardFrame()
         {
             InitializeComponent();
         }

@@ -23,12 +23,16 @@ namespace ServiceDesk.Frames
     /// </summary>
     public partial class StartPage : Page
     {
+
         public StartPage()
         {
             InitializeComponent();
             AppFrame.workFrame = workFrame;
 
-            AppFrame.workFrame.Navigate(new Dashboard());
+            AppFrame.workFrame.Navigate(new DashboardFrame());
+            Users currentUser = (App.Current as App).currentUser;
+            nameCurrentEmployee.Text = currentUser.Employees.secondName + " " + currentUser.Employees.firstName + " " + currentUser.Employees.patronymic;
+            emailCurrentEmployee.Text = currentUser.Employees.email;
         }
 
         private void buttonMenuDashboad_MouseEnter(object sender, MouseEventArgs e)
@@ -91,7 +95,7 @@ namespace ServiceDesk.Frames
 
         private void buttonMenuDashboad_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.workFrame.Navigate(new Dashboard());
+            AppFrame.workFrame.Navigate(new DashboardFrame());
         }
 
         private void buttonMenuTask_Click(object sender, RoutedEventArgs e)
@@ -112,6 +116,16 @@ namespace ServiceDesk.Frames
         private void leaveButton_MouseLeave(object sender, MouseEventArgs e)
         {
             imageLeave.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\leave.png"));
+        }
+
+        private void favouritesButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            favouritesImage.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\favouritesGreen.png"));
+        }
+
+        private void favouritesButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            favouritesImage.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\favourites.png"));
         }
     }
 }

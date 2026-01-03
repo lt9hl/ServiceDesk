@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище ServiceDeskBDModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище ServiceDeskBDModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Departments">
           <Key>
             <PropertyRef Name="idDepartment" />
@@ -23,6 +23,8 @@
           <Property Name="idPost" Type="int" Nullable="false" />
           <Property Name="idDepartment" Type="int" Nullable="false" />
           <Property Name="fio" Type="nvarchar" MaxLength="200" />
+          <Property Name="idUser" Type="int" />
+          <Property Name="email" Type="nvarchar" MaxLength="70" />
         </EntityType>
         <EntityType Name="Favourites">
           <Key>
@@ -92,6 +94,7 @@
           <Property Name="username" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="idPermission" Type="int" Nullable="false" />
+          <Property Name="idEmployee" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Applications_ApplicationStatuses">
           <End Role="TaskStatuses" Type="Self.TaskStatuses" Multiplicity="1">
@@ -118,30 +121,6 @@
             </Principal>
             <Dependent Role="Tasks">
               <PropertyRef Name="idDepartmentExecutor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Applications_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
-          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employees">
-              <PropertyRef Name="idEmployee" />
-            </Principal>
-            <Dependent Role="Tasks">
-              <PropertyRef Name="idEmployeeCreator" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Applications_Employees1">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
-          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employees">
-              <PropertyRef Name="idEmployee" />
-            </Principal>
-            <Dependent Role="Tasks">
-              <PropertyRef Name="idEmployeeExecutor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -227,7 +206,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tasks_Employees">
+        <Association Name="FK_Tasks_EmployeeCreator">
           <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
           <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -236,6 +215,32 @@
             </Principal>
             <Dependent Role="Tasks">
               <PropertyRef Name="idEmployeeCreator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_EmployeeExecutor">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="idEmployeeExecutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="idEmployee" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -272,14 +277,6 @@
             <End Role="Departments" EntitySet="Departments" />
             <End Role="Tasks" EntitySet="Tasks" />
           </AssociationSet>
-          <AssociationSet Name="FK_Applications_Employees" Association="Self.FK_Applications_Employees">
-            <End Role="Employees" EntitySet="Employees" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Applications_Employees1" Association="Self.FK_Applications_Employees1">
-            <End Role="Employees" EntitySet="Employees" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
           <AssociationSet Name="FK_Applications_Objects" Association="Self.FK_Applications_Objects">
             <End Role="Objects" EntitySet="Objects" />
             <End Role="Tasks" EntitySet="Tasks" />
@@ -304,16 +301,25 @@
             <End Role="Tasks" EntitySet="Tasks" />
             <End Role="Favourites" EntitySet="Favourites" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tasks_Employees" Association="Self.FK_Tasks_Employees">
+          <AssociationSet Name="FK_Tasks_EmployeeCreator" Association="Self.FK_Tasks_EmployeeCreator">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_EmployeeExecutor" Association="Self.FK_Tasks_EmployeeExecutor">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Employees" Association="Self.FK_Users_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Permissions" Association="Self.FK_Users_Permissions">
             <End Role="Permissions" EntitySet="Permissions" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ServiceDeskBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -323,81 +329,29 @@
           </Key>
           <Property Name="idDepartment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="titleDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tasks" Relationship="ServiceDeskBDModel.FK_Applications_Departments" FromRole="Departments" ToRole="Tasks" />
-          <NavigationProperty Name="Employees" Relationship="ServiceDeskBDModel.FK_Employees_Departments1" FromRole="Departments" ToRole="Employees" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Applications_Departments" FromRole="Departments" ToRole="Tasks" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Departments1" FromRole="Departments" ToRole="Employees" />
         </EntityType>
-        <EntityType Name="Objects">
+        <EntityType Name="Employees">
           <Key>
-            <PropertyRef Name="idObject" />
+            <PropertyRef Name="idEmployee" />
           </Key>
-          <Property Name="idObject" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="titleObject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tasks" Relationship="ServiceDeskBDModel.FK_Applications_Objects" FromRole="Objects" ToRole="Tasks" />
+          <Property Name="idEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="secondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idPost" Type="Int32" Nullable="false" />
+          <Property Name="idDepartment" Type="Int32" Nullable="false" />
+          <Property Name="fio" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="idUser" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Employees_Departments1" FromRole="Employees" ToRole="Departments" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK_Employees_Posts" FromRole="Employees" ToRole="Posts" />
+          <NavigationProperty Name="Favourites" Relationship="Self.FK_Favourites_Employees" FromRole="Employees" ToRole="Favourites" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Tasks_EmployeeCreator" FromRole="Employees" ToRole="Tasks" />
+          <NavigationProperty Name="Tasks1" Relationship="Self.FK_Tasks_EmployeeExecutor" FromRole="Employees" ToRole="Tasks" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Employees" FromRole="Employees" ToRole="Users" />
         </EntityType>
-        <EntityType Name="RegistrationMethods">
-          <Key>
-            <PropertyRef Name="idRegistrationMethod" />
-          </Key>
-          <Property Name="idRegistrationMethod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="titleMethod" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tasks" Relationship="ServiceDeskBDModel.FK_Applications_RegistrationMethods" FromRole="RegistrationMethods" ToRole="Tasks" />
-        </EntityType>
-        <EntityContainer Name="ServiceDeskBDEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Departments" EntityType="Self.Departments" />
-          <EntitySet Name="Objects" EntityType="Self.Objects" />
-          <EntitySet Name="RegistrationMethods" EntityType="Self.RegistrationMethods" />
-          <EntitySet Name="Favourites" EntityType="ServiceDeskBDModel.Favourites" />
-          <EntitySet Name="TaskStatuses" EntityType="ServiceDeskBDModel.TaskStatuses" />
-          <EntitySet Name="Employees" EntityType="ServiceDeskBDModel.Employees" />
-          <EntitySet Name="Permissions" EntityType="ServiceDeskBDModel.Permissions" />
-          <EntitySet Name="Posts" EntityType="ServiceDeskBDModel.Posts" />
-          <EntitySet Name="Tasks" EntityType="ServiceDeskBDModel.Tasks" />
-          <EntitySet Name="Users" EntityType="ServiceDeskBDModel.Users" />
-          <AssociationSet Name="FK_Applications_Departments" Association="ServiceDeskBDModel.FK_Applications_Departments">
-            <End Role="Departments" EntitySet="Departments" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employees_Departments1" Association="ServiceDeskBDModel.FK_Employees_Departments1">
-            <End Role="Departments" EntitySet="Departments" />
-            <End Role="Employees" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Applications_Employees" Association="ServiceDeskBDModel.FK_Applications_Employees">
-            <End Role="Employees" EntitySet="Employees" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Applications_Employees1" Association="ServiceDeskBDModel.FK_Applications_Employees1">
-            <End Role="Employees" EntitySet="Employees" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employees_Posts" Association="ServiceDeskBDModel.FK_Employees_Posts">
-            <End Role="Posts" EntitySet="Posts" />
-            <End Role="Employees" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Favourites_Employees" Association="ServiceDeskBDModel.FK_Favourites_Employees">
-            <End Role="Employees" EntitySet="Employees" />
-            <End Role="Favourites" EntitySet="Favourites" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Favourites_Tasks" Association="ServiceDeskBDModel.FK_Favourites_Tasks">
-            <End Role="Tasks" EntitySet="Tasks" />
-            <End Role="Favourites" EntitySet="Favourites" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Applications_Objects" Association="ServiceDeskBDModel.FK_Applications_Objects">
-            <End Role="Objects" EntitySet="Objects" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Permissions" Association="ServiceDeskBDModel.FK_Users_Permissions">
-            <End Role="Permissions" EntitySet="Permissions" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Applications_RegistrationMethods" Association="ServiceDeskBDModel.FK_Applications_RegistrationMethods">
-            <End Role="RegistrationMethods" EntitySet="RegistrationMethods" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Applications_ApplicationStatuses" Association="ServiceDeskBDModel.FK_Applications_ApplicationStatuses">
-            <End Role="TaskStatuses" EntitySet="TaskStatuses" />
-            <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          </EntityContainer>
         <EntityType Name="Favourites">
           <Key>
             <PropertyRef Name="idFavourite" />
@@ -405,33 +359,16 @@
           <Property Name="idFavourite" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idTask" Type="Int32" Nullable="false" />
           <Property Name="idEmployee" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employees" Relationship="ServiceDeskBDModel.FK_Favourites_Employees" FromRole="Favourites" ToRole="Employees" />
-          <NavigationProperty Name="Tasks" Relationship="ServiceDeskBDModel.FK_Favourites_Tasks" FromRole="Favourites" ToRole="Tasks" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Favourites_Employees" FromRole="Favourites" ToRole="Employees" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Favourites_Tasks" FromRole="Favourites" ToRole="Tasks" />
         </EntityType>
-        <EntityType Name="TaskStatuses">
+        <EntityType Name="Objects">
           <Key>
-            <PropertyRef Name="idTaskStatus" />
+            <PropertyRef Name="idObject" />
           </Key>
-          <Property Name="idTaskStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="titleStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Tasks" Relationship="ServiceDeskBDModel.FK_Applications_ApplicationStatuses" FromRole="TaskStatuses" ToRole="Tasks" />
-        </EntityType>
-        <EntityType Name="Employees">
-          <Key>
-            <PropertyRef Name="idEmployee" />
-          </Key>
-          <Property Name="idEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="secondName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="patronymic" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="idPost" Type="Int32" Nullable="false" />
-          <Property Name="idDepartment" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Departments" Relationship="ServiceDeskBDModel.FK_Employees_Departments1" FromRole="Employees" ToRole="Departments" />
-          <NavigationProperty Name="Tasks" Relationship="ServiceDeskBDModel.FK_Applications_Employees" FromRole="Employees" ToRole="Tasks" />
-          <NavigationProperty Name="Tasks1" Relationship="ServiceDeskBDModel.FK_Applications_Employees1" FromRole="Employees" ToRole="Tasks" />
-          <NavigationProperty Name="Posts" Relationship="ServiceDeskBDModel.FK_Employees_Posts" FromRole="Employees" ToRole="Posts" />
-          <NavigationProperty Name="Favourites" Relationship="ServiceDeskBDModel.FK_Favourites_Employees" FromRole="Employees" ToRole="Favourites" />
-          <Property Name="fio" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="idObject" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titleObject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Applications_Objects" FromRole="Objects" ToRole="Tasks" />
         </EntityType>
         <EntityType Name="Permissions">
           <Key>
@@ -439,7 +376,7 @@
           </Key>
           <Property Name="idPermission" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="titlePermission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="ServiceDeskBDModel.FK_Users_Permissions" FromRole="Permissions" ToRole="Users" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Permissions" FromRole="Permissions" ToRole="Users" />
         </EntityType>
         <EntityType Name="Posts">
           <Key>
@@ -447,14 +384,22 @@
           </Key>
           <Property Name="idPost" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="titlePost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employees" Relationship="ServiceDeskBDModel.FK_Employees_Posts" FromRole="Posts" ToRole="Employees" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Posts" FromRole="Posts" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="RegistrationMethods">
+          <Key>
+            <PropertyRef Name="idRegistrationMethod" />
+          </Key>
+          <Property Name="idRegistrationMethod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titleMethod" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Applications_RegistrationMethods" FromRole="RegistrationMethods" ToRole="Tasks" />
         </EntityType>
         <EntityType Name="Tasks">
           <Key>
             <PropertyRef Name="idTask" />
           </Key>
           <Property Name="idTask" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="idTaskStatus" Type="Int32" Nullable="false" />
           <Property Name="idEmployeeCreator" Type="Int32" />
@@ -465,29 +410,39 @@
           <Property Name="timeToDone" Type="Int32" />
           <Property Name="idRegistrationMethod" Type="Int32" Nullable="false" />
           <Property Name="idObject" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Departments" Relationship="ServiceDeskBDModel.FK_Applications_Departments" FromRole="Tasks" ToRole="Departments" />
-          <NavigationProperty Name="Employees" Relationship="ServiceDeskBDModel.FK_Applications_Employees" FromRole="Tasks" ToRole="Employees" />
-          <NavigationProperty Name="Employees1" Relationship="ServiceDeskBDModel.FK_Applications_Employees1" FromRole="Tasks" ToRole="Employees" />
-          <NavigationProperty Name="Favourites" Relationship="ServiceDeskBDModel.FK_Favourites_Tasks" FromRole="Tasks" ToRole="Favourites" />
-          <NavigationProperty Name="Objects" Relationship="ServiceDeskBDModel.FK_Applications_Objects" FromRole="Tasks" ToRole="Objects" />
-          <NavigationProperty Name="RegistrationMethods" Relationship="ServiceDeskBDModel.FK_Applications_RegistrationMethods" FromRole="Tasks" ToRole="RegistrationMethods" />
-          <NavigationProperty Name="TaskStatuses" Relationship="ServiceDeskBDModel.FK_Applications_ApplicationStatuses" FromRole="Tasks" ToRole="TaskStatuses" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Applications_Departments" FromRole="Tasks" ToRole="Departments" />
+          <NavigationProperty Name="EmployeeCreator" Relationship="Self.FK_Tasks_EmployeeCreator" FromRole="Tasks" ToRole="Employees" />
+          <NavigationProperty Name="EmployeeExecutor" Relationship="Self.FK_Tasks_EmployeeExecutor" FromRole="Tasks" ToRole="Employees" />
+          <NavigationProperty Name="Favourites" Relationship="Self.FK_Favourites_Tasks" FromRole="Tasks" ToRole="Favourites" />
+          <NavigationProperty Name="Objects" Relationship="Self.FK_Applications_Objects" FromRole="Tasks" ToRole="Objects" />
+          <NavigationProperty Name="RegistrationMethods" Relationship="Self.FK_Applications_RegistrationMethods" FromRole="Tasks" ToRole="RegistrationMethods" />
+          <NavigationProperty Name="TaskStatuses" Relationship="Self.FK_Applications_ApplicationStatuses" FromRole="Tasks" ToRole="TaskStatuses" />
+        </EntityType>
+        <EntityType Name="TaskStatuses">
+          <Key>
+            <PropertyRef Name="idTaskStatus" />
+          </Key>
+          <Property Name="idTaskStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titleStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Applications_ApplicationStatuses" FromRole="TaskStatuses" ToRole="Tasks" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="idUser" />
           </Key>
           <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idPermission" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Permissions" Relationship="ServiceDeskBDModel.FK_Users_Permissions" FromRole="Users" ToRole="Permissions" />
+          <Property Name="idEmployee" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Users_Employees" FromRole="Users" ToRole="Employees" />
+          <NavigationProperty Name="Permissions" Relationship="Self.FK_Users_Permissions" FromRole="Users" ToRole="Permissions" />
         </EntityType>
         <Association Name="FK_Applications_Departments">
-          <End Type="ServiceDeskBDModel.Departments" Role="Departments" Multiplicity="1">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="ServiceDeskBDModel.Tasks" Role="Tasks" Multiplicity="*" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Departments">
               <PropertyRef Name="idDepartment" />
@@ -498,10 +453,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employees_Departments1">
-          <End Type="ServiceDeskBDModel.Departments" Role="Departments" Multiplicity="1">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="ServiceDeskBDModel.Employees" Role="Employees" Multiplicity="*" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Departments">
               <PropertyRef Name="idDepartment" />
@@ -511,35 +466,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Applications_Employees">
-          <End Type="ServiceDeskBDModel.Employees" Role="Employees" Multiplicity="0..1" />
-          <End Type="ServiceDeskBDModel.Tasks" Role="Tasks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employees">
-              <PropertyRef Name="idEmployee" />
-            </Principal>
-            <Dependent Role="Tasks">
-              <PropertyRef Name="idEmployeeCreator" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Applications_Employees1">
-          <End Type="ServiceDeskBDModel.Employees" Role="Employees" Multiplicity="0..1" />
-          <End Type="ServiceDeskBDModel.Tasks" Role="Tasks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employees">
-              <PropertyRef Name="idEmployee" />
-            </Principal>
-            <Dependent Role="Tasks">
-              <PropertyRef Name="idEmployeeExecutor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Employees_Posts">
-          <End Type="ServiceDeskBDModel.Posts" Role="Posts" Multiplicity="1">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="ServiceDeskBDModel.Employees" Role="Employees" Multiplicity="*" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Posts">
               <PropertyRef Name="idPost" />
@@ -550,8 +481,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Favourites_Employees">
-          <End Type="ServiceDeskBDModel.Employees" Role="Employees" Multiplicity="1" />
-          <End Type="ServiceDeskBDModel.Favourites" Role="Favourites" Multiplicity="*" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Favourites" Type="Self.Favourites" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
               <PropertyRef Name="idEmployee" />
@@ -561,11 +492,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Favourites_Tasks">
-          <End Type="ServiceDeskBDModel.Tasks" Role="Tasks" Multiplicity="1">
+        <Association Name="FK_Tasks_EmployeeCreator">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="idEmployeeCreator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_EmployeeExecutor">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="idEmployeeExecutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="ServiceDeskBDModel.Favourites" Role="Favourites" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="idEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourites_Tasks">
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Favourites" Type="Self.Favourites" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tasks">
               <PropertyRef Name="idTask" />
@@ -576,10 +545,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Applications_Objects">
-          <End Type="ServiceDeskBDModel.Objects" Role="Objects" Multiplicity="1">
+          <End Role="Objects" Type="Self.Objects" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="ServiceDeskBDModel.Tasks" Role="Tasks" Multiplicity="*" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Objects">
               <PropertyRef Name="idObject" />
@@ -590,10 +559,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_Permissions">
-          <End Type="ServiceDeskBDModel.Permissions" Role="Permissions" Multiplicity="1">
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="ServiceDeskBDModel.Users" Role="Users" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Permissions">
               <PropertyRef Name="idPermission" />
@@ -604,10 +573,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Applications_RegistrationMethods">
-          <End Type="ServiceDeskBDModel.RegistrationMethods" Role="RegistrationMethods" Multiplicity="1">
+          <End Role="RegistrationMethods" Type="Self.RegistrationMethods" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="ServiceDeskBDModel.Tasks" Role="Tasks" Multiplicity="*" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RegistrationMethods">
               <PropertyRef Name="idRegistrationMethod" />
@@ -618,10 +587,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Applications_ApplicationStatuses">
-          <End Type="ServiceDeskBDModel.TaskStatuses" Role="TaskStatuses" Multiplicity="1">
+          <End Role="TaskStatuses" Type="Self.TaskStatuses" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="ServiceDeskBDModel.Tasks" Role="Tasks" Multiplicity="*" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TaskStatuses">
               <PropertyRef Name="idTaskStatus" />
@@ -631,7 +600,67 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <EntityContainer Name="ServiceDeskBDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departments" EntityType="Self.Departments" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Favourites" EntityType="Self.Favourites" />
+          <EntitySet Name="Objects" EntityType="Self.Objects" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" />
+          <EntitySet Name="RegistrationMethods" EntityType="Self.RegistrationMethods" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" />
+          <EntitySet Name="TaskStatuses" EntityType="Self.TaskStatuses" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Applications_Departments" Association="Self.FK_Applications_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Departments1" Association="Self.FK_Employees_Departments1">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Posts" Association="Self.FK_Employees_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourites_Employees" Association="Self.FK_Favourites_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Favourites" EntitySet="Favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_EmployeeCreator" Association="Self.FK_Tasks_EmployeeCreator">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_EmployeeExecutor" Association="Self.FK_Tasks_EmployeeExecutor">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Employees" Association="Self.FK_Users_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourites_Tasks" Association="Self.FK_Favourites_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="Favourites" EntitySet="Favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Objects" Association="Self.FK_Applications_Objects">
+            <End Role="Objects" EntitySet="Objects" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Permissions" Association="Self.FK_Users_Permissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_RegistrationMethods" Association="Self.FK_Applications_RegistrationMethods">
+            <End Role="RegistrationMethods" EntitySet="RegistrationMethods" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_ApplicationStatuses" Association="Self.FK_Applications_ApplicationStatuses">
+            <End Role="TaskStatuses" EntitySet="TaskStatuses" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -645,11 +674,51 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="ServiceDeskBDModel.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="secondName" ColumnName="secondName" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="idPost" ColumnName="idPost" />
+                <ScalarProperty Name="idDepartment" ColumnName="idDepartment" />
+                <ScalarProperty Name="fio" ColumnName="fio" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favourites">
+            <EntityTypeMapping TypeName="ServiceDeskBDModel.Favourites">
+              <MappingFragment StoreEntitySet="Favourites">
+                <ScalarProperty Name="idFavourite" ColumnName="idFavourite" />
+                <ScalarProperty Name="idTask" ColumnName="idTask" />
+                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Objects">
             <EntityTypeMapping TypeName="ServiceDeskBDModel.Objects">
               <MappingFragment StoreEntitySet="Objects">
                 <ScalarProperty Name="idObject" ColumnName="idObject" />
                 <ScalarProperty Name="titleObject" ColumnName="titleObject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="ServiceDeskBDModel.Permissions">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="idPermission" ColumnName="idPermission" />
+                <ScalarProperty Name="titlePermission" ColumnName="titlePermission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="ServiceDeskBDModel.Posts">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="idPost" ColumnName="idPost" />
+                <ScalarProperty Name="titlePost" ColumnName="titlePost" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -661,77 +730,40 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Favourites">
-            <EntityTypeMapping TypeName="ServiceDeskBDModel.Favourites">
-              <MappingFragment StoreEntitySet="Favourites">
-                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="ServiceDeskBDModel.Tasks">
+              <MappingFragment StoreEntitySet="Tasks">
                 <ScalarProperty Name="idTask" ColumnName="idTask" />
-                <ScalarProperty Name="idFavourite" ColumnName="idFavourite" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="idTaskStatus" ColumnName="idTaskStatus" />
+                <ScalarProperty Name="idEmployeeCreator" ColumnName="idEmployeeCreator" />
+                <ScalarProperty Name="idEmployeeExecutor" ColumnName="idEmployeeExecutor" />
+                <ScalarProperty Name="idDepartmentExecutor" ColumnName="idDepartmentExecutor" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="doneDate" ColumnName="doneDate" />
+                <ScalarProperty Name="timeToDone" ColumnName="timeToDone" />
+                <ScalarProperty Name="idRegistrationMethod" ColumnName="idRegistrationMethod" />
+                <ScalarProperty Name="idObject" ColumnName="idObject" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TaskStatuses">
             <EntityTypeMapping TypeName="ServiceDeskBDModel.TaskStatuses">
               <MappingFragment StoreEntitySet="TaskStatuses">
+                <ScalarProperty Name="idTaskStatus" ColumnName="idTaskStatus" />
                 <ScalarProperty Name="titleStatus" ColumnName="titleStatus" />
-                <ScalarProperty Name="idTaskStatus" ColumnName="idTaskStatus" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="ServiceDeskBDModel.Employees">
-              <MappingFragment StoreEntitySet="Employees">
-                <ScalarProperty Name="fio" ColumnName="fio" />
-                <ScalarProperty Name="idDepartment" ColumnName="idDepartment" />
-                <ScalarProperty Name="idPost" ColumnName="idPost" />
-                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
-                <ScalarProperty Name="secondName" ColumnName="secondName" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Permissions">
-            <EntityTypeMapping TypeName="ServiceDeskBDModel.Permissions">
-              <MappingFragment StoreEntitySet="Permissions">
-                <ScalarProperty Name="titlePermission" ColumnName="titlePermission" />
-                <ScalarProperty Name="idPermission" ColumnName="idPermission" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Posts">
-            <EntityTypeMapping TypeName="ServiceDeskBDModel.Posts">
-              <MappingFragment StoreEntitySet="Posts">
-                <ScalarProperty Name="titlePost" ColumnName="titlePost" />
-                <ScalarProperty Name="idPost" ColumnName="idPost" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tasks">
-            <EntityTypeMapping TypeName="ServiceDeskBDModel.Tasks">
-              <MappingFragment StoreEntitySet="Tasks">
-                <ScalarProperty Name="idObject" ColumnName="idObject" />
-                <ScalarProperty Name="idRegistrationMethod" ColumnName="idRegistrationMethod" />
-                <ScalarProperty Name="timeToDone" ColumnName="timeToDone" />
-                <ScalarProperty Name="doneDate" ColumnName="doneDate" />
-                <ScalarProperty Name="createDate" ColumnName="createDate" />
-                <ScalarProperty Name="idDepartmentExecutor" ColumnName="idDepartmentExecutor" />
-                <ScalarProperty Name="idEmployeeExecutor" ColumnName="idEmployeeExecutor" />
-                <ScalarProperty Name="idEmployeeCreator" ColumnName="idEmployeeCreator" />
-                <ScalarProperty Name="idTaskStatus" ColumnName="idTaskStatus" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="idTask" ColumnName="idTask" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ServiceDeskBDModel.Users">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="idPermission" ColumnName="idPermission" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="idPermission" ColumnName="idPermission" />
+                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

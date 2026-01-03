@@ -223,6 +223,14 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
         </Style>
 
+        <Style x:Key="currentUserInfo" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Monseratt"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="Foreground" Value="{StaticResource darkGreenMenu}"/>
+        </Style>
+        
         <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Transparent"/>
         <SolidColorBrush x:Key="Button.MouseOver.Border" Color="Transparent"/>
         <SolidColorBrush x:Key="Button.Pressed.Background" Color="Transparent"/>
@@ -253,7 +261,6 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-
 
 
 

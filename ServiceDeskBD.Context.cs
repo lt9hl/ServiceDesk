@@ -26,14 +26,14 @@ namespace ServiceDesk
         }
     
         public virtual DbSet<Departments> Departments { get; set; }
-        public virtual DbSet<Objects> Objects { get; set; }
-        public virtual DbSet<RegistrationMethods> RegistrationMethods { get; set; }
-        public virtual DbSet<Favourites> Favourites { get; set; }
-        public virtual DbSet<TaskStatuses> TaskStatuses { get; set; }
         public virtual DbSet<Employees> Employees { get; set; }
+        public virtual DbSet<Favourites> Favourites { get; set; }
+        public virtual DbSet<Objects> Objects { get; set; }
         public virtual DbSet<Permissions> Permissions { get; set; }
         public virtual DbSet<Posts> Posts { get; set; }
+        public virtual DbSet<RegistrationMethods> RegistrationMethods { get; set; }
         public virtual DbSet<Tasks> Tasks { get; set; }
+        public virtual DbSet<TaskStatuses> TaskStatuses { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }
 }

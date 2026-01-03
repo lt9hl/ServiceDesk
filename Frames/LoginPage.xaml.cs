@@ -24,6 +24,7 @@ namespace ServiceDesk.Frames
     {
         public LoginPage()
         {
+            AppConnect.modelOdb = new ServiceDeskBDEntities();
             InitializeComponent();
             
         }
@@ -31,7 +32,43 @@ namespace ServiceDesk.Frames
 
         private void goToStart_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.centerFrame.Navigate(new StartPage());
+            try
+            {
+                string login = loginTextBox.Text;
+                string password = passwordTextBox.Password;
+
+                var listUsers = AppConnect.modelOdb.Users.ToList();
+
+                if (listUsers.FirstOrDefault(x=> x.username == login) != null)
+                {
+                    var currentUser = listUsers.FirstOrDefault(x => x.username == login);
+                    
+                    if (currentUser.password == password)
+                    {
+                        (App.Current as App).currentUser = currentUser;
+                        AppFrame.centerFrame.Navigate(new StartPage());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Неверный пароль", "Ошибка", MessageBoxButton.OK);
+                    }
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Пользователь не найден","Ошибка",MessageBoxButton.OK);
+                    return;
+                }
+
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+
+            
         }
 
         

@@ -77,28 +77,28 @@
                 </Border.Background>
 
                 <StackPanel VerticalAlignment="Center" Margin="40 0" HorizontalAlignment="Center" Width="250">
-                    <Label HorizontalAlignment="Center" Content="Авторизация" Margin="0 0 0 20" FontSize="22" FontFamily="Montserrat Medium"/>
+                    <Label HorizontalAlignment="Center" Foreground="{StaticResource darkGreenMenu}" Content="Авторизация" Margin="0 0 0 20" FontSize="22" FontFamily="Montserrat Medium"/>
 
                     <Border BorderBrush="#7c854a" BorderThickness="0 0 0 2">
                         <WrapPanel Margin="0 0 0 5">
                             <Image Source="\Images\Icons\controlButtons\user.png" Height="25"/>
-                            <TextBox Template="{DynamicResource textBoxLogin}" Style="{StaticResource loginInputText}"  Margin="10 0 0 0"/>
+                            <TextBox x:Name="loginTextBox" Template="{DynamicResource textBoxLogin}" Style="{StaticResource loginInputText}"  Margin="10 0 0 0"/>
                         </WrapPanel>
                     </Border>
 
                     <Border Margin="0 20" BorderBrush="#7c854a" BorderThickness="0 0 0 2">
                         <WrapPanel Margin="0 0 0 5">
                             <Image Source="\Images\Icons\controlButtons\password.png" Height="25"/>
-                            <PasswordBox Template="{DynamicResource PasswordBoxTemplate1}" Style="{StaticResource passwordInputText}" Margin="10 0 0 0" />
+                            <PasswordBox x:Name="passwordTextBox" Template="{DynamicResource PasswordBoxTemplate1}" Style="{StaticResource passwordInputText}" Margin="10 0 0 0" />
                         </WrapPanel>
                     </Border>
 
-                    <Button Template="{DynamicResource buttonLoginTemplate}" Style="{StaticResource buttonLogin}" Content="Войти" Click="goToStart_Click" Opacity="1"/>
+                    <Button x:Name="checkLoginData" Template="{DynamicResource buttonLoginTemplate}" Style="{StaticResource buttonLogin}" Content="Войти" Click="goToStart_Click" Opacity="1"/>
                 </StackPanel>
             </Border>
 
             <StackPanel Grid.Column="1">
-                <Label Content="ServiceDesk" FontSize="40" FontFamily="Montserrat ExtraLight" HorizontalAlignment="Center" Margin="0 60 0 0"/>
+                <Label Content="ServiceDesk" Foreground="{StaticResource darkGreenMenu}" FontSize="40" FontFamily="Montserrat ExtraLight" HorizontalAlignment="Center" Margin="0 60 0 0"/>
             </StackPanel>
             
         </Grid>

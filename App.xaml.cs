@@ -13,5 +13,6 @@ namespace ServiceDesk
     /// </summary>
     public partial class App : Application
     {
+        public Users currentUser { get; set; }
     }
 }

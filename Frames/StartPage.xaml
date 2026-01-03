@@ -39,7 +39,7 @@
                             <Image Margin="15 13 0 0" Height="35" Source="\Images\Icons\controlButtons\comet.png"/>
                             <Label Content="ServiceDesk" FontSize="18" Padding="0 10 0 0" Style="{StaticResource buttonMenuLabel}"  VerticalContentAlignment="Center" Background="Transparent"/>
                         </WrapPanel>
-                        
+
                         <WrapPanel Margin="0 140 0 0" Grid.Row="1" >
 
 
@@ -83,14 +83,18 @@
                     <Border.Background>
                         <SolidColorBrush Color="#f2f2ed" Opacity="0.7"/>
                     </Border.Background>
-                </Border>
 
-                <Border Grid.Row="0" Margin="0 0 10 0" Grid.Column="1" Style="{StaticResource mainBorder}">
-                    <Border.Background>
-                        <SolidColorBrush Color="#f2f2ed" Opacity="0.7"/>
-                    </Border.Background>
-                    
                     <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+
+                        <StackPanel VerticalAlignment="Bottom">
+                            <TextBlock x:Name="nameCurrentEmployee" Text="Иванов Иван Иванович" Style="{StaticResource currentUserInfo}"/>
+                            <TextBlock x:Name="emailCurrentEmployee" Text="email@mail.ru" Style="{StaticResource currentUserInfo}" FontSize="10" Margin="0 2 0 0"/>
+                        </StackPanel>
+                        
+                        <Button x:Name="favouritesButton" Style="{StaticResource buttonMenu}" HorizontalAlignment="Center" Template="{StaticResource leftButtonMenu}" Width="35" Margin="0 0 7 0" MouseEnter="favouritesButton_MouseEnter" MouseLeave="favouritesButton_MouseLeave">
+                            <Image x:Name="favouritesImage"  Source="\Images\Icons\controlButtons\favourites.png" Style="{StaticResource imageButton}"/>
+                        </Button>
+
                         <Button  x:Name="leaveButton" Style="{StaticResource buttonMenu}" HorizontalAlignment="Center"  Template="{StaticResource leftButtonMenu}" Width="35" Margin="0 0 7 0" Click="leaveButton_Click" MouseEnter="leaveButton_MouseEnter" MouseLeave="leaveButton_MouseLeave">
                             <Image x:Name="imageLeave" Source="\Images\Icons\controlButtons\leave.png" Height="25" Width="25"/>
                         </Button>

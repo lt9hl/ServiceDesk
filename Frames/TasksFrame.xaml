@@ -78,8 +78,8 @@
                             </Grid.ColumnDefinitions>
 
                             <WrapPanel Grid.Column="1" Margin="0 0 10 0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
-                                <ComboBox x:Name="sortComboBox" Style="{StaticResource comboBoxSort}" Text="Сортировать"/>
-                                <Button x:Name="sortDescAsc" Margin="10 0 0 0" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonsWithImages}" Height="33" MouseEnter="sortDescAsc_MouseEnter" MouseLeave="sortDescAsc_MouseLeave">
+                                <ComboBox x:Name="sortComboBox" Style="{StaticResource comboBoxSort}" Text="Сортировать" SelectionChanged="sortComboBox_SelectionChanged"/>
+                                <Button x:Name="sortDescAsc" Margin="10 0 0 0" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonsWithImages}" Height="33" MouseEnter="sortDescAsc_MouseEnter" MouseLeave="sortDescAsc_MouseLeave" Click="sortDescAsc_Click">
                                     <Border Height="30" Width="30" CornerRadius="30" Background="White">
                                         <Image x:Name="imageSortButton" Source="\Images\Icons\controlButtons\sort.png" Style="{StaticResource imageButton}" Height="18" />
                                     </Border>
@@ -171,13 +171,13 @@
 
                                             <StackPanel Grid.Column="3" Style="{StaticResource tableData}">
                                                 <TextBlock TextWrapping="Wrap" Height="auto">
-                                                    <Run Text="{Binding Employees1.fio}"/>
+                                                    <Run Text="{Binding EmployeeExecutor.fio}"/>
                                                 </TextBlock>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="4" Style="{StaticResource tableData}">
                                                 <TextBlock TextWrapping="Wrap" Height="auto">
-                                                    <Run Text="{Binding Employees.fio}"/>
+                                                    <Run Text="{Binding EmployeeCreator.fio}"/>
                                                 </TextBlock>
                                             </StackPanel>
                                         </Grid>

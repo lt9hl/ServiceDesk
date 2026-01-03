@@ -65,63 +65,60 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Departments.cs">
-      <DependentUpon>ServiceDesk.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Employees.cs">
-      <DependentUpon>ServiceDesk.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Favourites.cs">
-      <DependentUpon>ServiceDesk.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="Frames\Dashboard.xaml.cs">
-      <DependentUpon>Dashboard.xaml</DependentUpon>
+    <Compile Include="Frames\DashboardFrame.xaml.cs">
+      <DependentUpon>DashboardFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frames\Employees.xaml.cs">
       <DependentUpon>Employees.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Frames\Tasks.xaml.cs">
-      <DependentUpon>Tasks.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frames\TasksFrame.xaml.cs">
       <DependentUpon>TasksFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="Objects.cs">
-      <DependentUpon>ServiceDesk.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Permissions.cs">
-      <DependentUpon>ServiceDesk.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Posts.cs">
-      <DependentUpon>ServiceDesk.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
     <Compile Include="RegistrationMethods.cs">
-      <DependentUpon>ServiceDesk.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="ServiceDesk.Context.cs">
+    <Compile Include="ServiceDeskBD.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ServiceDesk.Context.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="ServiceDesk.cs">
+    <Compile Include="ServiceDeskBD.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ServiceDesk.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="ServiceDesk.Designer.cs">
+    <Compile Include="ServiceDeskBD.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ServiceDesk.edmx</DependentUpon>
+      <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
     </Compile>
     <Compile Include="Tasks.cs">
-      <DependentUpon>ServiceDesk.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
     <Compile Include="TaskStatuses.cs">
-      <DependentUpon>ServiceDesk.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Users.cs">
-      <DependentUpon>ServiceDesk.tt</DependentUpon>
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
-    <Page Include="Frames\Dashboard.xaml">
+    <Page Include="Frames\DashboardFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,10 +131,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frames\StartPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Frames\Tasks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -185,12 +178,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <EntityDeploy Include="ServiceDesk.edmx">
+    <EntityDeploy Include="ServiceDeskBD.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ServiceDesk.Designer.cs</LastGenOutput>
+      <LastGenOutput>ServiceDeskBD.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ServiceDesk.edmx.diagram">
-      <DependentUpon>ServiceDesk.edmx</DependentUpon>
+    <None Include="ServiceDeskBD.edmx.diagram">
+      <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
     </None>
     <Resource Include="Fonts\Montserrat-ExtraLightItalic.ttf" />
     <Resource Include="Fonts\Montserrat-MediumItalic.ttf" />
@@ -244,15 +237,21 @@
     <Resource Include="Images\Icons\controlButtons\goRightGreen.png" />
     <Resource Include="Images\Icons\controlButtons\sort.png" />
     <Resource Include="Images\Icons\controlButtons\sortGreen.png" />
-    <Content Include="ServiceDesk.Context.tt">
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\controlButtons\favourites.png" />
+    <Resource Include="Images\Icons\controlButtons\favouritesGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ServiceDeskBD.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ServiceDesk.edmx</DependentUpon>
-      <LastGenOutput>ServiceDesk.Context.cs</LastGenOutput>
+      <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
+      <LastGenOutput>ServiceDeskBD.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="ServiceDesk.tt">
+    <Content Include="ServiceDeskBD.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ServiceDesk.edmx</DependentUpon>
-      <LastGenOutput>ServiceDesk.cs</LastGenOutput>
+      <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
+      <LastGenOutput>ServiceDeskBD.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

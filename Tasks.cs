@@ -34,7 +34,7 @@ namespace ServiceDesk
         public int idObject { get; set; }
     
         public virtual Departments Departments { get; set; }
-        public virtual Employees EmployeCreator { get; set; }
+        public virtual Employees EmployeeCreator { get; set; }
         public virtual Employees EmployeeExecutor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Favourites> Favourites { get; set; }

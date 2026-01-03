@@ -17,9 +17,10 @@ namespace ServiceDesk
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employees()
         {
+            this.Favourites = new HashSet<Favourites>();
             this.Tasks = new HashSet<Tasks>();
             this.Tasks1 = new HashSet<Tasks>();
-            this.Favourites = new HashSet<Favourites>();
+            this.Users = new HashSet<Users>();
         }
     
         public int idEmployee { get; set; }
@@ -29,14 +30,18 @@ namespace ServiceDesk
         public int idPost { get; set; }
         public int idDepartment { get; set; }
         public string fio { get; set; }
+        public Nullable<int> idUser { get; set; }
+        public string email { get; set; }
     
         public virtual Departments Departments { get; set; }
+        public virtual Posts Posts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Favourites> Favourites { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tasks> Tasks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tasks> Tasks1 { get; set; }
-        public virtual Posts Posts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Favourites> Favourites { get; set; }
+        public virtual ICollection<Users> Users { get; set; }
     }
 }
