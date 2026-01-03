@@ -1,0 +1,111 @@
+﻿<Page x:Class="ServiceDesk.Frames.StartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ServiceDesk.Frames"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="900"
+      Title="StartPage" ShowsNavigationUI="False">
+
+    <Grid Background="Transparent" >
+        <Border  CornerRadius="10">
+            <Border.Background>
+                <SolidColorBrush Color="White" />
+            </Border.Background>
+
+            <Grid Margin="0 40 0 0">
+
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Border Margin="10 0 10 10" Grid.RowSpan="2" Grid.Column="0" CornerRadius="10">
+                    <Border.Background>
+                        <SolidColorBrush Color="#f2f2ed" Opacity="0.7"/>
+                    </Border.Background>
+                    <Grid Background="Transparent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <WrapPanel Grid.Row="0" Margin="0 5 0 0"  >
+                            <Image Margin="15 13 0 0" Height="35" Source="\Images\Icons\controlButtons\comet.png"/>
+                            <Label Content="ServiceDesk" FontSize="18" Padding="0 10 0 0" Style="{StaticResource buttonMenuLabel}"  VerticalContentAlignment="Center" Background="Transparent"/>
+                        </WrapPanel>
+                        
+                        <WrapPanel Margin="0 140 0 0" Grid.Row="1" >
+
+
+                            <Button  x:Name="buttonMenuDashboad" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonMenu}" MouseEnter="buttonMenuDashboad_MouseEnter" Height="40" MouseLeave="buttonMenuDashboad_MouseLeave" Click="buttonMenuDashboad_Click">
+                                <WrapPanel>
+                                    <Border  Style="{StaticResource borderLeftMenu}" x:Name="dashboardSelected"/>
+                                    <Image x:Name="imageMenuDashboard" Source="\Images\Icons\controlButtons\dashboardLight.png" MaxHeight="35" />
+                                    <Label x:Name="labelMenuDashboard" Content="Дашборд" Style="{StaticResource buttonMenuLabel}"/>
+                                </WrapPanel>
+                            </Button>
+
+                            <Button x:Name="buttonMenuTask" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonMenu}" MouseEnter="buttonMenuTask_MouseEnter" Height="40" MouseLeave="buttonMenuTask_MouseLeave" Click="buttonMenuTask_Click">
+                                <WrapPanel>
+                                    <Border x:Name="taskSelected" Style="{StaticResource borderLeftMenu}"/>
+                                    <Image x:Name="imageMenuTask" Source="\Images\Icons\controlButtons\task.png" MaxHeight="35" />
+                                    <Label x:Name="labelMenuTask" Content="Задачи" Style="{StaticResource buttonMenuLabel}"/>
+                                </WrapPanel>
+                            </Button>
+
+                            <Button x:Name="buttonMenuEmployees" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonMenu}" MouseEnter="buttonMenuEmployee_MouseEnter" Height="40" MouseLeave="buttonMenuEmployee_MouseLeave" Click="buttonMenuEmployees_Click">
+                                <WrapPanel>
+                                    <Border x:Name="employeeSelected" Style="{StaticResource borderLeftMenu}"/>
+                                    <Image x:Name="imageMenuEmployee" Source="\Images\Icons\controlButtons\employee.png" MaxHeight="35" />
+                                    <Label x:Name="labelMenuEmployee" Content="Сотрудники" Style="{StaticResource buttonMenuLabel}"/>
+                                </WrapPanel>
+                            </Button>
+
+                            <Button x:Name="buttonMenuReport" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonMenu}" MouseEnter="buttonMenuReport_MouseEnter" Height="40" MouseLeave="buttonMenuReport_MouseLeave">
+                                <WrapPanel>
+                                    <Border x:Name="reportSelected" Style="{StaticResource borderLeftMenu}"/>
+                                    <Image x:Name="imageMenuReport" Source="\Images\Icons\controlButtons\report.png" MaxHeight="35" />
+                                    <Label x:Name="labelMenuReport" Content="Отчеты" Style="{StaticResource buttonMenuLabel}"/>
+                                </WrapPanel>
+                            </Button>
+
+                        </WrapPanel>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="0" Margin="0 0 10 0" Grid.Column="1" Style="{StaticResource mainBorder}">
+                    <Border.Background>
+                        <SolidColorBrush Color="#f2f2ed" Opacity="0.7"/>
+                    </Border.Background>
+                </Border>
+
+                <Border Grid.Row="0" Margin="0 0 10 0" Grid.Column="1" Style="{StaticResource mainBorder}">
+                    <Border.Background>
+                        <SolidColorBrush Color="#f2f2ed" Opacity="0.7"/>
+                    </Border.Background>
+                    
+                    <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button  x:Name="leaveButton" Style="{StaticResource buttonMenu}" HorizontalAlignment="Center"  Template="{StaticResource leftButtonMenu}" Width="35" Margin="0 0 7 0" Click="leaveButton_Click" MouseEnter="leaveButton_MouseEnter" MouseLeave="leaveButton_MouseLeave">
+                            <Image x:Name="imageLeave" Source="\Images\Icons\controlButtons\leave.png" Height="25" Width="25"/>
+                        </Button>
+                    </WrapPanel>
+                </Border>
+
+                <Border Grid.Row="1" Margin="0 10 10 10" Grid.Column="1" Style="{StaticResource mainBorder}">
+                    <Border.Background>
+                        <SolidColorBrush Color="#f2f2ed" Opacity="0.7"/>
+                    </Border.Background>
+                    <Frame x:Name="workFrame" NavigationUIVisibility="Hidden"/>
+                </Border>
+                    
+            </Grid>
+
+        </Border>
+    </Grid>
+</Page>

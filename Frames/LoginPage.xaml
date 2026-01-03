@@ -1,0 +1,107 @@
+﻿<Page x:Class="ServiceDesk.Frames.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ServiceDesk.Frames"
+      mc:Ignorable="d" 
+      d:DesignHeight="610" d:DesignWidth="900"
+      Title="LoginPage">
+    <Page.Resources>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="Transparent"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="Transparent"/>
+        <ControlTemplate x:Key="textBoxLogin" TargetType="{x:Type TextBoxBase}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="PasswordBoxTemplate1" TargetType="{x:Type PasswordBox}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#59653C"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#444B28"/>
+
+        <ControlTemplate x:Key="buttonLoginTemplate" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Page.Resources>
+
+    <Border Style="{StaticResource mainBorder}">
+        <Border.Background>
+            <ImageBrush ImageSource="\Images\back.jpg"/>
+        </Border.Background>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource startBorder}">
+                <Border.Background>
+                    <SolidColorBrush Color="White" Opacity="0.82"/>
+                </Border.Background>
+
+                <StackPanel VerticalAlignment="Center" Margin="40 0" HorizontalAlignment="Center" Width="250">
+                    <Label HorizontalAlignment="Center" Content="Авторизация" Margin="0 0 0 20" FontSize="22" FontFamily="Montserrat Medium"/>
+
+                    <Border BorderBrush="#7c854a" BorderThickness="0 0 0 2">
+                        <WrapPanel Margin="0 0 0 5">
+                            <Image Source="\Images\Icons\controlButtons\user.png" Height="25"/>
+                            <TextBox Template="{DynamicResource textBoxLogin}" Style="{StaticResource loginInputText}"  Margin="10 0 0 0"/>
+                        </WrapPanel>
+                    </Border>
+
+                    <Border Margin="0 20" BorderBrush="#7c854a" BorderThickness="0 0 0 2">
+                        <WrapPanel Margin="0 0 0 5">
+                            <Image Source="\Images\Icons\controlButtons\password.png" Height="25"/>
+                            <PasswordBox Template="{DynamicResource PasswordBoxTemplate1}" Style="{StaticResource passwordInputText}" Margin="10 0 0 0" />
+                        </WrapPanel>
+                    </Border>
+
+                    <Button Template="{DynamicResource buttonLoginTemplate}" Style="{StaticResource buttonLogin}" Content="Войти" Click="goToStart_Click" Opacity="1"/>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Column="1">
+                <Label Content="ServiceDesk" FontSize="40" FontFamily="Montserrat ExtraLight" HorizontalAlignment="Center" Margin="0 60 0 0"/>
+            </StackPanel>
+            
+        </Grid>
+        
+    </Border>
+</Page>

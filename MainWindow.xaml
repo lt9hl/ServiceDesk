@@ -1,0 +1,35 @@
+﻿<Window x:Name="mainWindow" x:Class="ServiceDesk.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ServiceDesk"
+        mc:Ignorable="d"
+        Title="ServiceDesk" Height="650" Width="900" Icon="/Images/Icons/controlButtons/comet.png" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" ResizeMode="NoResize" AllowsTransparency="True" MouseLeftButtonDown="mainWindow_MouseLeftButtonDown" >
+
+    <Border  Style="{StaticResource mainBorder}" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Frame x:Name="centerFrame" NavigationUIVisibility="Hidden" Grid.RowSpan="2" />
+            <WrapPanel HorizontalAlignment="Right"  >
+                
+                <Button Style="{StaticResource controlButtons}" x:Name="minimizeButton" Grid.Column="1" Click="minimizeClick" MouseEnter="minimizeButton_MouseEnter" MouseLeave="minimizeButton_MouseLeave">
+                    <Image x:Name="imageMinimizeButton" Source="\Images\Icons\controlButtons\minimize.png" Width="20" Height="20" />
+                </Button>
+
+                <Button Style="{StaticResource controlButtons}" x:Name="closeButton" Grid.Column="2" Click="closeClick" MouseEnter="closeButton_MouseEnter" MouseLeave="closeButton_MouseLeave" >
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="0 10 0 0"/>
+                        </Style>
+                    </Button.Resources>
+                    <Image x:Name="imageCloseButton" Source="\Images\Icons\controlButtons\exit.png" Width="20" Height="20" />
+                </Button>
+
+            </WrapPanel>
+        </Grid>
+    </Border>
+</Window>

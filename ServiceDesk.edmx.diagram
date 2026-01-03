@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8a159367f10940b0870340d5501b6793" Name="Diagram1">
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Departments" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Objects" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.RegistrationMethods" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Favourites" Width="1.5" PointX="10.5" PointY="6.125" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.TaskStatuses" Width="1.5" PointX="6" PointY="11.125" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Employees" Width="1.5" PointX="3" PointY="4" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Permissions" Width="1.5" PointX="3.375" PointY="1.125" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Posts" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Tasks" Width="1.5" PointX="8.25" PointY="6" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Users" Width="1.5" PointX="5.625" PointY="0.875" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_Applications_Departments" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_Employees_Departments1" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_Applications_Employees" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_Applications_Employees1" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_Employees_Posts" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_Favourites_Employees" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_Favourites_Tasks" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_Applications_Objects" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_Users_Permissions" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_Applications_RegistrationMethods" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_Applications_ApplicationStatuses" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
