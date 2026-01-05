@@ -19,19 +19,43 @@
             <Setter Property="BorderBrush" Value="Transparent"/>
         </Style>
 
-        <Style x:Key="tableData" TargetType="StackPanel">
+        <Style x:Key="dashboardLabels" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Monseratt"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="20 0 0 0"/>
+            <Setter Property="Foreground" Value="{StaticResource darkGreenMenu}"/>
+        </Style>
 
+        <Style x:Key="tableData" TargetType="StackPanel">
+            <Setter Property="VerticalAlignment" Value="Center"/>
             <Style.Resources>
                 <Style TargetType="TextBlock">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
                     <Setter Property="Foreground" Value="{StaticResource darkGreenMenu}"/>
                     <Setter Property="FontFamily" Value="Monseratt"/>
                     <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Height" Value="auto"/>
                     <Setter Property="HorizontalAlignment" Value="Left"/>
                 </Style>
 
             </Style.Resources>
         </Style>
 
+        <Style x:Key="circleButton" TargetType="Border">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="CornerRadius" Value="30"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+            
+        <Style x:Key="upperTableMenu" TargetType="WrapPanel">
+            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+        
         <Style x:Key="employeeTableLabel" TargetType="Label">
             <Setter Property="FontFamily" Value="Monseratt"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -49,6 +73,33 @@
         <Style x:Name="menuLabelButton" TargetType="{x:Type Label}">
             <Setter Property="Margin" Value="10 0 0 0"/>
             
+        </Style>
+
+        <Style x:Key="itemsListViewTable" TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Background" Value="{StaticResource fon}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Background" Value="#e0e0d2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
         </Style>
 
         <Style x:Key="buttonMenu" TargetType="Button">
@@ -266,7 +317,7 @@
 
         <SolidColorBrush x:Key="BorderBrushComboBox" Color="Transparent" />
         <SolidColorBrush x:Key="BackgroundBrushComboBox" Color="White"/>
-        <SolidColorBrush x:Key="BackgroundBrushPopUpComboBox" Color="#f2f2ed" Opacity="0.8"/>
+        <SolidColorBrush x:Key="BackgroundBrushPopUpComboBox" Color="#f2f2ed"/>
         <SolidColorBrush x:Key="ArrowBrushComboBox" Color="#59653C" />
         <SolidColorBrush x:Key="HoverBorderBrush" Color="Transparent" />
         <SolidColorBrush x:Key="HoverBackground" Color="#989880"/>
@@ -308,6 +359,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
@@ -385,5 +437,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Application.Resources>
 </Application>

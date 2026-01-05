@@ -1,6 +1,8 @@
 ﻿using ServiceDesk.ApplicationData;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO.Packaging;
 using System.Linq;
 using System.Text;
@@ -28,12 +30,21 @@ namespace ServiceDesk.Frames
             InitializeComponent();
             AppConnect.modelOdb = new ServiceDeskBDEntities();
 
+            sortComboBox.Items.Add("Сортировка");
             sortComboBox.Items.Add("По дате");
             sortComboBox.Items.Add("По названию");
             sortComboBox.Items.Add("По исполнителю");
 
+            selectStatusTask.Items.Add("Статус");
 
-            listViewEmployees.ItemsSource = AppConnect.modelOdb.Tasks.ToList();
+            sortComboBox.SelectedIndex = 0;
+            selectStatusTask.SelectedIndex = 0;
+
+            var allStatuses = AppConnect.modelOdb.TaskStatuses.ToList();
+            foreach (var status in allStatuses)
+                selectStatusTask.Items.Add(status.titleStatus);
+
+            listViewTasks.ItemsSource = AppConnect.modelOdb.Tasks.ToList();
         }
 
         private void goRightButton_MouseEnter(object sender, MouseEventArgs e)
@@ -68,7 +79,7 @@ namespace ServiceDesk.Frames
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            listViewEmployees.ItemsSource = getTasksList();
+            listViewTasks.ItemsSource = getTasksList();
         }
 
         Tasks[] getTasksList()
@@ -78,7 +89,6 @@ namespace ServiceDesk.Frames
                 string searchText = taskSearch.Text;
 
                 var allTasks = AppConnect.modelOdb.Tasks.ToList();
-                MessageBox.Show($"{allTasks[0].title} + {countSortAscDesc}", "", MessageBoxButton.OK);
 
                 if (searchText != "")
                 {
@@ -87,35 +97,46 @@ namespace ServiceDesk.Frames
                     x.EmployeeExecutor.fio.ToLower().Contains(searchText.ToLower()) || x.TaskStatuses.titleStatus.ToLower().Contains(searchText.ToLower())).ToList();
                 }
 
+                if (selectStatusTask.SelectedIndex > 0)
+                {
+                    var selectedItem = selectStatusTask.SelectedItem.ToString();
+
+                    var allStatuses = AppConnect.modelOdb.TaskStatuses.ToList();
+                    var selectedStatus = allStatuses.FirstOrDefault(x => x.titleStatus == selectedItem);
+
+                    allTasks = allTasks.Where(x => x.idTaskStatus == selectedStatus.idTaskStatus).ToList();
+                }
+
                 if (sortComboBox.SelectedIndex > 0)
                 {
-                    MessageBox.Show($"{allTasks[0].title} + {countSortAscDesc}", "", MessageBoxButton.OK);
 
-                    switch (sortComboBox.SelectedIndex){
-                        case 1:
-                            allTasks = (from createDate in AppConnect.modelOdb.Tasks orderby createDate select createDate).ToList();
-                            MessageBox.Show($"{allTasks[0].title}","",MessageBoxButton.OK);
-                            break;
-                        case 2:
-                            allTasks = allTasks.OrderBy(x => x.title).ToList();
-                            break;
-                        case 3:
-                            allTasks = allTasks.OrderBy(x => x.EmployeeExecutor.fio).ToList();
-                            break;
-                    }
                     if (countSortAscDesc % 2 == 1)
                     {
                         switch (sortComboBox.SelectedIndex)
                         {
                             case 1:
-                                allTasks = (from createDate in AppConnect.modelOdb.Tasks orderby createDate descending select createDate).ToList();
-                                MessageBox.Show($"{allTasks[0].title} + {countSortAscDesc}", "", MessageBoxButton.OK);
+                                allTasks = allTasks.OrderByDescending(x => x.createDate).ToList();
                                 break;
                             case 2:
                                 allTasks = allTasks.OrderByDescending(x => x.title).ToList();
                                 break;
                             case 3:
                                 allTasks = allTasks.OrderByDescending(x => x.EmployeeExecutor.fio).ToList();
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (sortComboBox.SelectedIndex)
+                        {
+                            case 1:
+                                allTasks = allTasks.OrderBy(x => x.createDate).ToList();
+                                break;
+                            case 2:
+                                allTasks = allTasks.OrderBy(x => x.title).ToList();
+                                break;
+                            case 3:
+                                allTasks = allTasks.OrderBy(x => x.EmployeeExecutor.fio).ToList();
                                 break;
                         }
                     }
@@ -133,12 +154,28 @@ namespace ServiceDesk.Frames
         private void sortDescAsc_Click(object sender, RoutedEventArgs e)
         {
             countSortAscDesc++;
-            listViewEmployees.ItemsSource = getTasksList();
+            listViewTasks.ItemsSource = getTasksList();
         }
 
         private void sortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            listViewEmployees.ItemsSource = getTasksList();
+            countSortAscDesc = 0;
+            listViewTasks.ItemsSource = getTasksList();
+        }
+
+        private void addNewTaskButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            imageAddButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\addGreen.png"));
+        }
+
+        private void addNewTaskButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            imageAddButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\add.png"));
+        }
+
+        private void selectStatusTask_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            listViewTasks.ItemsSource= getTasksList();
         }
     }
 }

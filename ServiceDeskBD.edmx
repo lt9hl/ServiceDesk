@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище ServiceDeskBDModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище ServiceDeskBDModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Departments">
           <Key>
             <PropertyRef Name="idDepartment" />
@@ -73,8 +73,8 @@
           <Property Name="idEmployeeCreator" Type="int" />
           <Property Name="idEmployeeExecutor" Type="int" />
           <Property Name="idDepartmentExecutor" Type="int" Nullable="false" />
-          <Property Name="createDate" Type="date" Nullable="false" />
-          <Property Name="doneDate" Type="date" />
+          <Property Name="createDate" Type="datetime" Nullable="false" />
+          <Property Name="doneDate" Type="datetime" />
           <Property Name="timeToDone" Type="int" />
           <Property Name="idRegistrationMethod" Type="int" Nullable="false" />
           <Property Name="idObject" Type="int" Nullable="false" />
@@ -85,6 +85,7 @@
           </Key>
           <Property Name="idTaskStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="titleStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="imageStatus" Type="nvarchar" MaxLength="70" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -318,8 +319,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ServiceDeskBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -405,8 +405,8 @@
           <Property Name="idEmployeeCreator" Type="Int32" />
           <Property Name="idEmployeeExecutor" Type="Int32" />
           <Property Name="idDepartmentExecutor" Type="Int32" Nullable="false" />
-          <Property Name="createDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="doneDate" Type="DateTime" Precision="0" />
+          <Property Name="createDate" Type="DateTime" Nullable="false" />
+          <Property Name="doneDate" Type="DateTime" Precision="3" />
           <Property Name="timeToDone" Type="Int32" />
           <Property Name="idRegistrationMethod" Type="Int32" Nullable="false" />
           <Property Name="idObject" Type="Int32" Nullable="false" />
@@ -425,6 +425,7 @@
           <Property Name="idTaskStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="titleStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Tasks" Relationship="Self.FK_Applications_ApplicationStatuses" FromRole="TaskStatuses" ToRole="Tasks" />
+          <Property Name="imageStatus" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -751,6 +752,7 @@
           <EntitySetMapping Name="TaskStatuses">
             <EntityTypeMapping TypeName="ServiceDeskBDModel.TaskStatuses">
               <MappingFragment StoreEntitySet="TaskStatuses">
+                <ScalarProperty Name="imageStatus" ColumnName="imageStatus" />
                 <ScalarProperty Name="idTaskStatus" ColumnName="idTaskStatus" />
                 <ScalarProperty Name="titleStatus" ColumnName="titleStatus" />
               </MappingFragment>

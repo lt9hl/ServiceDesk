@@ -72,19 +72,28 @@
 
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="2*"/>
                             </Grid.ColumnDefinitions>
 
-                            <WrapPanel Grid.Column="1" Margin="0 0 10 0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
-                                <ComboBox x:Name="sortComboBox" Style="{StaticResource comboBoxSort}" Text="Сортировать" SelectionChanged="sortComboBox_SelectionChanged"/>
+                            <WrapPanel Style="{StaticResource upperTableMenu}" Margin="0,6,0,0" VerticalAlignment="Top">
+                                
+                                <Button x:Name="addNewTaskButton" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonsWithImages}" MouseEnter="addNewTaskButton_MouseEnter" MouseLeave="addNewTaskButton_MouseLeave" >
+                                    <Border Style="{StaticResource circleButton}">
+                                        <Image x:Name="imageAddButton" Source="\Images\Icons\controlButtons\add.png" Height="18" Style="{StaticResource imageButton}"/>
+                                    </Border>
+                                </Button>
+                                
+                                <ComboBox x:Name="selectStatusTask" Style="{StaticResource comboBoxSort}" Text="Сортировать" SelectionChanged="selectStatusTask_SelectionChanged"/>
+
+                                <ComboBox x:Name="sortComboBox" Style="{StaticResource comboBoxSort}" SelectionChanged="sortComboBox_SelectionChanged"/>
                                 <Button x:Name="sortDescAsc" Margin="10 0 0 0" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonsWithImages}" Height="33" MouseEnter="sortDescAsc_MouseEnter" MouseLeave="sortDescAsc_MouseLeave" Click="sortDescAsc_Click">
-                                    <Border Height="30" Width="30" CornerRadius="30" Background="White">
+                                    <Border Style="{StaticResource circleButton}">
                                         <Image x:Name="imageSortButton" Source="\Images\Icons\controlButtons\sort.png" Style="{StaticResource imageButton}" Height="18" />
                                     </Border>
                                 </Button>
                             </WrapPanel>
+                           
 
                             <Border Grid.Column="2" Margin="0,7,0,0" CornerRadius="10" BorderBrush="Transparent" Height="33" VerticalAlignment="Top">
                                 <Border.Background>
@@ -117,9 +126,9 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="110"/>
-                                <ColumnDefinition Width="240"/>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="230"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
@@ -139,44 +148,42 @@
                                 <Label Content="Заявитель" Style="{StaticResource employeeTableLabel}"/>
                             </Border>
 
-                            <ListView Grid.Row="2" Grid.ColumnSpan="5" BorderBrush="Transparent" x:Name="listViewEmployees">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
+                            <ListView ItemContainerStyle="{StaticResource itemsListViewTable}" Margin="0" Grid.Row="2" Grid.ColumnSpan="5" BorderBrush="Transparent" x:Name="listViewTasks" >
+                                <ListView.ItemTemplate >
+                                    <DataTemplate >
+                                        <Grid  >
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="110"/>
-                                                <ColumnDefinition Width="240"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="230"/>
+                                                <ColumnDefinition Width="50"/>
+                                                <ColumnDefinition Width="150"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
                                             <StackPanel Grid.Column="0" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap" Height="auto">
+                                                <TextBlock>
                                                     <Run Text="{Binding createDate}"/>
                                                 </TextBlock>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="1" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap" Height="auto">
+                                                <TextBlock >
                                                     <Run Text="{Binding title}"/>
                                                 </TextBlock>
                                             </StackPanel>
 
-                                            <StackPanel Grid.Column="2" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap" Height="auto">
-                                                    <Run Text="{Binding TaskStatuses.titleStatus}"/>
-                                                </TextBlock>
+                                            <StackPanel Margin="9 0 0 0" VerticalAlignment="Center" Grid.Column="2" Style="{StaticResource tableData}" HorizontalAlignment="Left" >
+                                                <Image Source="{Binding TaskStatuses.imageStatus}" Height="20"/>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="3" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap" Height="auto">
-                                                    <Run Text="{Binding EmployeeExecutor.fio}"/>
+                                                <TextBlock>
+                                                    <Run Text="{Binding EmployeeExecutor.Departments.titleDepartment}"/>
                                                 </TextBlock>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="4" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap" Height="auto">
+                                                <TextBlock>
                                                     <Run Text="{Binding EmployeeCreator.fio}"/>
                                                 </TextBlock>
                                             </StackPanel>

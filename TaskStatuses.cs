@@ -22,6 +22,7 @@ namespace ServiceDesk
     
         public int idTaskStatus { get; set; }
         public string titleStatus { get; set; }
+        public string imageStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tasks> Tasks { get; set; }

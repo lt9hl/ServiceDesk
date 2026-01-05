@@ -86,7 +86,7 @@
                         </WrapPanel>
                     </Border>
 
-                    <Border Margin="0 20" BorderBrush="#7c854a" BorderThickness="0 0 0 2">
+                    <Border Margin="0 30 0 20" BorderBrush="#7c854a" BorderThickness="0 0 0 2">
                         <WrapPanel Margin="0 0 0 5">
                             <Image Source="\Images\Icons\controlButtons\password.png" Height="25"/>
                             <PasswordBox x:Name="passwordTextBox" Template="{DynamicResource PasswordBoxTemplate1}" Style="{StaticResource passwordInputText}" Margin="10 0 0 0" />

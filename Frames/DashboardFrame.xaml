@@ -9,10 +9,83 @@
       Title="DashboardFrame">
 
     <Grid Background="Transparent">
-        <Border  CornerRadius="10">
+        <Border CornerRadius="10">
             <Border.Background>
                 <SolidColorBrush Color="#f2f2ed" Opacity="0.7" />
             </Border.Background>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Background="White" Margin="10 10 5 10" CornerRadius="10">
+                            <StackPanel >
+                                <TextBlock TextWrapping="Wrap" Text="Всего" Margin="20 20 0 0" Style="{StaticResource dashboardLabels}"/>
+                                <TextBlock x:Name="countAllTasks" Text="0" FontSize="70" Style="{StaticResource dashboardLabels}"/>
+                                <TextBlock TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" Background="White" Margin="5 10" CornerRadius="10">
+                            <StackPanel>
+                                <TextBlock TextWrapping="Wrap" Text="Выполнено" Margin="20 20 0 0" Style="{StaticResource dashboardLabels}"/>
+                                <TextBlock x:Name="countDoneTasks" Text="0" FontSize="70" Style="{StaticResource dashboardLabels}"/>
+                                <TextBlock TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="2" Background="White" Margin="5 10 10 10" CornerRadius="10">
+                            <StackPanel >
+                                <TextBlock TextWrapping="Wrap" Text="В работе" Margin="20 20 0 0" Style="{StaticResource dashboardLabels}"/>
+                                <TextBlock x:Name="countUndoneTasks" Text="0" FontSize="70" Style="{StaticResource dashboardLabels}"/>
+                                <TextBlock TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="0">
+
+                        <Border Background="White" Grid.Column="1" Margin="10 0 10 10" CornerRadius="10">
+
+                        </Border>
+
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Background="White" Grid.Column="1" Margin="0 10 10 10" CornerRadius="10">
+                        <StackPanel >
+                            <TextBlock TextWrapping="Wrap" Text="Создано" Margin="20 20 0 0" Style="{StaticResource dashboardLabels}"/>
+                            <TextBlock x:Name="countOurTasks" Text="0" FontSize="70" Style="{StaticResource dashboardLabels}"/>
+                            <TextBlock TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="White" Grid.Row="1" Grid.Column="1" Margin="0 0 10 10" CornerRadius="10">
+
+                    </Border>
+                </Grid>
+                
+            </Grid>
         </Border>
     </Grid>
 </Page>

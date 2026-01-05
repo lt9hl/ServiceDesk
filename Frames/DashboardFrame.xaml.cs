@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceDesk.ApplicationData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,17 @@ namespace ServiceDesk.Frames
         public DashboardFrame()
         {
             InitializeComponent();
+
+            AppConnect.modelOdb = new ServiceDeskBDEntities();
+
+            var tasks = AppConnect.modelOdb.Tasks.ToList();
+
+            countAllTasks.Text = tasks.Count().ToString();
+            countUndoneTasks.Text = tasks.Where(x => x.TaskStatuses.titleStatus.ToLower().Contains("в работе") || x.TaskStatuses.titleStatus.ToLower().Contains("ожидает") || x.TaskStatuses.titleStatus.ToLower().Contains("новая")).Count().ToString() ;
+            countDoneTasks.Text = tasks.Where(x => x.TaskStatuses.titleStatus.ToLower().Contains("закрыта")).Count().ToString();
+            countOurTasks.Text = tasks.Where(x => x.idEmployeeCreator == (App.Current as App).currentUser.idEmployee).Count().ToString();
         }
+
+
     }
 }
