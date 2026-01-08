@@ -32,6 +32,7 @@ namespace ServiceDesk
         public string fio { get; set; }
         public Nullable<int> idUser { get; set; }
         public string email { get; set; }
+        public string phone { get; set; }
     
         public virtual Departments Departments { get; set; }
         public virtual Posts Posts { get; set; }

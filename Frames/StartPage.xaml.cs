@@ -90,7 +90,7 @@ namespace ServiceDesk.Frames
 
         private void buttonMenuEmployees_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.workFrame.Navigate(new Employees());
+            AppFrame.workFrame.Navigate(new EmployeesFrame());
         }
 
         private void buttonMenuDashboad_Click(object sender, RoutedEventArgs e)
@@ -126,6 +126,16 @@ namespace ServiceDesk.Frames
         private void favouritesButton_MouseLeave(object sender, MouseEventArgs e)
         {
             favouritesImage.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\favourites.png"));
+        }
+
+        private void favouritesButton_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.workFrame.Navigate(new FavouritesFrame());
+        }
+
+        private void buttonMenuReport_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.workFrame.Navigate(new ReportsFrame());
         }
     }
 }

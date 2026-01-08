@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ServiceDesk.Frames
 {
     /// <summary>
-    /// Логика взаимодействия для Employees.xaml
+    /// Логика взаимодействия для FavouritesFrame.xaml
     /// </summary>
-    public partial class Employees : Page
+    public partial class FavouritesFrame : Page
     {
-        public Employees()
+        public FavouritesFrame()
         {
             InitializeComponent();
         }

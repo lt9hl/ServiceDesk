@@ -28,7 +28,7 @@
 
                 <Border Margin="10 0 10 10" Grid.RowSpan="2" Grid.Column="0" CornerRadius="10">
                     <Border.Background>
-                        <SolidColorBrush Color="#f2f2ed" Opacity="0.7"/>
+                        <SolidColorBrush Color="#f2f2ed"/>
                     </Border.Background>
                     <Grid Background="Transparent">
                         <Grid.RowDefinitions>
@@ -67,7 +67,7 @@
                                 </WrapPanel>
                             </Button>
 
-                            <Button x:Name="buttonMenuReport" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonMenu}" MouseEnter="buttonMenuReport_MouseEnter" Height="40" MouseLeave="buttonMenuReport_MouseLeave">
+                            <Button x:Name="buttonMenuReport" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonMenu}" MouseEnter="buttonMenuReport_MouseEnter" Height="40" MouseLeave="buttonMenuReport_MouseLeave" Click="buttonMenuReport_Click">
                                 <WrapPanel>
                                     <Border x:Name="reportSelected" Style="{StaticResource borderLeftMenu}"/>
                                     <Image x:Name="imageMenuReport" Source="\Images\Icons\controlButtons\report.png" MaxHeight="35" />
@@ -81,7 +81,7 @@
 
                 <Border Grid.Row="0" Margin="0 0 10 0" Grid.Column="1" Style="{StaticResource mainBorder}">
                     <Border.Background>
-                        <SolidColorBrush Color="#f2f2ed" Opacity="0.7"/>
+                        <SolidColorBrush Color="#f2f2ed"/>
                     </Border.Background>
 
                     <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
@@ -91,7 +91,7 @@
                             <TextBlock x:Name="emailCurrentEmployee" Text="email@mail.ru" Style="{StaticResource currentUserInfo}" FontSize="10" Margin="0 2 0 0"/>
                         </StackPanel>
                         
-                        <Button x:Name="favouritesButton" Style="{StaticResource buttonMenu}" HorizontalAlignment="Center" Template="{StaticResource leftButtonMenu}" Width="35" Margin="0 0 7 0" MouseEnter="favouritesButton_MouseEnter" MouseLeave="favouritesButton_MouseLeave">
+                        <Button x:Name="favouritesButton" Style="{StaticResource buttonMenu}" HorizontalAlignment="Center" Template="{StaticResource leftButtonMenu}" Width="35" Margin="0 0 7 0" MouseEnter="favouritesButton_MouseEnter" MouseLeave="favouritesButton_MouseLeave" Click="favouritesButton_Click">
                             <Image x:Name="favouritesImage"  Source="\Images\Icons\controlButtons\favourites.png" Style="{StaticResource imageButton}"/>
                         </Button>
 
@@ -102,9 +102,6 @@
                 </Border>
 
                 <Border Grid.Row="1" Margin="0 10 10 10" Grid.Column="1" Style="{StaticResource mainBorder}">
-                    <Border.Background>
-                        <SolidColorBrush Color="#f2f2ed" Opacity="0.7"/>
-                    </Border.Background>
                     <Frame x:Name="workFrame" NavigationUIVisibility="Hidden"/>
                 </Border>
                     

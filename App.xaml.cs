@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceDesk.Frames;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -14,5 +15,21 @@ namespace ServiceDesk
     public partial class App : Application
     {
         public Users currentUser { get; set; }
+        public Employees currentEmployee { get; set; }
+        public actions actionWithTask {  get; set; }
+        public actions actionWithEmployee {  get; set; }
+        public Tasks currentTask { get; set; }  
+        public reportOptions currentReportOption { get; set; }
+
+    }
+    public enum actions
+    {
+        edit,
+        add
+    }
+    public enum reportOptions
+    {
+        byDepartments,
+        byEmployees
     }
 }

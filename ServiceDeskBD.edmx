@@ -25,6 +25,7 @@
           <Property Name="fio" Type="nvarchar" MaxLength="200" />
           <Property Name="idUser" Type="int" />
           <Property Name="email" Type="nvarchar" MaxLength="70" />
+          <Property Name="phone" Type="nvarchar" MaxLength="12" />
         </EntityType>
         <EntityType Name="Favourites">
           <Key>
@@ -351,6 +352,7 @@
           <NavigationProperty Name="Tasks" Relationship="Self.FK_Tasks_EmployeeCreator" FromRole="Employees" ToRole="Tasks" />
           <NavigationProperty Name="Tasks1" Relationship="Self.FK_Tasks_EmployeeExecutor" FromRole="Employees" ToRole="Tasks" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Employees" FromRole="Employees" ToRole="Users" />
+          <Property Name="phone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Favourites">
           <Key>
@@ -405,7 +407,7 @@
           <Property Name="idEmployeeCreator" Type="Int32" />
           <Property Name="idEmployeeExecutor" Type="Int32" />
           <Property Name="idDepartmentExecutor" Type="Int32" Nullable="false" />
-          <Property Name="createDate" Type="DateTime" Nullable="false" />
+          <Property Name="createDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="doneDate" Type="DateTime" Precision="3" />
           <Property Name="timeToDone" Type="Int32" />
           <Property Name="idRegistrationMethod" Type="Int32" Nullable="false" />
@@ -678,6 +680,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="ServiceDeskBDModel.Employees">
               <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
                 <ScalarProperty Name="firstName" ColumnName="firstName" />
                 <ScalarProperty Name="secondName" ColumnName="secondName" />

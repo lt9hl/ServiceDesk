@@ -56,7 +56,12 @@ namespace ServiceDesk.Frames
                 }
                 else
                 {
-                    MessageBox.Show("Пользователь не найден","Ошибка",MessageBoxButton.OK);
+                    var mbox = new Xceed.Wpf.Toolkit.MessageBox();
+                    mbox.OkButtonContent = "ОК";
+                    mbox.Caption = "Ошибка";
+                    mbox.Text = "Пользователь не найден";
+                    mbox.ShowDialog();
+                    
                     return;
                 }
 

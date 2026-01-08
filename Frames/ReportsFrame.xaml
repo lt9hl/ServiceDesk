@@ -1,0 +1,197 @@
+﻿<Page x:Class="ServiceDesk.Frames.ReportsFrame"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ServiceDesk.Frames"
+      mc:Ignorable="d" 
+      d:DesignHeight="540" d:DesignWidth="690"
+      Title="ReportsFrame">
+
+    <Grid Background="Transparent">
+        <Border  CornerRadius="10">
+            <Border.Background>
+                <SolidColorBrush Color="#f2f2ed" />
+            </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Background="Transparent" Grid.ColumnSpan="2">
+                    <Border Margin="10 10 10 0" >
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <WrapPanel Style="{StaticResource upperTableMenu}" Margin="0,6,0,0" VerticalAlignment="Top">
+                                <Button x:Name="OptionReportCountButton" Width="160" Background="White" Foreground="{StaticResource darkGreenMenu}" Margin="0" Grid.Column="1" Template="{DynamicResource buttonReportTemplate}" Style="{StaticResource buttonLogin}" HorizontalAlignment="Right" Click="OptionReportCountButton_Click">
+                                    <TextBlock Text="По отделам" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Button>
+                                <Button x:Name="OptionReportEmployeesButton" Width="160" Margin="10 0 0 0" Background="White" Foreground="{StaticResource darkGreenMenu}" Grid.Column="1" Template="{DynamicResource buttonReportTemplate}" Style="{StaticResource buttonLogin}" HorizontalAlignment="Right" Click="OptionReportEmployeesButton_Click">
+                                    <TextBlock Text="По сотрудникам" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Button>
+                            </WrapPanel>
+
+                            <Button x:Name="getReportButton" Background="White" Foreground="{StaticResource darkGreenMenu}" Margin="0" Width="160" Grid.Column="1" Template="{DynamicResource buttonReportTemplate}" Style="{StaticResource buttonLogin}" HorizontalAlignment="Right" Click="getReportButton_Click">
+                                <TextBlock Text="Сформировать" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch">
+                    <StackPanel HorizontalAlignment="Stretch" Margin="10 10 0 0">
+
+                        <Label Content="Период отчета" Style="{StaticResource addTaskLabels}"/>
+                        
+                        <Border CornerRadius="10" Height="30"  Background="White" Padding="2" Width="160">
+                            <DatePicker x:Name="dateStartPeriodDatePicker" VerticalAlignment="Center" Template="{DynamicResource datePickerAddTaskTemplate}" Style="{StaticResource datePickerAddTask}"  FirstDayOfWeek="Monday" />
+                        </Border>
+
+                        <Border CornerRadius="10" Height="30" Margin="0 10 0 0" Background="White" Padding="2" Width="160">
+                            <DatePicker x:Name="dateEndPeriodDatePicker" VerticalAlignment="Center" Template="{DynamicResource datePickerAddTaskTemplate}" Style="{StaticResource datePickerAddTask}"  FirstDayOfWeek="Monday" />
+                        </Border>
+
+                        <Label Content="Выборка" Style="{StaticResource addTaskLabels}" Margin="0 20 0 0"/>
+
+                        <ComboBox x:Name="employeeOrDepartmentComboBox" Style="{StaticResource comboBoxSort}" Width="160" Margin="0 5 0 10"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Background="Transparent" Grid.Row="1" Grid.Column="1">
+                    <Border Margin="10" CornerRadius=" 10">
+                        <Border.Background>
+                            <SolidColorBrush Color="White" />
+                        </Border.Background>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="297"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Style="{StaticResource columnRowTable}" CornerRadius="10 0 0 0">
+                                <Label x:Name="labelReportOption" Content="Департамент"  Margin="2 0 0 0" Style="{StaticResource tasksTableLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Style="{StaticResource columnRowTable}" BorderThickness="0 1 1 1">
+                                <Image Source="\Images\Icons\taskStatusesTable\newTask.png"  Style="{StaticResource imageButton}"/>
+                            </Border>
+                            <Border Grid.Column="2" Style="{StaticResource columnRowTable}" BorderThickness="0 1 1 1">
+                                <Image Source="\Images\Icons\taskStatusesTable\doneTask.png"  Style="{StaticResource imageButton}"/>
+                            </Border>
+                            <Border Grid.Column="3" Style="{StaticResource columnRowTable}" BorderThickness="0 1 1 1">
+                                <Image Source="\Images\Icons\taskStatusesTable\inWorkTask.png"  Style="{StaticResource imageButton}"/>
+                            </Border>
+                            <Border Grid.Column="4" Style="{StaticResource columnRowTable}" BorderThickness="0 1 1 1">
+                                <Image Source="\Images\Icons\taskStatusesTable\waitTask.png"  Style="{StaticResource imageButton}"/>
+                            </Border>
+                            <Border Grid.Column="5" Style="{StaticResource columnRowTable}" BorderThickness="0 1 1 1" CornerRadius="0 10 0 0">
+                                <Image Source="\Images\Icons\taskStatusesTable\planingTask.png"  Style="{StaticResource imageButton}"/>
+                            </Border>
+
+                            <ListView ItemContainerStyle="{StaticResource itemsListViewTable}" Margin="0" Grid.Row="2" Grid.ColumnSpan="6" BorderBrush="Transparent" x:Name="listViewReport" >
+                                <ListView.ItemTemplate >
+                                    <DataTemplate >
+                                        <Grid  >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="290"/>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="33"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0" Style="{StaticResource tableData}">
+                                                <TextBlock >
+                                                    <Run Text="{Binding department.titleDepartment}"/>
+                                                    <Run Text="{Binding employee.secondName}"/>
+                                                    <Run Text="{Binding employee.firstName}"/>
+                                                    <Run Text="{Binding employee.patronymic}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+
+                                            <StackPanel Width="auto" Grid.Column="1" Style="{StaticResource tableData}">
+                                                <TextBlock HorizontalAlignment="Center">
+                                                <Run Text="{Binding countNewTasks}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+
+                                            <StackPanel Width="auto" Grid.Column="2" Style="{StaticResource tableData}" >
+                                                <TextBlock HorizontalAlignment="Center">
+                                                    <Run Text="{Binding countDoneTasks}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="3"   Style="{StaticResource tableData}">
+                                                <TextBlock HorizontalAlignment="Center" >
+                                                <Run Text="{Binding countInWorkTasks}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="4"  Style="{StaticResource tableData}">
+                                                <TextBlock HorizontalAlignment="Center">
+                                                    <Run Text="{Binding countWaitTasks}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="5" Style="{StaticResource tableData}">
+                                                <TextBlock HorizontalAlignment="Center" Padding="3 0 0 0">
+                                                    <Run Text="{Binding countPlaningTasks}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                            <Border Grid.Row="1" Grid.Column="0" BorderBrush="{StaticResource staticControlColor}" BorderThickness="1 0 1 1" CornerRadius="0 0 0 10"/>
+                            <Border Grid.Row="1" Grid.Column="1" BorderBrush="{StaticResource staticControlColor}" BorderThickness="0 0 1 1" />
+                            <Border Grid.Row="1" Grid.Column="2" BorderBrush="{StaticResource staticControlColor}" BorderThickness="0 0 1 1" />
+                            <Border Grid.Row="1" Grid.Column="3" BorderBrush="{StaticResource staticControlColor}" BorderThickness="0 0 1 1" />
+                            <Border Grid.Row="1" Grid.Column="4" BorderBrush="{StaticResource staticControlColor}" BorderThickness="0 0 1 1" />
+                            <Border Grid.Row="1" Grid.Column="5" BorderBrush="{StaticResource staticControlColor}" BorderThickness="0 0 1 1" CornerRadius="0 0 10 0"/>
+
+
+                        </Grid>
+                    </Border>
+                </Grid>
+                    
+                <StackPanel Grid.Row="2" Grid.Column="1" Margin="10 0 10 10" >
+                    <Border HorizontalAlignment="Right" Height="30" CornerRadius="10" Background="White" Width="100">
+                        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <Border CornerRadius="5" BorderBrush="Transparent" Background="{StaticResource fon}">
+                                <TextBox  Width="25" Text="1" Background="Transparent" BorderThickness="0" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource darkGreenMenu}"/>
+                            </Border>
+                            <Button x:Name="goLeftButton" Style="{StaticResource buttonsWithImages}" Template="{StaticResource leftButtonMenu}" Margin="5 0 3 0" >
+                                <Image x:Name="imageGoLeft"  Source="\Images\Icons\controlButtons\goLeft.png" Height="21"/>
+                            </Button>
+                            <Button x:Name="goRightButton" Style="{StaticResource buttonsWithImages}" Template="{StaticResource leftButtonMenu}" Margin="5 0 5 0" >
+                                <Image x:Name="imageGoRight"  Source="\Images\Icons\controlButtons\goRight.png" Height="21"/>
+                            </Button>
+                        </WrapPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

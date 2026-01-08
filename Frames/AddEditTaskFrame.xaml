@@ -1,0 +1,172 @@
+﻿<Page x:Class="ServiceDesk.Frames.AddEditTaskFrame"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ServiceDesk.Frames"
+      mc:Ignorable="d" 
+      d:DesignHeight="540" d:DesignWidth="690"
+      Title="AddEditTaskFrame">
+
+
+    <Grid>
+        <Border CornerRadius="10" Background="{StaticResource fon}">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="7*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Vertical" >
+                        <WrapPanel>
+                            <Label Style="{StaticResource addTaskLabels}"  Content="Заголовок" Margin="0 5 0 0"/>
+                            <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
+                        </WrapPanel>
+                        <Border x:Name="borderTitleTaskTextBox" CornerRadius="10" Background="White" Padding="4" >
+                            <TextBox x:Name="titleTaskTextBox" Style="{StaticResource transparentTextBox}" Background="White" />
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1">
+                        <Label Content="Описание" Style="{StaticResource addTaskLabels}" FontSize="14"/>
+
+                        
+                        <Border Height="250" CornerRadius="10" Background="White" Padding="5" >
+                            <TextBox x:Name="descriptionTask" VerticalContentAlignment="Top" TextWrapping="Wrap" Style="{StaticResource transparentTextBox}" Background="White" />
+                        </Border>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical"  Margin="0 0 5 0">
+                                <WrapPanel>
+                                    <Label Content="Заявитель" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
+                                    <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
+                                </WrapPanel>
+                                
+                                <Border x:Name="borderCreatorTaskTextBox" CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
+                                    <ComboBox x:Name="employeeCreatorTaskComboBox" Style="{StaticResource comboBoxSort}" Height="30"  Width="auto" Margin="0"/>
+                                </Border>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5 0 0 0" >
+                                <WrapPanel>
+                                    <Label Content="Объект" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
+                                    <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
+                                </WrapPanel>
+                                <Border CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
+                                    <ComboBox x:Name="objectComboBox" Style="{StaticResource comboBoxSort}" Height="30"  Width="auto" Margin="0"/>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+
+                    </StackPanel>
+
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Margin="0 10 10 10" Style="{StaticResource startBorder}" Background="Transparent">
+                        <StackPanel Orientation="Vertical" Margin="5">
+
+                            <Label Content="Дата создания" Style="{StaticResource addTaskLabels}"/>
+                            <Border CornerRadius="10" Height="30"  Background="White" Padding="2" >
+                                <DatePicker x:Name="dateCreateTaskDatePicker" VerticalAlignment="Center"  FirstDayOfWeek="Monday" />
+                            </Border>
+
+                            <Label x:Name="labelDateDoneTask" Content="Дата закрытия" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
+                            
+                            <Border x:Name="borderDateDoneTask" CornerRadius="10" Height="30"  Background="White" Padding="2" >
+                                <DatePicker x:Name="dateDoneTaskDatePicker" BorderBrush="Transparent" VerticalAlignment="Center"  FirstDayOfWeek="Monday" />
+                            </Border>
+                            
+                            <Label x:Name="labelTimeToDone" Content="Время на выполнение" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
+
+                            <Border x:Name="borderTimeToDone"  CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
+                                <TextBox x:Name="timeToDone" Margin="2" Style="{StaticResource transparentTextBox}" Height="30"  Width="auto" />
+                            </Border>
+
+                            <WrapPanel>
+                                <Label Content="Статус заявки" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
+                                <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
+                            </WrapPanel>
+                                                        
+                            <Border CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
+                                <ComboBox x:Name="taskStatusComboBox" Style="{StaticResource comboBoxSort}" Height="30"  Width="auto" Margin="0" SelectionChanged="taskStatusComboBox_SelectionChanged"/>
+                            </Border>
+
+                            <WrapPanel>
+                                <Label Content="Отдел исполнитель" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
+                                <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
+                            </WrapPanel>
+                            <Border CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
+                                <ComboBox x:Name="departmentExecutorComboBox" Style="{StaticResource comboBoxSort}" Height="30"  Width="auto" Margin="0" SelectionChanged="departmentExecutorComboBox_SelectionChanged"/>
+                            </Border>
+
+                            <WrapPanel>
+                                <Label x:Name="labelEmployeeExecutor" Content="Сотрудник исполнитель" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
+                                <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
+                            </WrapPanel>
+
+                            <Border x:Name="borderEmployeeExecutor" CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
+                                <ComboBox x:Name="employeeExecutorComboBox" Style="{StaticResource comboBoxSort}" Height="30"  Width="auto" Margin="0"/>
+                            </Border>
+
+                            <WrapPanel>
+                                <Label Content="Способ получения заявки" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
+                                <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
+                            </WrapPanel>
+
+                            <Border CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
+                                <ComboBox x:Name="registrationMethodComboBox" Style="{StaticResource comboBoxSort}" Height="30"  Width="auto" Margin="0"/>
+                            </Border>
+
+                        </StackPanel>
+                    </Border>
+                    
+                    <Border Background="Transparent" Margin="0 0 10 10" Grid.Row="1" Style="{StaticResource startBorder}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" >
+                                <Button x:Name="goToTaskListButton"  Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Style="{StaticResource buttonsWithText}" Template="{StaticResource whiteButtons}" Click="goToTaskListButton_Click">
+                                    <Border CornerRadius="10" HorizontalAlignment="Stretch"  >
+                                        <TextBlock Text="Назад" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource darkGreenMenu}"/>
+                                    </Border>
+                                </Button>
+                            </Grid>
+
+                            <Grid Grid.Column="1" Margin="5 0 0 0">
+                                <Button x:Name="createTaskButton" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Style="{StaticResource buttonsWithText}" Template="{StaticResource whiteButtons}"  Click="createTaskButton_Click">
+                                    <Border CornerRadius="10" HorizontalAlignment="Stretch"  >
+                                        <TextBlock x:Name="createTaskButtonTextBlock"  Text="Создать" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource darkGreenMenu}"/>
+                                    </Border>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                        
+                        
+                    </Border>
+                </Grid>
+            </Grid>
+            
+        </Border>
+    </Grid>
+</Page>

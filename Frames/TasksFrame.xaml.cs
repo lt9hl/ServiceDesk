@@ -45,6 +45,8 @@ namespace ServiceDesk.Frames
                 selectStatusTask.Items.Add(status.titleStatus);
 
             listViewTasks.ItemsSource = AppConnect.modelOdb.Tasks.ToList();
+
+            (App.Current as App).currentTask = null;
         }
 
         private void goRightButton_MouseEnter(object sender, MouseEventArgs e)
@@ -94,7 +96,7 @@ namespace ServiceDesk.Frames
                 {
                     allTasks = allTasks.Where(x => x.createDate.ToString().Contains(searchText.ToLower()) ||
                     x.title.ToLower().Contains(searchText.ToLower()) || x.EmployeeCreator.fio.ToLower().Contains(searchText.ToLower()) ||
-                    x.EmployeeExecutor.fio.ToLower().Contains(searchText.ToLower()) || x.TaskStatuses.titleStatus.ToLower().Contains(searchText.ToLower())).ToList();
+                    x.Departments.titleDepartment.ToLower().Contains(searchText.ToLower()) || x.TaskStatuses.titleStatus.ToLower().Contains(searchText.ToLower())).ToList();
                 }
 
                 if (selectStatusTask.SelectedIndex > 0)
@@ -176,6 +178,20 @@ namespace ServiceDesk.Frames
         private void selectStatusTask_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             listViewTasks.ItemsSource= getTasksList();
+        }
+
+        private void addNewTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            (App.Current as App).actionWithTask = actions.add;
+            AppFrame.workFrame.Navigate(new AddEditTaskFrame());
+        }
+
+        private void listViewTasks_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            (App.Current as App).actionWithTask = actions.edit;
+            (App.Current as App).currentTask = listViewTasks.SelectedItem as Tasks;
+
+            AppFrame.workFrame.Navigate(new AddEditTaskFrame());
         }
     }
 }
