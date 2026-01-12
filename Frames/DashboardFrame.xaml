@@ -9,10 +9,7 @@
       Title="DashboardFrame">
 
     <Grid Background="Transparent">
-        <Border CornerRadius="10">
-            <Border.Background>
-                <SolidColorBrush Color="#f2f2ed" Opacity="0.7" />
-            </Border.Background>
+        <Border CornerRadius="10" Background="{StaticResource fon}">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -37,7 +34,7 @@
                             <StackPanel >
                                 <TextBlock TextWrapping="Wrap" Text="Всего" Margin="20 20 0 0" Style="{StaticResource dashboardLabels}"/>
                                 <TextBlock x:Name="countAllTasks" Text="0" FontSize="70" Style="{StaticResource dashboardLabels}"/>
-                                <TextBlock TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
+                                <TextBlock x:Name="textCountAllTasks" TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
                             </StackPanel>
                         </Border>
 
@@ -45,7 +42,7 @@
                             <StackPanel>
                                 <TextBlock TextWrapping="Wrap" Text="Выполнено" Margin="20 20 0 0" Style="{StaticResource dashboardLabels}"/>
                                 <TextBlock x:Name="countDoneTasks" Text="0" FontSize="70" Style="{StaticResource dashboardLabels}"/>
-                                <TextBlock TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
+                                <TextBlock x:Name="textCountDoneTasks" TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
                             </StackPanel>
                         </Border>
 
@@ -53,7 +50,7 @@
                             <StackPanel >
                                 <TextBlock TextWrapping="Wrap" Text="В работе" Margin="20 20 0 0" Style="{StaticResource dashboardLabels}"/>
                                 <TextBlock x:Name="countUndoneTasks" Text="0" FontSize="70" Style="{StaticResource dashboardLabels}"/>
-                                <TextBlock TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
+                                <TextBlock x:Name="textCountUndoneTasks" TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
                             </StackPanel>
                         </Border>
                     </Grid>
@@ -61,7 +58,72 @@
                     <Grid Grid.Row="1" Grid.Column="0">
 
                         <Border Background="White" Grid.Column="1" Margin="10 0 10 10" CornerRadius="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
 
+                                <Label Style="{StaticResource tasksTableLabel}" Margin="10 10 0 0" FontSize="16" Content="Ваши невыполненные заявки" HorizontalAlignment="Left"/>
+
+                                <Grid Background="Transparent" Grid.Row="1">
+                                    <Border Margin="10 10 10 10" CornerRadius=" 10">
+                                        <Border.Background>
+                                            <SolidColorBrush Color="White" />
+                                        </Border.Background>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="420"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Border Grid.Column="0" Style="{StaticResource columnRowTable}" BorderThickness="1 1 1 1" CornerRadius="10 0 0 0">
+                                                <Label Content="Название" Style="{StaticResource tasksTableLabel}"/>
+                                            </Border>
+                                            <Border Grid.Column="1" Style="{StaticResource columnRowTable}" BorderThickness="0 1 1 1" CornerRadius="0 10 0 0">
+                                                <Label Content="Статус" Style="{StaticResource tasksTableLabel}"/>
+                                            </Border>
+
+                                            <ListView HorizontalContentAlignment="Center" ItemContainerStyle="{StaticResource itemsListViewTable}" Margin="0" Grid.Row="2" Grid.ColumnSpan="5" BorderBrush="Transparent" x:Name="listViewTasks" MouseDoubleClick="listViewTasks_MouseDoubleClick" >
+                                                <ListView.ItemTemplate >
+                                                    <DataTemplate >
+                                                        <Grid  >
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="420"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <StackPanel HorizontalAlignment="Stretch" Visibility="Collapsed" Grid.Column="0"  Style="{StaticResource tableData}">
+                                                                <TextBlock >
+                                                                    <Run Text="{Binding idTask}"/>
+                                                                </TextBlock>
+                                                            </StackPanel>
+                                                            <StackPanel HorizontalAlignment="Stretch" Grid.Column="0"  Style="{StaticResource tableData}">
+                                                                <TextBlock >
+                                                                    <Run Text="{Binding title}"/>
+                                                                </TextBlock>
+                                                            </StackPanel>
+
+                                                            <StackPanel Grid.Column="1"  Style="{StaticResource tableData}" HorizontalAlignment="Center">
+                                                                <Image Source="{Binding TaskStatuses.imageStatus}" Height="20"/>
+                                                            </StackPanel>
+
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+
+                                            <Border Grid.Row="1" Grid.Column="0" BorderBrush="{StaticResource staticControlColor}" BorderThickness="1 0 1 1" CornerRadius="0 0 0 10"/>
+                                            <Border Grid.Row="1" Grid.Column="1" BorderBrush="{StaticResource staticControlColor}" BorderThickness="0 0 1 1" CornerRadius="0 0 10 0"/>
+
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
                         </Border>
 
                     </Grid>
@@ -77,11 +139,63 @@
                         <StackPanel >
                             <TextBlock TextWrapping="Wrap" Text="Создано" Margin="20 20 0 0" Style="{StaticResource dashboardLabels}"/>
                             <TextBlock x:Name="countOurTasks" Text="0" FontSize="70" Style="{StaticResource dashboardLabels}"/>
-                            <TextBlock TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
+                            <TextBlock x:Name="textCountOurTasks" TextWrapping="Wrap" Text="заявок" FontSize="11" FontWeight="Regular" Style="{StaticResource dashboardLabels}"/>
                         </StackPanel>
                     </Border>
+
+
                     <Border Background="White" Grid.Row="1" Grid.Column="1" Margin="0 0 10 10" CornerRadius="10">
 
+                        <Grid Margin="10 10 0 10" VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            
+                            <Label Style="{StaticResource tasksTableLabel}" FontSize="16" Margin="0 0 0 10" Content="Топ исполнителей" HorizontalAlignment="Left"/>
+
+                            <Grid Grid.Row="1" Background="Transparent" Height="auto" Margin="0 0 10 0" VerticalAlignment="Stretch">
+                                <Border CornerRadius=" 10" Background="White"> 
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Row="0" Style="{StaticResource columnRowTable}" BorderThickness="1 1 1 1" CornerRadius="10 10 0 0">
+                                            <Label Content="ФИО" Style="{StaticResource tasksTableLabel}"/>
+                                        </Border>
+
+
+                                        <ListView  ItemContainerStyle="{StaticResource itemsListViewTable}" Margin="0" Grid.Row="1" BorderBrush="Transparent" x:Name="listViewTopEmployees"  >
+                                            <ListView.ItemTemplate >
+                                                <DataTemplate >
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        
+                                                        <StackPanel Grid.Column="0" HorizontalAlignment="Left"  Style="{StaticResource tableData}">
+                                                            <TextBlock >
+                                                                <Run Text="{Binding employee.fio}"/>
+                                                            </TextBlock>
+                                                        </StackPanel>
+
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+
+                                        <Border Grid.Row="1" Background="Transparent" BorderBrush="{StaticResource staticControlColor}" BorderThickness="1 0 1 1" CornerRadius="0 0 10 10"/>
+
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                        
                     </Border>
                 </Grid>
                 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ServiceDesk.ApplicationData
 {
-    internal class reportResult
+    public class reportResult
     {
         public Employees employee {  get; set; }
         public Departments department { get; set; }

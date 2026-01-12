@@ -19,6 +19,7 @@ namespace ServiceDesk
         public string password { get; set; }
         public int idPermission { get; set; }
         public int idEmployee { get; set; }
+        public bool block { get; set; }
     
         public virtual Employees Employees { get; set; }
         public virtual Permissions Permissions { get; set; }

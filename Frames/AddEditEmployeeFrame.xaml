@@ -8,79 +8,11 @@
       d:DesignHeight="540" d:DesignWidth="690"
       Title="AddEditEmployeeFrame">
     <Page.Resources>
-        <Style x:Key="OptionMarkFocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="14,0,0,0" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="#FF212121"/>
-        <SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="#FFF3F9FF"/>
-        <SolidColorBrush x:Key="OptionMark.MouseOver.Border" Color="#FF5593FF"/>
-        <SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="#FF212121"/>
-        <SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="#FFD9ECFF"/>
-        <SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="#FF3C77DD"/>
-        <SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="#FF212121"/>
-        <SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="#FFE6E6E6"/>
-        <SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="#FFBCBCBC"/>
-        <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="#FF707070"/>
-        <ControlTemplate x:Key="CheckBoxTemplate1" TargetType="{x:Type CheckBox}">
-            <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Border x:Name="checkBoxBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                    <Grid x:Name="markGrid">
-                        <Path x:Name="optionMark" Data="F1 M 9.97498,1.22334L 4.6983,9.09834L 4.52164,9.09834L 0,5.19331L 1.27664,3.52165L 4.255,6.08833L 8.33331,1.52588e-005L 9.97498,1.22334 Z " Fill="{StaticResource OptionMark.Static.Glyph}" Margin="1" Opacity="0" Stretch="None"/>
-                        <Rectangle x:Name="indeterminateMark" Fill="{StaticResource OptionMark.Static.Glyph}" Margin="2" Opacity="0"/>
-                    </Grid>
-                </Border>
-                <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="HasContent" Value="true">
-                    <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
-                    <Setter Property="Padding" Value="4,-1,0,0"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.MouseOver.Background}"/>
-                    <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.MouseOver.Border}"/>
-                    <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.MouseOver.Glyph}"/>
-                    <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.MouseOver.Glyph}"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Disabled.Background}"/>
-                    <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Disabled.Border}"/>
-                    <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.Disabled.Glyph}"/>
-                    <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.Disabled.Glyph}"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Pressed.Background}"/>
-                    <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Pressed.Border}"/>
-                    <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.Pressed.Glyph}"/>
-                    <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.Pressed.Glyph}"/>
-                </Trigger>
-                <Trigger Property="IsChecked" Value="true">
-                    <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
-                    <Setter Property="Opacity" TargetName="indeterminateMark" Value="0"/>
-                </Trigger>
-                <Trigger Property="IsChecked" Value="{x:Null}">
-                    <Setter Property="Opacity" TargetName="optionMark" Value="0"/>
-                    <Setter Property="Opacity" TargetName="indeterminateMark" Value="1"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
+        
     </Page.Resources>   
 
     <Grid>
-        <Border CornerRadius="10">
-            <Border.Background>
-                <SolidColorBrush Color="#f2f2ed"/>
-            </Border.Background>
+        <Border CornerRadius="10" Background="{StaticResource fon}">
 
             <Grid Margin="10">
                 <Grid.RowDefinitions>
@@ -93,14 +25,21 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Vertical" >
-                    <WrapPanel>
-                        <Label Style="{StaticResource addTaskLabels}" Content="ФИО" Margin="0 5 0 0"/>
-                        <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
+                <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" >
+                    <StackPanel Orientation="Vertical">
+                        <WrapPanel Orientation="Horizontal" VerticalAlignment="Top">
+                            <Label Style="{StaticResource addTaskLabels}" Content="ФИО" Margin="0 5 0 0"/>
+                            <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
+                        </WrapPanel>
+                        <Border HorizontalAlignment="Left" Width="400"  Style="{StaticResource createFrameBorderTextBox}" >
+                            <TextBox x:Name="fioEmployeeTextBox" Style="{StaticResource transparentTextBox}" Background="White" />
+                        </Border>
+                    </StackPanel>
+
+                    <WrapPanel VerticalAlignment="Center" Margin="10 10 0 0" x:Name="inactiveEmployeeBox">
+                        <Label Style="{StaticResource addTaskLabels}" Content="Недействителен: " Margin="0 5 0 0"/>
+                        <CheckBox x:Name="inactiveEmployee" Template="{DynamicResource CheckBoxTemplate}" VerticalAlignment="Bottom" Margin="5 0 0 7" Style="{StaticResource checkBoxAddData}" />
                     </WrapPanel>
-                    <Border HorizontalAlignment="Left" Width="400"  Style="{StaticResource createFrameBorderTextBox}" >
-                        <TextBox x:Name="fioEmployeeTextBox" Style="{StaticResource transparentTextBox}" Background="White" />
-                    </Border>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0 0 10 0" >
@@ -124,22 +63,37 @@
 
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0 40 0 0">
                         <Label  Style="{StaticResource addTaskLabels}" Content="Разрешен вход в приложение:"/>
-                        <CheckBox x:Name="allowLogin" Template="{DynamicResource CheckBoxTemplate1}" VerticalAlignment="Bottom" Margin="5 0 0 7" Style="{StaticResource checkBoxAddData}" Click="allowLogin_Click" />
+                        <CheckBox x:Name="allowLogin" Template="{DynamicResource CheckBoxTemplate}" VerticalAlignment="Bottom" Margin="5 0 0 7" Style="{StaticResource checkBoxAddData}" Click="allowLogin_Click" />
                     </StackPanel>
 
-                    <WrapPanel x:Name="loginPasswordPanel" Orientation="Vertical">
-                        <Label Style="{StaticResource addTaskLabels}" Content="Логин" Margin="0 10 0 0"/>
+                    <Grid x:Name="loginPasswordPanel">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-                        <Border Style="{StaticResource createFrameBorderTextBox}" Width="150" HorizontalAlignment="Left">
-                            <TextBox x:Name="loginTextBox" Style="{StaticResource transparentTextBox}" Background="White" />
-                        </Border>
+                        <StackPanel Orientation="Vertical" Margin="0 0 5 0">
+                            <Label Style="{StaticResource addTaskLabels}" HorizontalAlignment="Stretch" Content="Логин" Margin="0 10 0 0"/>
 
-                        <Label Style="{StaticResource addTaskLabels}" Content="Пароль" />
+                            <Border Style="{StaticResource createFrameBorderTextBox}" >
+                                <TextBox x:Name="loginTextBox" Style="{StaticResource transparentTextBox}" Background="White" />
+                            </Border>
 
-                        <Border  Style="{StaticResource createFrameBorderTextBox}" Width="150" HorizontalAlignment="Left">
-                            <PasswordBox x:Name="passwordTextBox" Style="{StaticResource passwordInputText}" Width="140" HorizontalAlignment="Left" Background="White" />
-                        </Border>
-                    </WrapPanel>
+                            <Label Style="{StaticResource addTaskLabels}" Content="Пароль" Margin="0 10 0 0"/>
+
+                            <Border  Style="{StaticResource createFrameBorderTextBox}" Padding="0">
+                                <PasswordBox x:Name="passwordTextBox" Style="{StaticResource passwordInputText}" Template="{StaticResource PasswordBoxTemplate1}" Width="140" HorizontalAlignment="Left" Background="White" Height="22" />
+                            </Border>
+                        </StackPanel>
+
+                        <WrapPanel Orientation="Vertical" Margin="5 0 0 0" Grid.Column="1" HorizontalAlignment="Stretch">
+                            <Label Style="{StaticResource addTaskLabels}" Content="Роль" Margin="0 10 0 0"/>
+
+                            <ComboBox x:Name="roleComboBox" Style="{StaticResource comboBoxSort}" Width="155" Height="30" Margin="0" />
+                        </WrapPanel>
+
+                    </Grid>
+                    
                         
                 </StackPanel>
 
@@ -157,7 +111,7 @@
                     </Border>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Background="Transparent"  Grid.Row="2" Grid.Column="1" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"   Background="Transparent"  Grid.Row="2" Grid.Column="1" >
                     
                     <Button x:Name="goToEmployeeListButton" Height="30" Width="86" Margin="0 0 10 0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Style="{StaticResource buttonsWithText}" Template="{StaticResource whiteButtons}" Click="goToEmployeeListButton_Click" >
                         <Border CornerRadius="10" HorizontalAlignment="Stretch"  >

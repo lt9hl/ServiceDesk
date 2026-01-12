@@ -27,6 +27,7 @@ namespace ServiceDesk.Frames
             InitializeComponent();
 
             AppConnect.modelOdb = new ServiceDeskBDEntities();
+            var currentUser = (App.Current as App).currentUser;
 
             try
             {
@@ -69,8 +70,25 @@ namespace ServiceDesk.Frames
                     employeeExecutorComboBox.SelectedItem = currentTask.EmployeeExecutor.fio;
                     registrationMethodComboBox.SelectedItem = currentTask.RegistrationMethods.titleMethod;
 
+                    if ((currentUser.idEmployee != currentTask.idEmployeeExecutor || currentUser.idEmployee != currentTask.idEmployeeCreator) && currentUser.Permissions.titlePermission == "Пользователь")
+                    {
+                        titleTaskTextBox.IsEnabled = false;
+                        descriptionTask.IsEnabled = false;
+                        employeeCreatorTaskComboBox.IsEnabled = false;
+                        objectComboBox.IsEnabled = false;
+                        dateCreateTaskDatePicker.IsEnabled = false;
+                        dateDoneTaskDatePicker.IsEnabled = false;
+                        timeToDone.IsEnabled = false;
+                        taskStatusComboBox.IsEnabled = false;
+                        departmentExecutorComboBox.IsEnabled = false;
+                        employeeExecutorComboBox.IsEnabled = false;
+                        registrationMethodComboBox.IsEnabled = false;
+                        createTaskButton.IsEnabled = false;
+                    }
                 }
                 checkStatusSelectVisible();
+
+                
             }
             catch
             {
@@ -222,6 +240,17 @@ namespace ServiceDesk.Frames
                 
                 foreach(var employee in allEmployeesExecutors) 
                 employeeExecutorComboBox.Items.Add(employee.fio);
+            }
+        }
+
+        private void timeToDone_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            foreach (char input in e.Text)
+            {
+                if (!char.IsDigit(input))
+                {
+                    e.Handled = true;
+                }
             }
         }
     }

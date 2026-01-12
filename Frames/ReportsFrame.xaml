@@ -31,7 +31,7 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="5*"/>
-                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="3*"/>
                             </Grid.ColumnDefinitions>
 
                             <WrapPanel Style="{StaticResource upperTableMenu}" Margin="0,6,0,0" VerticalAlignment="Top">
@@ -43,9 +43,18 @@
                                 </Button>
                             </WrapPanel>
 
-                            <Button x:Name="getReportButton" Background="White" Foreground="{StaticResource darkGreenMenu}" Margin="0" Width="160" Grid.Column="1" Template="{DynamicResource buttonReportTemplate}" Style="{StaticResource buttonLogin}" HorizontalAlignment="Right" Click="getReportButton_Click">
-                                <TextBlock Text="Сформировать" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Button>
+                            <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                <Button  Margin="0 0 10 0" HorizontalAlignment="Left" x:Name="downloadExcelButton" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonsWithImages}" MouseEnter="downloadExcelButton_MouseEnter" MouseLeave="downloadExcelButton_MouseLeave" Click="downloadExcelButton_Click"  >
+                                    <Border Style="{StaticResource circleButton}">
+                                        <Image x:Name="imageDownloadButton" Source="\Images\Icons\controlButtons\downloadExcel.png" Height="18" Style="{StaticResource imageButton}"/>
+                                    </Border>
+                                </Button>
+
+                                <Button x:Name="getReportButton" Background="White" Foreground="{StaticResource darkGreenMenu}" Margin="0" Width="160" Template="{DynamicResource buttonReportTemplate}" Style="{StaticResource buttonLogin}" HorizontalAlignment="Right" Click="getReportButton_Click">
+                                    <TextBlock Text="Сформировать" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Button>
+                            </WrapPanel>
+                            
                         </Grid>
                     </Border>
 

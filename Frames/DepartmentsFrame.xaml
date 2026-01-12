@@ -1,4 +1,4 @@
-﻿<Page x:Class="ServiceDesk.Frames.EmployeesFrame"
+﻿<Page x:Class="ServiceDesk.Frames.DepartmentsFrame"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,11 +6,10 @@
       xmlns:local="clr-namespace:ServiceDesk.Frames"
       mc:Ignorable="d" 
       d:DesignHeight="540" d:DesignWidth="690"
-      Title="EmployeesFrame">
+      Title="DepartmentsFrame">
 
     <Grid Background="Transparent" >
-        <Border  CornerRadius="10" Background="#f2f2ed">
-
+        <Border  CornerRadius="10" Background="{StaticResource fon}">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -30,20 +29,11 @@
 
                             <WrapPanel Style="{StaticResource upperTableMenu}" Margin="0,6,0,0" VerticalAlignment="Top">
 
-                                <Button x:Name="addNewEmployeeButton" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonsWithImages}" MouseEnter="addNewEmployeeButton_MouseEnter" MouseLeave="addNewEmployeeButton_MouseLeave" Click="addNewEmployeeButton_Click" >
+                                <Button x:Name="addNewDepartmentButton" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonsWithImages}" MouseEnter="addNewDepartmentButton_MouseEnter" Click="addNewDepartmentButton_Click" >
                                     <Border Style="{StaticResource circleButton}">
                                         <Image x:Name="imageAddButton" Source="\Images\Icons\controlButtons\add.png" Height="18" Style="{StaticResource imageButton}"/>
                                     </Border>
                                 </Button>
-
-                                <ComboBox x:Name="sortComboBox" Style="{StaticResource comboBoxSort}" SelectionChanged="sortComboBox_SelectionChanged"/>
-
-                                <Button x:Name="sortDescAsc" Margin="10 0 0 0" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonsWithImages}" Height="33" MouseEnter="sortDescAsc_MouseEnter" MouseLeave="sortDescAsc_MouseLeave" Click="sortDescAsc_Click">
-                                    <Border Style="{StaticResource circleButton}">
-                                        <Image x:Name="imageSortButton" Source="\Images\Icons\controlButtons\sort.png" Style="{StaticResource imageButton}" Height="18" />
-                                    </Border>
-                                </Button>
-                                <CheckBox x:Name="onlyActiveEmployee" Margin="10 0 0 0" VerticalAlignment="Center" Content="Только действующие" Template="{DynamicResource CheckBoxTemplate}"  Style="{StaticResource checkBoxAddData}" Click="onlyActiveEmployee_Click" />
 
                             </WrapPanel>
 
@@ -58,7 +48,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Image Source="\Images\Icons\controlButtons\search.png" Margin="7"/>
-                                    <TextBox x:Name="employeeSearch" Style="{DynamicResource transparentTextBox}" Grid.Column="1" TextChanged="employeeSearch_TextChanged"/>
+                                    <TextBox x:Name="departmentSearch" Style="{DynamicResource transparentTextBox}" Grid.Column="1" TextChanged="departmentSearch_TextChanged" />
                                 </Grid>
                             </Border>
                         </Grid>
@@ -77,58 +67,45 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="310"/>
-                                <ColumnDefinition Width="180"/>
-                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="500"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
                             <Border Grid.Column="0" Style="{StaticResource columnRowTable}" CornerRadius="10 0 0 0">
-                                <Label Content="ФИО" Margin="2 0 0 0" Style="{StaticResource tasksTableLabel}"/>
+                                <Label Content="Название" Margin="2 0 0 0" Style="{StaticResource tasksTableLabel}"/>
                             </Border>
-                            <Border Grid.Column="1" Style="{StaticResource columnRowTable}" BorderThickness="0 1 1 1">
-                                <Label Content="Должность" Style="{StaticResource tasksTableLabel}"/>
-                            </Border>
-                            <Border Grid.Column="2" Style="{StaticResource columnRowTable}" BorderThickness="0 1 1 1 " CornerRadius="0 10 0 0">
-                                <Label Content="Отдел" Style="{StaticResource tasksTableLabel}"/>
+                            <Border Grid.Column="1" Style="{StaticResource columnRowTable}" BorderThickness="0 1 1 1" CornerRadius="0 10 0 0">
+                                <Label Content="Количество сотрудников" Style="{StaticResource tasksTableLabel}"/>
                             </Border>
 
-                            <ListView ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemContainerStyle="{StaticResource itemsListViewTable}" Margin="0" Grid.Row="2" Grid.ColumnSpan="5" BorderBrush="Transparent" x:Name="listViewEmployees" MouseDoubleClick="listViewEmployees_MouseDoubleClick" >
+                            <ListView ItemContainerStyle="{StaticResource itemsListViewTable}" Margin="0" Grid.Row="2" Grid.ColumnSpan="5" BorderBrush="Transparent" x:Name="listViewDepartments" MouseDoubleClick="listViewDepartments_MouseDoubleClick" >
                                 <ListView.ItemTemplate >
                                     <DataTemplate >
                                         <Grid  >
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="310"/>
-                                                <ColumnDefinition Width="180"/>
-                                                <ColumnDefinition Width="180"/>
+                                                <ColumnDefinition Width="500"/>
+                                                <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
                                             <StackPanel Grid.Column="0" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap">
-                                                    <Run Text="{Binding secondName}"/>
-                                                    <Run Text="{Binding firstName}"/>
-                                                    <Run Text="{Binding patronymic}"/>
+                                                <TextBlock >
+                                                    <Run Text="{Binding titleDepartment}"/>
                                                 </TextBlock>
                                             </StackPanel>
 
-                                            <StackPanel Grid.Column="1" Margin="0" Style="{StaticResource tableData}">
-                                                <TextBlock Padding="0" Margin="0" TextWrapping="Wrap">
-                                                <Run Text="{Binding Posts.titlePost}"/>
+                                            <StackPanel Grid.Column="1" Margin="0" Style="{StaticResource tableData}" HorizontalAlignment="Center">
+                                                <TextBlock Padding="0" Margin="0" HorizontalAlignment="Center">
+                                                    <Run Text="{Binding countEmployees}" />
                                                 </TextBlock>
                                             </StackPanel>
 
-                                            <StackPanel HorizontalAlignment="Left" Height="auto" Grid.Column="2" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap">
-                                                <Run Text="{Binding Departments.titleDepartment}"/>
-                                                </TextBlock>
-                                            </StackPanel>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
 
                             <Border Grid.Row="1" Grid.Column="0" BorderBrush="{StaticResource staticControlColor}" BorderThickness="1 0 1 1" CornerRadius="0 0 0 10"/>
-                            <Border Grid.Row="1" Grid.Column="1" BorderBrush="{StaticResource staticControlColor}" BorderThickness="0 0 1 1" />
-                            <Border Grid.Row="1" Grid.Column="2" BorderBrush="{StaticResource staticControlColor}" BorderThickness="0 0 1 1" CornerRadius="0 0 10 0"/>
+                            <Border Grid.Row="1" Grid.Column="1" BorderBrush="{StaticResource staticControlColor}" BorderThickness="0 0 1 1" CornerRadius="0 0 10 0" />
 
                         </Grid>
                     </Border>

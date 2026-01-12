@@ -38,30 +38,34 @@ namespace ServiceDesk.Frames
                 string password = passwordTextBox.Password;
 
                 var listUsers = AppConnect.modelOdb.Users.ToList();
-
-                if (listUsers.FirstOrDefault(x=> x.username == login) != null)
+                if(login == "" && password == "")
                 {
-                    var currentUser = listUsers.FirstOrDefault(x => x.username == login);
-                    
+                    Xceed.Wpf.Toolkit.MessageBox.Show("Заполните обязательные поля","Ошибка",MessageBoxButton.OK);
+                    return;
+                }
+
+                if (listUsers.First(x=> x.username == login) != null)
+                {
+                    var currentUser = listUsers.First(x => x.username == login);
+
                     if (currentUser.password == password)
                     {
+                        if (currentUser.block)
+                        {
+                            Xceed.Wpf.Toolkit.MessageBox.Show("Пользователь заблокирован", "Ошибка", MessageBoxButton.OK);
+                            return;
+                        }
+
                         (App.Current as App).currentUser = currentUser;
                         AppFrame.centerFrame.Navigate(new StartPage());
                     }
                     else
-                    {
-                        MessageBox.Show("Неверный пароль", "Ошибка", MessageBoxButton.OK);
-                    }
+                        Xceed.Wpf.Toolkit.MessageBox.Show("Неверный пароль", "Ошибка", MessageBoxButton.OK);
                     
                 }
                 else
                 {
-                    var mbox = new Xceed.Wpf.Toolkit.MessageBox();
-                    mbox.OkButtonContent = "ОК";
-                    mbox.Caption = "Ошибка";
-                    mbox.Text = "Пользователь не найден";
-                    mbox.ShowDialog();
-                    
+                    Xceed.Wpf.Toolkit.MessageBox.Show("Пользователь не найден", "Ошибка",MessageBoxButton.OK); 
                     return;
                 }
 

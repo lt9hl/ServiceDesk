@@ -30,7 +30,7 @@
                             <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
                         </WrapPanel>
                         <Border x:Name="borderTitleTaskTextBox" CornerRadius="10" Background="White" Padding="4" >
-                            <TextBox x:Name="titleTaskTextBox" Style="{StaticResource transparentTextBox}" Background="White" />
+                            <TextBox x:Name="titleTaskTextBox" MaxLength="50" Style="{StaticResource transparentTextBox}" Background="White" />
                         </Border>
                     </StackPanel>
 
@@ -85,19 +85,19 @@
 
                             <Label Content="Дата создания" Style="{StaticResource addTaskLabels}"/>
                             <Border CornerRadius="10" Height="30"  Background="White" Padding="2" >
-                                <DatePicker x:Name="dateCreateTaskDatePicker" VerticalAlignment="Center"  FirstDayOfWeek="Monday" />
+                                <DatePicker CalendarStyle="{StaticResource CalendarStyle1}" x:Name="dateCreateTaskDatePicker" SelectedDateFormat="Long" VerticalAlignment="Center" Style="{StaticResource datePickerAddTask}"   Template="{DynamicResource datePickerAddTaskTemplate}"  FirstDayOfWeek="Monday" />
                             </Border>
 
                             <Label x:Name="labelDateDoneTask" Content="Дата закрытия" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
                             
                             <Border x:Name="borderDateDoneTask" CornerRadius="10" Height="30"  Background="White" Padding="2" >
-                                <DatePicker x:Name="dateDoneTaskDatePicker" BorderBrush="Transparent" VerticalAlignment="Center"  FirstDayOfWeek="Monday" />
+                                <DatePicker x:Name="dateDoneTaskDatePicker" Style="{StaticResource datePickerAddTask}" Template="{DynamicResource datePickerAddTaskTemplate}" VerticalAlignment="Center"  FirstDayOfWeek="Monday" />
                             </Border>
                             
                             <Label x:Name="labelTimeToDone" Content="Время на выполнение" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
 
                             <Border x:Name="borderTimeToDone"  CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
-                                <TextBox x:Name="timeToDone" Margin="2" Style="{StaticResource transparentTextBox}" Height="30"  Width="auto" />
+                                <TextBox x:Name="timeToDone" Margin="2" Style="{StaticResource transparentTextBox}" Height="30"  Width="auto" PreviewTextInput="timeToDone_PreviewTextInput" />
                             </Border>
 
                             <WrapPanel>

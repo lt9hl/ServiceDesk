@@ -31,13 +31,19 @@
                             </Grid.ColumnDefinitions>
 
                             <WrapPanel Style="{StaticResource upperTableMenu}" Margin="0,6,0,0" VerticalAlignment="Top">
-                                
+
                                 <Button x:Name="addNewTaskButton" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonsWithImages}" MouseEnter="addNewTaskButton_MouseEnter" MouseLeave="addNewTaskButton_MouseLeave" Click="addNewTaskButton_Click" >
                                     <Border Style="{StaticResource circleButton}">
                                         <Image x:Name="imageAddButton" Source="\Images\Icons\controlButtons\add.png" Height="18" Style="{StaticResource imageButton}"/>
                                     </Border>
                                 </Button>
-                                
+
+                                <Button  Margin="10 0 0 0" x:Name="deleteTaskButton" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonsWithImages}" Click="deleteTaskButton_Click" MouseEnter="deleteTaskButton_MouseEnter" MouseLeave="deleteTaskButton_MouseLeave"  >
+                                    <Border Style="{StaticResource circleButton}">
+                                        <Image x:Name="imageDeleteButton" Source="\Images\Icons\controlButtons\delete.png" Height="18" Style="{StaticResource imageButton}"/>
+                                    </Border>
+                                </Button>
+
                                 <ComboBox x:Name="selectStatusTask" Style="{StaticResource comboBoxSort}" Text="Сортировать" SelectionChanged="selectStatusTask_SelectionChanged"/>
 
                                 <ComboBox x:Name="sortComboBox" Style="{StaticResource comboBoxSort}" SelectionChanged="sortComboBox_SelectionChanged"/>
@@ -69,7 +75,7 @@
                 </Grid>
 
                 <Grid Background="Transparent" Grid.Row="1">
-                    <Border Margin="10" CornerRadius=" 10">
+                    <Border Margin="10 10 10 15" CornerRadius=" 10">
                         <Border.Background>
                             <SolidColorBrush Color="White" />
                         </Border.Background>
@@ -83,14 +89,14 @@
                                 <ColumnDefinition Width="230"/>
                                 <ColumnDefinition Width="50"/>
                                 <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="130"/>
                             </Grid.ColumnDefinitions>
 
                             <Border Grid.Column="0" Style="{StaticResource columnRowTable}" CornerRadius="10 0 0 0">
                                 <Label Content="Дата создания" Margin="2 0 0 0" Style="{StaticResource tasksTableLabel}"/>
                             </Border>
                             <Border Grid.Column="1" Style="{StaticResource columnRowTable}" BorderThickness="0 1 1 1">
-                                <Label Content="Название" Style="{StaticResource tasksTableLabel}"/>
+                                <Label Content="Заголовок" Style="{StaticResource tasksTableLabel}"/>
                             </Border>
                             <Border Grid.Column="2" Style="{StaticResource columnRowTable}" BorderThickness="0 1 0 1">
                                 <Label Content="Статус" Style="{StaticResource tasksTableLabel}"/>
@@ -102,7 +108,7 @@
                                 <Label Content="Заявитель" Style="{StaticResource tasksTableLabel}"/>
                             </Border>
 
-                            <ListView ItemContainerStyle="{StaticResource itemsListViewTable}" Margin="0" Grid.Row="2" Grid.ColumnSpan="5" BorderBrush="Transparent" x:Name="listViewTasks" MouseDoubleClick="listViewTasks_MouseDoubleClick" >
+                            <ListView ScrollViewer.HorizontalScrollBarVisibility="Hidden"  ItemContainerStyle="{StaticResource itemsListViewTable}" Margin="0" Grid.Row="2" Grid.ColumnSpan="5" BorderBrush="Transparent" x:Name="listViewTasks" MouseDoubleClick="listViewTasks_MouseDoubleClick" >
                                 <ListView.ItemTemplate >
                                     <DataTemplate >
                                         <Grid  >
@@ -111,17 +117,17 @@
                                                 <ColumnDefinition Width="230"/>
                                                 <ColumnDefinition Width="50"/>
                                                 <ColumnDefinition Width="150"/>
-                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="120"/>
                                             </Grid.ColumnDefinitions>
 
                                             <StackPanel Grid.Column="0" Margin="0 0 5 0" Style="{StaticResource tableData}">
-                                                <TextBlock Padding="0 0 5 0">
-                                                    <Run Text="{Binding createDate}"/>
+                                                <TextBlock Padding="0 0 5 0" TextWrapping="Wrap">
+                                                    <Run Text="{Binding createDate}" />
                                                 </TextBlock>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="1" Style="{StaticResource tableData}">
-                                                <TextBlock >
+                                                <TextBlock TextWrapping="Wrap">
                                                     <Run Text="{Binding title}"/>
                                                 </TextBlock>
                                             </StackPanel>
@@ -131,13 +137,13 @@
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="3" Style="{StaticResource tableData}">
-                                                <TextBlock>
+                                                <TextBlock TextWrapping="Wrap">
                                                     <Run Text="{Binding EmployeeExecutor.Departments.titleDepartment}"/>
                                                 </TextBlock>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="4" Style="{StaticResource tableData}">
-                                                <TextBlock>
+                                                <TextBlock TextWrapping="Wrap">
                                                     <Run Text="{Binding EmployeeCreator.fio}"/>
                                                 </TextBlock>
                                             </StackPanel>
@@ -159,12 +165,12 @@
                     <Border HorizontalAlignment="Right" Height="30" CornerRadius="10" Background="White" Width="100">
                         <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
                             <Border CornerRadius="5" BorderBrush="Transparent" Background="{StaticResource fon}">
-                                <TextBox  Width="25" Text="1" Background="Transparent" BorderThickness="0" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource darkGreenMenu}"/>
+                                <TextBox x:Name="pageTextBox"  Width="25" Text="1" Background="Transparent" BorderThickness="0" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource darkGreenMenu}"/>
                             </Border>
-                            <Button x:Name="goLeftButton" Style="{StaticResource buttonsWithImages}" Template="{StaticResource leftButtonMenu}" Margin="5 0 3 0" MouseEnter="goLeftButton_MouseEnter" MouseLeave="goLeftButton_MouseLeave">
+                            <Button x:Name="goLeftButton" Style="{StaticResource buttonsWithImages}" Template="{StaticResource leftButtonMenu}" Margin="5 0 3 0" MouseEnter="goLeftButton_MouseEnter" MouseLeave="goLeftButton_MouseLeave" Click="goLeftButton_Click">
                                 <Image x:Name="imageGoLeft"  Source="\Images\Icons\controlButtons\goLeft.png" Height="21"/>
                             </Button>
-                            <Button x:Name="goRightButton" Style="{StaticResource buttonsWithImages}" Template="{StaticResource leftButtonMenu}" Margin="5 0 5 0" MouseEnter="goRightButton_MouseEnter" MouseLeave="goRightButton_MouseLeave">
+                            <Button x:Name="goRightButton" Style="{StaticResource buttonsWithImages}" Template="{StaticResource leftButtonMenu}" Margin="5 0 5 0" MouseEnter="goRightButton_MouseEnter" MouseLeave="goRightButton_MouseLeave" Click="goRightButton_Click">
                                 <Image x:Name="imageGoRight"  Source="\Images\Icons\controlButtons\goRight.png" Height="21"/>
                             </Button>
                         </WrapPanel>

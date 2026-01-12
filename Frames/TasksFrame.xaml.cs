@@ -44,11 +44,35 @@ namespace ServiceDesk.Frames
             foreach (var status in allStatuses)
                 selectStatusTask.Items.Add(status.titleStatus);
 
-            listViewTasks.ItemsSource = AppConnect.modelOdb.Tasks.ToList();
+            listViewTasks.ItemsSource = goOverPage();
 
             (App.Current as App).currentTask = null;
-        }
 
+            var currentUser = (App.Current as App).currentUser;
+            if (currentUser.Permissions.titlePermission != "Администратор")
+                deleteTaskButton.Visibility = Visibility.Collapsed;
+        }
+        Tasks[] goOverPage()
+        {
+            var allTasks = getTasksList().ToList();
+            int currentPage = Convert.ToInt32(pageTextBox.Text);
+            int countTasksInPage = 10;
+
+            int startIndex = currentPage * countTasksInPage - 10;
+            int endIndex = currentPage * countTasksInPage;
+
+            if (allTasks.Count < endIndex)
+                endIndex = allTasks.Count;
+    
+            List<Tasks> tasksInCurrentPage = new List<Tasks>();
+            
+            for(int i = startIndex; i < endIndex; i++)
+            {
+                tasksInCurrentPage.Add(allTasks[i]);
+            }
+
+            return tasksInCurrentPage.ToArray();
+        }
         private void goRightButton_MouseEnter(object sender, MouseEventArgs e)
         {
             imageGoRight.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\goRightGreen.png"));
@@ -81,7 +105,7 @@ namespace ServiceDesk.Frames
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            listViewTasks.ItemsSource = getTasksList();
+            listViewTasks.ItemsSource = goOverPage();
         }
 
         Tasks[] getTasksList()
@@ -90,7 +114,7 @@ namespace ServiceDesk.Frames
             {
                 string searchText = taskSearch.Text;
 
-                var allTasks = AppConnect.modelOdb.Tasks.ToList();
+                var allTasks = AppConnect.modelOdb.Tasks.OrderByDescending(x => x.createDate).ToList();
 
                 if (searchText != "")
                 {
@@ -156,13 +180,13 @@ namespace ServiceDesk.Frames
         private void sortDescAsc_Click(object sender, RoutedEventArgs e)
         {
             countSortAscDesc++;
-            listViewTasks.ItemsSource = getTasksList();
+            listViewTasks.ItemsSource = goOverPage();
         }
 
         private void sortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             countSortAscDesc = 0;
-            listViewTasks.ItemsSource = getTasksList();
+            listViewTasks.ItemsSource = goOverPage();
         }
 
         private void addNewTaskButton_MouseEnter(object sender, MouseEventArgs e)
@@ -177,7 +201,7 @@ namespace ServiceDesk.Frames
 
         private void selectStatusTask_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            listViewTasks.ItemsSource= getTasksList();
+            listViewTasks.ItemsSource= goOverPage();
         }
 
         private void addNewTaskButton_Click(object sender, RoutedEventArgs e)
@@ -192,6 +216,60 @@ namespace ServiceDesk.Frames
             (App.Current as App).currentTask = listViewTasks.SelectedItem as Tasks;
 
             AppFrame.workFrame.Navigate(new AddEditTaskFrame());
+        }
+
+        private void goRightButton_Click(object sender, RoutedEventArgs e)
+        {
+            var allTasks = AppConnect.modelOdb.Tasks.ToList();
+            var page = Convert.ToInt32(pageTextBox.Text) + 1;
+            
+            if (allTasks.Count > (page - 1) * 10)
+            {
+                pageTextBox.Text = page.ToString();
+                listViewTasks.ItemsSource = goOverPage();
+            }
+        }
+
+        private void goLeftButton_Click(object sender, RoutedEventArgs e)
+        {
+            var page = Convert.ToInt32(pageTextBox.Text);
+
+            if (page == 1)
+                return;
+
+            pageTextBox.Text = (page - 1).ToString();
+            listViewTasks.ItemsSource = goOverPage();
+
+        }
+
+        private void deleteTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedTasks = listViewTasks.SelectedItems.Cast<Tasks>().ToList();
+
+            if (selectedTasks.Count() == 1)
+            {
+                if (Xceed.Wpf.Toolkit.MessageBox.Show("Вы действительно хотите удалить задачу?", "Уведомление", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    AppConnect.modelOdb.Tasks.Remove(selectedTasks[0]);
+                    AppConnect.modelOdb.SaveChanges();
+                }
+
+                listViewTasks.ItemsSource = goOverPage();
+            }
+            else
+            {
+                Xceed.Wpf.Toolkit.MessageBox.Show("Для удаления выберите одну задачу", "Уведомление", MessageBoxButton.OK);
+            }
+        }
+
+        private void deleteTaskButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            imageDeleteButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\deleteGreen.png"));
+        }
+
+        private void deleteTaskButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            imageDeleteButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\delete.png"));
         }
     }
 }

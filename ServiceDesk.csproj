@@ -41,6 +41,10 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Office.Interop.Excel.16.0.18925.20022\lib\net40\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -80,6 +84,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApplicationData\reportResult.cs" />
+    <Compile Include="ApplicationData\SaveExcelDocument.cs" />
     <Compile Include="Departments.cs">
       <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
@@ -89,8 +94,14 @@
     <Compile Include="Favourites.cs">
       <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="Frames\AddEditDepartmentFrame.xaml.cs">
+      <DependentUpon>AddEditDepartmentFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frames\AddEditEmployeeFrame.xaml.cs">
       <DependentUpon>AddEditEmployeeFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\AddEditPostFrame.xaml.cs">
+      <DependentUpon>AddEditPostFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frames\AddEditTaskFrame.xaml.cs">
       <DependentUpon>AddEditTaskFrame.xaml</DependentUpon>
@@ -98,11 +109,17 @@
     <Compile Include="Frames\DashboardFrame.xaml.cs">
       <DependentUpon>DashboardFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Frames\DepartmentsFrame.xaml.cs">
+      <DependentUpon>DepartmentsFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frames\EmployeesFrame.xaml.cs">
       <DependentUpon>EmployeesFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frames\FavouritesFrame.xaml.cs">
       <DependentUpon>FavouritesFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\PostsFrame.xaml.cs">
+      <DependentUpon>PostsFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frames\ReportsFrame.xaml.cs">
       <DependentUpon>ReportsFrame.xaml</DependentUpon>
@@ -146,7 +163,15 @@
     <Compile Include="Users.cs">
       <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
+    <Page Include="Frames\AddEditDepartmentFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frames\AddEditEmployeeFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frames\AddEditPostFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frames\DashboardFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frames\DepartmentsFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frames\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frames\PostsFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -296,6 +329,12 @@
     <Resource Include="Images\Icons\controlButtons\addGreen.png" />
     <Resource Include="Images\Icons\controlButtons\delete.png" />
     <Resource Include="Images\Icons\controlButtons\deleteGreen.png" />
+    <Resource Include="Images\Icons\controlButtons\department.png" />
+    <Resource Include="Images\Icons\controlButtons\departmentGreen.png" />
+    <Resource Include="Images\Icons\controlButtons\post.png" />
+    <Resource Include="Images\Icons\controlButtons\postGreen.png" />
+    <Resource Include="Images\Icons\controlButtons\downloadExcel.png" />
+    <Resource Include="Images\Icons\controlButtons\downloadExcelGreen.png" />
     <Content Include="ServiceDeskBD.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
@@ -306,6 +345,26 @@
       <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
       <LastGenOutput>ServiceDeskBD.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

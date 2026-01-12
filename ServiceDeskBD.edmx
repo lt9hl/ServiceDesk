@@ -23,9 +23,9 @@
           <Property Name="idPost" Type="int" Nullable="false" />
           <Property Name="idDepartment" Type="int" Nullable="false" />
           <Property Name="fio" Type="nvarchar" MaxLength="200" />
-          <Property Name="idUser" Type="int" />
           <Property Name="email" Type="nvarchar" MaxLength="70" />
           <Property Name="phone" Type="nvarchar" MaxLength="12" />
+          <Property Name="inactive" Type="bit" />
         </EntityType>
         <EntityType Name="Favourites">
           <Key>
@@ -97,6 +97,7 @@
           <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="idPermission" Type="int" Nullable="false" />
           <Property Name="idEmployee" Type="int" Nullable="false" />
+          <Property Name="block" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Applications_ApplicationStatuses">
           <End Role="TaskStatuses" Type="Self.TaskStatuses" Multiplicity="1">
@@ -344,7 +345,6 @@
           <Property Name="idPost" Type="Int32" Nullable="false" />
           <Property Name="idDepartment" Type="Int32" Nullable="false" />
           <Property Name="fio" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="idUser" Type="Int32" />
           <Property Name="email" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Departments" Relationship="Self.FK_Employees_Departments1" FromRole="Employees" ToRole="Departments" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Employees_Posts" FromRole="Employees" ToRole="Posts" />
@@ -353,6 +353,7 @@
           <NavigationProperty Name="Tasks1" Relationship="Self.FK_Tasks_EmployeeExecutor" FromRole="Employees" ToRole="Tasks" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Employees" FromRole="Employees" ToRole="Users" />
           <Property Name="phone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="inactive" Type="Boolean" />
         </EntityType>
         <EntityType Name="Favourites">
           <Key>
@@ -440,6 +441,7 @@
           <Property Name="idEmployee" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_Users_Employees" FromRole="Users" ToRole="Employees" />
           <NavigationProperty Name="Permissions" Relationship="Self.FK_Users_Permissions" FromRole="Users" ToRole="Permissions" />
+          <Property Name="block" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Applications_Departments">
           <End Role="Departments" Type="Self.Departments" Multiplicity="1">
@@ -680,6 +682,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="ServiceDeskBDModel.Employees">
               <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="inactive" ColumnName="inactive" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
                 <ScalarProperty Name="firstName" ColumnName="firstName" />
@@ -688,7 +691,6 @@
                 <ScalarProperty Name="idPost" ColumnName="idPost" />
                 <ScalarProperty Name="idDepartment" ColumnName="idDepartment" />
                 <ScalarProperty Name="fio" ColumnName="fio" />
-                <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="email" ColumnName="email" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -764,6 +766,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ServiceDeskBDModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="block" ColumnName="block" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />

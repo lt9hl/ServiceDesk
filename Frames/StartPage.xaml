@@ -40,7 +40,7 @@
                             <Label Content="ServiceDesk" FontSize="18" Padding="0 10 0 0" Style="{StaticResource buttonMenuLabel}"  VerticalContentAlignment="Center" Background="Transparent"/>
                         </WrapPanel>
 
-                        <WrapPanel Margin="0 140 0 0" Grid.Row="1" >
+                        <WrapPanel VerticalAlignment="Center" Grid.Row="1" >
 
 
                             <Button  x:Name="buttonMenuDashboad" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonMenu}" MouseEnter="buttonMenuDashboad_MouseEnter" Height="40" MouseLeave="buttonMenuDashboad_MouseLeave" Click="buttonMenuDashboad_Click">
@@ -64,6 +64,21 @@
                                     <Border x:Name="employeeSelected" Style="{StaticResource borderLeftMenu}"/>
                                     <Image x:Name="imageMenuEmployee" Source="\Images\Icons\controlButtons\employee.png" MaxHeight="35" />
                                     <Label x:Name="labelMenuEmployee" Content="Сотрудники" Style="{StaticResource buttonMenuLabel}"/>
+                                </WrapPanel>
+                            </Button>
+                            <Button x:Name="buttonMenuPosts" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonMenu}" MouseEnter="buttonMenuPosts_MouseEnter" MouseLeave="buttonMenuPosts_MouseLeave" Click="buttonMenuPosts_Click" >
+                                <WrapPanel>
+                                    <Border x:Name="postSelected" Style="{StaticResource borderLeftMenu}"/>
+                                    <Image x:Name="imageMenuPost" Source="\Images\Icons\controlButtons\post.png" MaxHeight="35" />
+                                    <Label x:Name="labelMenuPost" Content="Должности" Style="{StaticResource buttonMenuLabel}"/>
+                                </WrapPanel>
+                            </Button>
+
+                            <Button x:Name="buttonMenuDepartments" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonMenu}" Height="40" Click="buttonMenuDepartments_Click" MouseEnter="buttonMenuDepartments_MouseEnter" MouseLeave="buttonMenuDepartments_MouseLeave" >
+                                <WrapPanel>
+                                    <Border x:Name="departmentsSelected" Style="{StaticResource borderLeftMenu}"/>
+                                    <Image x:Name="imageMenuDepartment" Source="\Images\Icons\controlButtons\department.png" MaxHeight="35" />
+                                    <Label x:Name="labelMenuDepartment" Content="Отделы" Style="{StaticResource buttonMenuLabel}"/>
                                 </WrapPanel>
                             </Button>
 

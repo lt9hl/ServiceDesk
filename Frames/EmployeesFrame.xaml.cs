@@ -40,16 +40,6 @@ namespace ServiceDesk.Frames
             sortComboBox.SelectedIndex = 0;
         }
 
-        private void deleteEmployeeButton_MouseEnter(object sender, MouseEventArgs e)
-        {
-            imageDeleteButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\deleteGreen.png"));
-        }
-
-        private void deleteEmployeeButton_MouseLeave(object sender, MouseEventArgs e)
-        {
-            imageDeleteButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\delete.png"));
-        }
-
         private void addNewEmployeeButton_MouseEnter(object sender, MouseEventArgs e)
         {
             imageAddButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\addGreen.png"));
@@ -95,7 +85,8 @@ namespace ServiceDesk.Frames
 
         private void listViewEmployees_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            (App.Current as App).currentEmployee = listViewEmployees.SelectedItem as Employees;
+            var selectedIndex = listViewEmployees.SelectedIndex;
+            (App.Current as App).currentEmployee = AppConnect.modelOdb.Employees.ToList()[selectedIndex];
             (App.Current as App).actionWithEmployee = actions.edit;
 
             AppFrame.workFrame.Navigate(new AddEditEmployeeFrame());
@@ -107,14 +98,17 @@ namespace ServiceDesk.Frames
             listViewEmployees.ItemsSource = getEmployees();
         }
 
-        Employees[] getEmployees()
+        Employees[] getEmployees(List<Employees> inputListEmployees = null)
         {
             var allEmployees = AppConnect.modelOdb.Employees.ToList();
+
+            if (inputListEmployees != null)
+                allEmployees = inputListEmployees;
             
             string searchText = employeeSearch.Text.ToLower();
             if (searchText != "")
             {
-                allEmployees = AppConnect.modelOdb.Employees.Where(x => x.firstName.ToLower().Contains(searchText) ||
+                allEmployees = allEmployees.Where(x => x.firstName.ToLower().Contains(searchText) ||
                 x.secondName.ToLower().Contains(searchText) || x.patronymic.ToLower().Contains(searchText) || x.Posts.titlePost.ToLower().Contains(searchText)
                 || x.Departments.titleDepartment.ToLower().Contains(searchText)).ToList();
             }
@@ -162,6 +156,22 @@ namespace ServiceDesk.Frames
             (App.Current as App).actionWithEmployee = actions.add;
 
             AppFrame.workFrame.Navigate(new AddEditEmployeeFrame());
+        }
+
+        private void onlyActiveEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            var onlyActiveEmployeeChecked = onlyActiveEmployee.IsChecked;
+            var employeesList = AppConnect.modelOdb.Employees.ToList();
+
+            if (onlyActiveEmployeeChecked == true)
+                employeesList = employeesList.Where(x => x.inactive != true).ToList();
+            
+            listViewEmployees.ItemsSource = getEmployees(employeesList);
+        }
+
+        private void Border_ContextMenuClosing(object sender, ContextMenuEventArgs e)
+        {
+
         }
     }
 }

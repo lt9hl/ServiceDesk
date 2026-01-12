@@ -1,4 +1,6 @@
-﻿using ServiceDesk.ApplicationData;
+﻿using Microsoft.Office.Core;
+using Microsoft.Win32;
+using ServiceDesk.ApplicationData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ServiceDesk.Frames
 {
@@ -94,7 +97,8 @@ namespace ServiceDesk.Frames
         {
             var currentReport = (App.Current as App).currentReportOption;
             var allTasks = AppConnect.modelOdb.Tasks.ToList();
-            var result = new List<reportResult>() ;
+            var result = new List<reportResult>();
+            var employeeOrDepartment = employeeOrDepartmentComboBox.SelectedIndex;
 
             var dateStartPeriod = dateStartPeriodDatePicker.SelectedDate;
             var dateEndPeriod = dateEndPeriodDatePicker.SelectedDate;
@@ -108,11 +112,13 @@ namespace ServiceDesk.Frames
                 allTasks = allTasks.Where(x => x.createDate <= dateEndPeriod).ToList();
             }
 
-
             if (currentReport == reportOptions.byEmployees)
             {
                 var allEmployees = AppConnect.modelOdb.Employees.ToList();
                 allEmployees = allEmployees.Where(x => x.Tasks1 != null).ToList();
+
+                if (employeeOrDepartment > 0)
+                    allTasks = allTasks.Where(x => x.EmployeeExecutor.fio == employeeOrDepartmentComboBox.SelectedItem.ToString()).ToList();
 
                 foreach (var employee in allEmployees)
                 {
@@ -145,6 +151,9 @@ namespace ServiceDesk.Frames
                 var allDepartments = AppConnect.modelOdb.Departments.ToList();
                 allDepartments = allDepartments.Where(x => x.Tasks != null).ToList();
 
+                if (employeeOrDepartment > 0)
+                    allTasks = allTasks.Where(x => x.Departments.titleDepartment == employeeOrDepartmentComboBox.SelectedItem.ToString()).ToList();
+               
                 foreach (var department in allDepartments)
                 {
                     var currentDepartmentTasks = allTasks.Where(x => x.Departments.idDepartment == department.idDepartment);
@@ -171,6 +180,68 @@ namespace ServiceDesk.Frames
                 }
             }
             listViewReport.ItemsSource = result;
+        }
+
+        private void downloadExcelButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            imageDownloadButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\downloadExcelGreen.png"));
+        }
+
+        private void downloadExcelButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            imageDownloadButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\downloadExcel.png"));
+        }
+
+        private void downloadExcelButton_Click(object sender, RoutedEventArgs e)
+        {
+            var reportResultList = listViewReport.ItemsSource as List<reportResult>;
+            
+            if (reportResultList != null)
+            {
+                
+                Excel.Application excelApp = new Excel.Application();
+                excelApp.Visible = false;
+
+
+                Excel.Workbook workbook = excelApp.Workbooks.Add();
+                Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Sheets[1];
+
+                var currentReport = (App.Current as App).currentReportOption;
+                var reportSubstring = "по департаментам";
+
+                if (currentReport == reportOptions.byEmployees)
+                    reportSubstring = "по сотрудникам";
+
+                string nameFile = "Отчет " + reportSubstring + " от " + DateTime.Now.Day.ToString() + "." + DateTime.Now.Month.ToString() + "." + DateTime.Now.Year.ToString();
+
+                worksheet.Cells[2, 1] = nameFile;
+                worksheet.Cells[4, 1] = "Департамент";
+                worksheet.Cells[4, 2] = "Закрыта";
+                worksheet.Cells[4, 3] = "В работе";
+                worksheet.Cells[4, 4] = "Новая";
+                worksheet.Cells[4, 5] = "Запланирована";
+                worksheet.Cells[4, 6] = "Ожидает";
+
+                for (int i = 5; i < reportResultList.Count() + 5; i++)
+                {
+                    worksheet.Cells[i, 1] = reportResultList[i - 5].department.titleDepartment;
+                    worksheet.Cells[i, 2] = reportResultList[i - 5].countDoneTasks;
+                    worksheet.Cells[i, 3] = reportResultList[i - 5].countInWorkTasks;
+                    worksheet.Cells[i, 4] = reportResultList[i - 5].countNewTasks;
+                    worksheet.Cells[i, 5] = reportResultList[i - 5].countPlaningTasks;
+                    worksheet.Cells[i, 6] = reportResultList[i - 5].countWaitTasks;
+                }
+                
+                // Сохраните файл Excel
+                workbook.SaveAs($"Отчет {DateTime.Now.Day.ToString() + "." + DateTime.Now.Month.ToString() + "." + DateTime.Now.Year.ToString()}.xlsx");
+                workbook.Close();
+                excelApp.Quit();
+
+                // Освободите объекты COM
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+            }
         }
     }
 }

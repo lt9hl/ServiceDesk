@@ -33,6 +33,18 @@ namespace ServiceDesk.Frames
             Users currentUser = (App.Current as App).currentUser;
             nameCurrentEmployee.Text = currentUser.Employees.secondName + " " + currentUser.Employees.firstName + " " + currentUser.Employees.patronymic;
             emailCurrentEmployee.Text = currentUser.Employees.email;
+
+            if (currentUser.Permissions.titlePermission == "Пользователь")
+            {
+                buttonMenuDepartments.Visibility = Visibility.Collapsed;
+                buttonMenuEmployees.Visibility = Visibility.Collapsed;
+                buttonMenuPosts.Visibility = Visibility.Collapsed;
+            }
+            else if (currentUser.Permissions.titlePermission == "Менеджер")
+            {
+                buttonMenuDepartments.Visibility = Visibility.Collapsed;
+                buttonMenuPosts.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void buttonMenuDashboad_MouseEnter(object sender, MouseEventArgs e)
@@ -136,6 +148,37 @@ namespace ServiceDesk.Frames
         private void buttonMenuReport_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.workFrame.Navigate(new ReportsFrame());
+        }
+
+        private void buttonMenuDepartments_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.workFrame.Navigate(new DepartmentsFrame());
+        }
+
+        private void buttonMenuDepartments_MouseEnter(object sender, MouseEventArgs e)
+        {
+            mouseOn(imageMenuDepartment, departmentsSelected, labelMenuDepartment, "departmentGreen");
+        }
+
+        private void buttonMenuDepartments_MouseLeave(object sender, MouseEventArgs e)
+        {
+            mouseLeave(imageMenuDepartment, departmentsSelected, labelMenuDepartment, "department");
+        }
+
+        private void buttonMenuPosts_MouseEnter(object sender, MouseEventArgs e)
+        {
+            mouseOn(imageMenuPost, postSelected, labelMenuPost, "postGreen");
+
+        }
+
+        private void buttonMenuPosts_MouseLeave(object sender, MouseEventArgs e)
+        {
+            mouseLeave(imageMenuPost, postSelected, labelMenuPost, "post");
+        }
+
+        private void buttonMenuPosts_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.workFrame.Navigate(new PostsFrame());
         }
     }
 }

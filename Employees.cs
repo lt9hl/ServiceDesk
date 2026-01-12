@@ -30,9 +30,9 @@ namespace ServiceDesk
         public int idPost { get; set; }
         public int idDepartment { get; set; }
         public string fio { get; set; }
-        public Nullable<int> idUser { get; set; }
         public string email { get; set; }
         public string phone { get; set; }
+        public Nullable<bool> inactive { get; set; }
     
         public virtual Departments Departments { get; set; }
         public virtual Posts Posts { get; set; }
