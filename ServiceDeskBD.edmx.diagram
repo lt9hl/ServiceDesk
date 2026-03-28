@@ -4,15 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5d8622193ef1463db05798e660ab3393" Name="Diagram1">
-        <EntityTypeShape EntityType="ServiceDeskBDModel.Departments" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+      <Diagram DiagramId="601bb5e1c47b492daa022c791903beee" Name="Diagram1">
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Departments" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ServiceDeskBDModel.Employees" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="ServiceDeskBDModel.Favourites" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Favourites" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ServiceDeskBDModel.Objects" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ServiceDeskBDModel.Permissions" Width="1.5" PointX="6" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ServiceDeskBDModel.Posts" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Permissions" Width="1.5" PointX="6" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Posts" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ServiceDeskBDModel.RegistrationMethods" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="ServiceDeskBDModel.Tasks" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.Tasks" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ServiceDeskBDModel.TaskStatuses" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ServiceDeskBDModel.Users" Width="1.5" PointX="8.25" PointY="1.75" IsExpanded="true" />
         <AssociationConnector Association="ServiceDeskBDModel.FK_Applications_Departments" ManuallyRouted="false" />

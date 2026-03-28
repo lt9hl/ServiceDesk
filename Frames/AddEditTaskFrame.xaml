@@ -23,12 +23,21 @@
                         <RowDefinition/>
                         <RowDefinition Height="7*"/>
                     </Grid.RowDefinitions>
+                    
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <Button x:Name="viewHistoryButton" Template="{StaticResource leftButtonMenu}" Style="{StaticResource buttonsWithImages}" Click="viewHistory_Click" MouseEnter="viewHistory_MouseEnter" MouseLeave="viewHistory_MouseLeave" >
+                            <Border Style="{StaticResource circleButton}">
+                                <Image x:Name="imageViewHistory" Source="\Images\Icons\controlButtons\history.png" Height="18" Style="{StaticResource imageButton}"/>
+                            </Border>
+                        </Button>
+                    </StackPanel>
 
                     <StackPanel Grid.Row="0" Orientation="Vertical" >
-                        <WrapPanel>
-                            <Label Style="{StaticResource addTaskLabels}"  Content="Заголовок" Margin="0 5 0 0"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Style="{StaticResource addTaskLabels}"  Content="Заголовок" Margin="0 5 0 5" />
                             <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
-                        </WrapPanel>
+                        </StackPanel>
+
                         <Border x:Name="borderTitleTaskTextBox" CornerRadius="10" Background="White" Padding="4" >
                             <TextBox x:Name="titleTaskTextBox" MaxLength="50" Style="{StaticResource transparentTextBox}" Background="White" />
                         </Border>
@@ -51,7 +60,6 @@
                             <StackPanel Orientation="Vertical"  Margin="0 0 5 0">
                                 <WrapPanel>
                                     <Label Content="Заявитель" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
-                                    <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
                                 </WrapPanel>
                                 
                                 <Border x:Name="borderCreatorTaskTextBox" CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
@@ -85,13 +93,13 @@
 
                             <Label Content="Дата создания" Style="{StaticResource addTaskLabels}"/>
                             <Border CornerRadius="10" Height="30"  Background="White" Padding="2" >
-                                <DatePicker CalendarStyle="{StaticResource CalendarStyle1}" x:Name="dateCreateTaskDatePicker" SelectedDateFormat="Long" VerticalAlignment="Center" Style="{StaticResource datePickerAddTask}"   Template="{DynamicResource datePickerAddTaskTemplate}"  FirstDayOfWeek="Monday" />
+                                <DatePicker CalendarStyle="{StaticResource CalendarTask}" x:Name="dateCreateTaskDatePicker" SelectedDateFormat="Long" VerticalAlignment="Center" Style="{StaticResource datePickerAddTask}"   Template="{DynamicResource datePickerAddTaskTemplate}"  FirstDayOfWeek="Monday" />
                             </Border>
 
                             <Label x:Name="labelDateDoneTask" Content="Дата закрытия" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
                             
                             <Border x:Name="borderDateDoneTask" CornerRadius="10" Height="30"  Background="White" Padding="2" >
-                                <DatePicker x:Name="dateDoneTaskDatePicker" Style="{StaticResource datePickerAddTask}" Template="{DynamicResource datePickerAddTaskTemplate}" VerticalAlignment="Center"  FirstDayOfWeek="Monday" />
+                                <DatePicker x:Name="dateDoneTaskDatePicker" CalendarStyle="{StaticResource CalendarTask}" SelectedDateFormat="Long" Style="{StaticResource datePickerAddTask}" Template="{DynamicResource datePickerAddTaskTemplate}" VerticalAlignment="Center"  FirstDayOfWeek="Monday" />
                             </Border>
                             
                             <Label x:Name="labelTimeToDone" Content="Время на выполнение" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
@@ -102,7 +110,6 @@
 
                             <WrapPanel>
                                 <Label Content="Статус заявки" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
-                                <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
                             </WrapPanel>
                                                         
                             <Border CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
@@ -119,7 +126,7 @@
 
                             <WrapPanel>
                                 <Label x:Name="labelEmployeeExecutor" Content="Сотрудник исполнитель" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
-                                <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
+
                             </WrapPanel>
 
                             <Border x:Name="borderEmployeeExecutor" CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
@@ -128,7 +135,6 @@
 
                             <WrapPanel>
                                 <Label Content="Способ получения заявки" Style="{StaticResource addTaskLabels}" Margin="0 5 0 0"/>
-                                <Label Content="*" Margin="0" Foreground="{StaticResource accentColor}"/>
                             </WrapPanel>
 
                             <Border CornerRadius="10" Background="White"  Height="30" HorizontalAlignment="Stretch">
@@ -155,7 +161,7 @@
 
                             <Grid Grid.Column="1" Margin="5 0 0 0">
                                 <Button x:Name="createTaskButton" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Style="{StaticResource buttonsWithText}" Template="{StaticResource whiteButtons}"  Click="createTaskButton_Click">
-                                    <Border CornerRadius="10" HorizontalAlignment="Stretch"  >
+                                    <Border CornerRadius="10" Height="28" VerticalAlignment="Top"  >
                                         <TextBlock x:Name="createTaskButtonTextBlock"  Text="Создать" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource darkGreenMenu}"/>
                                     </Border>
                                 </Button>

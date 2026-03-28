@@ -71,7 +71,7 @@
         <ControlTemplate x:Key="CalendarTemplate1" TargetType="{x:Type Calendar}">
             <Grid/>
         </ControlTemplate>
-        <Style x:Key="CalendarStyle1" TargetType="{x:Type Calendar}">
+        <Style x:Key="CalendarTask" TargetType="{x:Type Calendar}">
             <Setter Property="Foreground" Value="{StaticResource darkGreenMenu}"/>
 
             <Setter Property="Background" Value="White"/>
@@ -667,6 +667,9 @@
                                 <Setter Property="IsTabStop" Value="false"/>
                                 <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
                                 <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#989880"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

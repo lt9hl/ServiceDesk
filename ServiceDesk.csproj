@@ -14,6 +14,22 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>Z:\0-ОБМЕН\ServiceDesk\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +49,18 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>95A453C232E50B00656C8375A1B94160735B9A02</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ServiceDesk_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -124,6 +152,9 @@
     <Compile Include="Frames\ReportsFrame.xaml.cs">
       <DependentUpon>ReportsFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Frames\TaskHistoryFrame.xaml.cs">
+      <DependentUpon>TaskHistoryFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frames\TasksFrame.xaml.cs">
       <DependentUpon>TasksFrame.xaml</DependentUpon>
     </Compile>
@@ -153,6 +184,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Tasks.cs">
       <DependentUpon>ServiceDeskBD.tt</DependentUpon>
@@ -211,6 +245,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Frames\TaskHistoryFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frames\TasksFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -262,6 +300,7 @@
     <None Include="ServiceDeskBD.edmx.diagram">
       <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
     </None>
+    <None Include="ServiceDesk_TemporaryKey.pfx" />
     <Resource Include="Fonts\Montserrat-ExtraLightItalic.ttf" />
     <Resource Include="Fonts\Montserrat-MediumItalic.ttf" />
     <Resource Include="Fonts\Montserrat-Regular.ttf" />
@@ -335,16 +374,6 @@
     <Resource Include="Images\Icons\controlButtons\postGreen.png" />
     <Resource Include="Images\Icons\controlButtons\downloadExcel.png" />
     <Resource Include="Images\Icons\controlButtons\downloadExcelGreen.png" />
-    <Content Include="ServiceDeskBD.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
-      <LastGenOutput>ServiceDeskBD.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ServiceDeskBD.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
-      <LastGenOutput>ServiceDeskBD.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
@@ -365,6 +394,32 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\controlButtons\history.png" />
+    <Resource Include="Images\Icons\controlButtons\historyGreen.png" />
+    <Content Include="ServiceDeskBD.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
+      <LastGenOutput>ServiceDeskBD.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ServiceDeskBD.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ServiceDeskBD.edmx</DependentUpon>
+      <LastGenOutput>ServiceDeskBD.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

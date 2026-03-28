@@ -32,6 +32,7 @@ namespace ServiceDesk
         public virtual DbSet<Permissions> Permissions { get; set; }
         public virtual DbSet<Posts> Posts { get; set; }
         public virtual DbSet<RegistrationMethods> RegistrationMethods { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tasks> Tasks { get; set; }
         public virtual DbSet<TaskStatuses> TaskStatuses { get; set; }
         public virtual DbSet<Users> Users { get; set; }
