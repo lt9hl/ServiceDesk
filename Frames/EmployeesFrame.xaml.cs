@@ -42,40 +42,40 @@ namespace ServiceDesk.Frames
 
         private void addNewEmployeeButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageAddButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\addGreen.png"));
+            imageAddButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\addGreen.png"));
         }
 
         private void addNewEmployeeButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageAddButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\add.png"));
+            imageAddButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\add.png"));
         }
         private void goRightButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageGoRight.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\goRightGreen.png"));
+            imageGoRight.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\goRightGreen.png"));
         }
 
         private void goRightButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageGoRight.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\goRight.png"));
+            imageGoRight.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\goRight.png"));
         }
 
         private void goLeftButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageGoLeft.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\goLeftGreen.png"));
+            imageGoLeft.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\goLeftGreen.png"));
         }
 
         private void goLeftButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageGoLeft.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\goLeft.png"));
+            imageGoLeft.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\goLeft.png"));
         }
         private void sortDescAsc_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageSortButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\sortGreen.png"));
+            imageSortButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\sortGreen.png"));
         }
 
         private void sortDescAsc_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageSortButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\sort.png"));
+            imageSortButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\sort.png"));
         }
 
         private void employeeSearch_TextChanged(object sender, TextChangedEventArgs e)

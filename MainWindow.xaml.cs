@@ -52,22 +52,22 @@ namespace ServiceDesk
 
         private void closeButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageCloseButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\exitMouseOn.png"));
+            imageCloseButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\exitMouseOn.png"));
         }
 
         private void minimizeButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageMinimizeButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\minimizeMouseOn.png"));
+            imageMinimizeButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\minimizeMouseOn.png"));
         }
 
         private void minimizeButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageMinimizeButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\minimize.png"));
+            imageMinimizeButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\minimize.png"));
         }
 
         private void closeButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageCloseButton.Source =  new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\cross.png"));
+            imageCloseButton.Source =  new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\cross.png"));
         }
 
     }

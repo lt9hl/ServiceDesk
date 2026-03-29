@@ -75,32 +75,32 @@ namespace ServiceDesk.Frames
         }
         private void goRightButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageGoRight.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\goRightGreen.png"));
+            imageGoRight.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\goRightGreen.png"));
         }
 
         private void goRightButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageGoRight.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\goRight.png"));
+            imageGoRight.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\goRight.png"));
         }
 
         private void goLeftButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageGoLeft.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\goLeftGreen.png"));
+            imageGoLeft.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\goLeftGreen.png"));
         }
 
         private void goLeftButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageGoLeft.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\goLeft.png"));
+            imageGoLeft.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\goLeft.png"));
         }
 
         private void sortDescAsc_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageSortButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\sortGreen.png"));
+            imageSortButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\sortGreen.png"));
         }
 
         private void sortDescAsc_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageSortButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\sort.png"));
+            imageSortButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\sort.png"));
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -191,12 +191,12 @@ namespace ServiceDesk.Frames
 
         private void addNewTaskButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageAddButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\addGreen.png"));
+            imageAddButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\addGreen.png"));
         }
 
         private void addNewTaskButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageAddButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\add.png"));
+            imageAddButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\add.png"));
         }
 
         private void selectStatusTask_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -264,12 +264,12 @@ namespace ServiceDesk.Frames
 
         private void deleteTaskButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageDeleteButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\deleteGreen.png"));
+            imageDeleteButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\deleteGreen.png"));
         }
 
         private void deleteTaskButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageDeleteButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\delete.png"));
+            imageDeleteButton.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\delete.png"));
         }
     }
 }

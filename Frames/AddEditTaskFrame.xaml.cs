@@ -285,12 +285,12 @@ namespace ServiceDesk.Frames
 
         private void viewHistory_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageViewHistory.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\historyGreen.png"));
+            imageViewHistory.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\historyGreen.png"));
         }
 
         private void viewHistory_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageViewHistory.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\history.png"));
+            imageViewHistory.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\history.png"));
         }
     }
 }

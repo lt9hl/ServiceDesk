@@ -58,13 +58,13 @@ namespace ServiceDesk.Frames
         }
 
         public void mouseOn(System.Windows.Controls.Image imagetoChange, Border borderToVisible, Label labelToChange,string imagePng) {
-            imagetoChange.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\" + imagePng + ".png"));
+            imagetoChange.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\" + imagePng + ".png"));
             borderToVisible.Visibility = Visibility.Visible;            
             labelToChange.Foreground = new SolidColorBrush(Color.FromRgb(68, 75, 40));
         }
 
         public void mouseLeave(System.Windows.Controls.Image imagetoChange, Border borderToVisible, Label labelToChange,string imagePng){
-            imagetoChange.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\" + imagePng + ".png"));
+            imagetoChange.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\" + imagePng + ".png"));
             borderToVisible.Visibility = Visibility.Hidden;
             labelToChange.Foreground = new SolidColorBrush(Color.FromRgb(135, 135, 114));
         }
@@ -122,22 +122,22 @@ namespace ServiceDesk.Frames
 
         private void leaveButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageLeave.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\leaveGreen.png"));
+            imageLeave.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\leaveGreen.png"));
         }
 
         private void leaveButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageLeave.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\leave.png"));
+            imageLeave.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\leave.png"));
         }
 
         private void favouritesButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            favouritesImage.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\favouritesGreen.png"));
+            favouritesImage.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\favouritesGreen.png"));
         }
 
         private void favouritesButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            favouritesImage.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\favourites.png"));
+            favouritesImage.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\favourites.png"));
         }
 
         private void favouritesButton_Click(object sender, RoutedEventArgs e)

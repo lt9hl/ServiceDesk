@@ -184,12 +184,12 @@ namespace ServiceDesk.Frames
 
         private void downloadExcelButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            imageDownloadButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\downloadExcelGreen.png"));
+            imageDownloadButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\downloadExcelGreen.png"));
         }
 
         private void downloadExcelButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            imageDownloadButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\downloadExcel.png"));
+            imageDownloadButton.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\downloadExcel.png"));
         }
 
         private void downloadExcelButton_Click(object sender, RoutedEventArgs e)
