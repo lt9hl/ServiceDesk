@@ -21,6 +21,9 @@ namespace ServiceDesk
             this.Tasks = new HashSet<Tasks>();
             this.Tasks1 = new HashSet<Tasks>();
             this.Users = new HashSet<Users>();
+            this.TasksHistory = new HashSet<TasksHistory>();
+            this.TasksHistory1 = new HashSet<TasksHistory>();
+            this.TasksHistory2 = new HashSet<TasksHistory>();
         }
     
         public int idEmployee { get; set; }
@@ -44,5 +47,11 @@ namespace ServiceDesk
         public virtual ICollection<Tasks> Tasks1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Users> Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TasksHistory> TasksHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TasksHistory> TasksHistory1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TasksHistory> TasksHistory2 { get; set; }
     }
 }

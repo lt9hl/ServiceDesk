@@ -97,7 +97,7 @@ namespace ServiceDesk.Frames
         {
             var currentReport = (App.Current as App).currentReportOption;
             var allTasks = AppConnect.modelOdb.Tasks.ToList();
-            var result = new List<reportResult>();
+            var result = new List<ReportResult>();
             var employeeOrDepartment = employeeOrDepartmentComboBox.SelectedIndex;
 
             var dateStartPeriod = dateStartPeriodDatePicker.SelectedDate;
@@ -132,7 +132,7 @@ namespace ServiceDesk.Frames
 
                     if (countDone > 0 || countInWork > 0 || countNew > 0 || countPlaning > 0 || countWait > 0)
                     {
-                        var newResult = new reportResult()
+                        var newResult = new ReportResult()
                         {
                             employee = employee,
                             countDoneTasks = countDone,
@@ -166,7 +166,7 @@ namespace ServiceDesk.Frames
 
                     if (countDone > 0 || countInWork > 0 || countNew > 0 || countPlaning > 0 || countWait > 0)
                     {
-                        var newResult = new reportResult()
+                        var newResult = new ReportResult()
                         {
                             countDoneTasks = countDone,
                             countInWorkTasks = countInWork,
@@ -194,7 +194,7 @@ namespace ServiceDesk.Frames
 
         private void downloadExcelButton_Click(object sender, RoutedEventArgs e)
         {
-            var reportResultList = listViewReport.ItemsSource as List<reportResult>;
+            var reportResultList = listViewReport.ItemsSource as List<ReportResult>;
             
             if (reportResultList != null)
             {

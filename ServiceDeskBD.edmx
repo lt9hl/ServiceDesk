@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище ServiceDeskBDModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище ServiceDeskBDModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Departments">
           <Key>
             <PropertyRef Name="idDepartment" />
@@ -78,6 +78,25 @@
             <PropertyRef Name="idTask" />
           </Key>
           <Property Name="idTask" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="200" />
+          <Property Name="idTaskStatus" Type="int" Nullable="false" />
+          <Property Name="idEmployeeCreator" Type="int" />
+          <Property Name="idEmployeeExecutor" Type="int" />
+          <Property Name="idDepartmentExecutor" Type="int" Nullable="false" />
+          <Property Name="createDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="doneDate" Type="datetime2" Precision="7" />
+          <Property Name="timeToDone" Type="int" />
+          <Property Name="idRegistrationMethod" Type="int" Nullable="false" />
+          <Property Name="idObject" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TasksHistory">
+          <Key>
+            <PropertyRef Name="idTaskHistory" />
+          </Key>
+          <Property Name="idTaskHistory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTask" Type="int" />
+          <Property Name="dateTimeChange" Type="datetime" Nullable="false" />
           <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="200" />
           <Property Name="idTaskStatus" Type="int" Nullable="false" />
@@ -89,6 +108,7 @@
           <Property Name="timeToDone" Type="int" />
           <Property Name="idRegistrationMethod" Type="int" Nullable="false" />
           <Property Name="idObject" Type="int" Nullable="false" />
+          <Property Name="idEmployeeMadeChanges" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TaskStatuses">
           <Key>
@@ -243,6 +263,110 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TasksHistory_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TasksHistory" Type="Self.TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="idDepartment" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idDepartmentExecutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="TasksHistory" Type="Self.TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idEmployeeCreator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_Employees1">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="TasksHistory" Type="Self.TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idEmployeeExecutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_Employees2">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="TasksHistory" Type="Self.TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idEmployeeMadeChanges" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_Objects">
+          <End Role="Objects" Type="Self.Objects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TasksHistory" Type="Self.TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Objects">
+              <PropertyRef Name="idObject" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idObject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_RegistrationMethods">
+          <End Role="RegistrationMethods" Type="Self.RegistrationMethods" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TasksHistory" Type="Self.TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistrationMethods">
+              <PropertyRef Name="idRegistrationMethod" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idRegistrationMethod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_Tasks">
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="0..1" />
+          <End Role="TasksHistory" Type="Self.TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="idTask" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idTask" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_TaskStatuses">
+          <End Role="TaskStatuses" Type="Self.TaskStatuses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TasksHistory" Type="Self.TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskStatuses">
+              <PropertyRef Name="idTaskStatus" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idTaskStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Users_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -281,6 +405,7 @@
           <EntitySet Name="RegistrationMethods" EntityType="Self.RegistrationMethods" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TasksHistory" EntityType="Self.TasksHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskStatuses" EntityType="Self.TaskStatuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Applications_ApplicationStatuses" Association="Self.FK_Applications_ApplicationStatuses">
@@ -323,6 +448,38 @@
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Tasks" EntitySet="Tasks" />
           </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_Departments" Association="Self.FK_TasksHistory_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_Employees" Association="Self.FK_TasksHistory_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_Employees1" Association="Self.FK_TasksHistory_Employees1">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_Employees2" Association="Self.FK_TasksHistory_Employees2">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_Objects" Association="Self.FK_TasksHistory_Objects">
+            <End Role="Objects" EntitySet="Objects" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_RegistrationMethods" Association="Self.FK_TasksHistory_RegistrationMethods">
+            <End Role="RegistrationMethods" EntitySet="RegistrationMethods" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_Tasks" Association="Self.FK_TasksHistory_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_TaskStatuses" Association="Self.FK_TasksHistory_TaskStatuses">
+            <End Role="TaskStatuses" EntitySet="TaskStatuses" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
           <AssociationSet Name="FK_Users_Employees" Association="Self.FK_Users_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Users" EntitySet="Users" />
@@ -332,8 +489,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ServiceDeskBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -345,6 +501,7 @@
           <Property Name="titleDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Tasks" Relationship="Self.FK_Applications_Departments" FromRole="Departments" ToRole="Tasks" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Departments1" FromRole="Departments" ToRole="Employees" />
+          <NavigationProperty Name="TasksHistory" Relationship="ServiceDeskBDModel.FK_TasksHistory_Departments" FromRole="Departments" ToRole="TasksHistory" />
         </EntityType>
         <EntityType Name="Employees">
           <Key>
@@ -366,6 +523,9 @@
           <NavigationProperty Name="Tasks" Relationship="Self.FK_Tasks_EmployeeCreator" FromRole="Employees" ToRole="Tasks" />
           <NavigationProperty Name="Tasks1" Relationship="Self.FK_Tasks_EmployeeExecutor" FromRole="Employees" ToRole="Tasks" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Employees" FromRole="Employees" ToRole="Users" />
+          <NavigationProperty Name="TasksHistory" Relationship="ServiceDeskBDModel.FK_TasksHistory_Employees" FromRole="Employees" ToRole="TasksHistory" />
+          <NavigationProperty Name="TasksHistory1" Relationship="ServiceDeskBDModel.FK_TasksHistory_Employees1" FromRole="Employees" ToRole="TasksHistory" />
+          <NavigationProperty Name="TasksHistory2" Relationship="ServiceDeskBDModel.FK_TasksHistory_Employees2" FromRole="Employees" ToRole="TasksHistory" />
         </EntityType>
         <EntityType Name="Favourites">
           <Key>
@@ -384,6 +544,7 @@
           <Property Name="idObject" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="titleObject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Tasks" Relationship="Self.FK_Applications_Objects" FromRole="Objects" ToRole="Tasks" />
+          <NavigationProperty Name="TasksHistory" Relationship="ServiceDeskBDModel.FK_TasksHistory_Objects" FromRole="Objects" ToRole="TasksHistory" />
         </EntityType>
         <EntityType Name="Permissions">
           <Key>
@@ -408,6 +569,7 @@
           <Property Name="idRegistrationMethod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="titleMethod" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Tasks" Relationship="Self.FK_Applications_RegistrationMethods" FromRole="RegistrationMethods" ToRole="Tasks" />
+          <NavigationProperty Name="TasksHistory" Relationship="ServiceDeskBDModel.FK_TasksHistory_RegistrationMethods" FromRole="RegistrationMethods" ToRole="TasksHistory" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -424,14 +586,14 @@
             <PropertyRef Name="idTask" />
           </Key>
           <Property Name="idTask" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="idTaskStatus" Type="Int32" Nullable="false" />
           <Property Name="idEmployeeCreator" Type="Int32" />
           <Property Name="idEmployeeExecutor" Type="Int32" />
           <Property Name="idDepartmentExecutor" Type="Int32" Nullable="false" />
-          <Property Name="createDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="doneDate" Type="DateTime" Precision="3" />
+          <Property Name="createDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="doneDate" Type="DateTime" Precision="7" />
           <Property Name="timeToDone" Type="Int32" />
           <Property Name="idRegistrationMethod" Type="Int32" Nullable="false" />
           <Property Name="idObject" Type="Int32" Nullable="false" />
@@ -442,6 +604,7 @@
           <NavigationProperty Name="Objects" Relationship="Self.FK_Applications_Objects" FromRole="Tasks" ToRole="Objects" />
           <NavigationProperty Name="RegistrationMethods" Relationship="Self.FK_Applications_RegistrationMethods" FromRole="Tasks" ToRole="RegistrationMethods" />
           <NavigationProperty Name="TaskStatuses" Relationship="Self.FK_Applications_ApplicationStatuses" FromRole="Tasks" ToRole="TaskStatuses" />
+          <NavigationProperty Name="TasksHistory" Relationship="ServiceDeskBDModel.FK_TasksHistory_Tasks" FromRole="Tasks" ToRole="TasksHistory" />
         </EntityType>
         <EntityType Name="TaskStatuses">
           <Key>
@@ -451,6 +614,7 @@
           <Property Name="titleStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="imageStatus" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Tasks" Relationship="Self.FK_Applications_ApplicationStatuses" FromRole="TaskStatuses" ToRole="Tasks" />
+          <NavigationProperty Name="TasksHistory" Relationship="ServiceDeskBDModel.FK_TasksHistory_TaskStatuses" FromRole="TaskStatuses" ToRole="TasksHistory" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -687,7 +851,172 @@
             <End Role="TaskStatuses" EntitySet="TaskStatuses" />
             <End Role="Tasks" EntitySet="Tasks" />
           </AssociationSet>
+          <EntitySet Name="TasksHistory" EntityType="ServiceDeskBDModel.TasksHistory" />
+          <AssociationSet Name="FK_TasksHistory_Departments" Association="ServiceDeskBDModel.FK_TasksHistory_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_Employees" Association="ServiceDeskBDModel.FK_TasksHistory_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_Employees1" Association="ServiceDeskBDModel.FK_TasksHistory_Employees1">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_Employees2" Association="ServiceDeskBDModel.FK_TasksHistory_Employees2">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_Objects" Association="ServiceDeskBDModel.FK_TasksHistory_Objects">
+            <End Role="Objects" EntitySet="Objects" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_RegistrationMethods" Association="ServiceDeskBDModel.FK_TasksHistory_RegistrationMethods">
+            <End Role="RegistrationMethods" EntitySet="RegistrationMethods" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_TaskStatuses" Association="ServiceDeskBDModel.FK_TasksHistory_TaskStatuses">
+            <End Role="TaskStatuses" EntitySet="TaskStatuses" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TasksHistory_Tasks" Association="ServiceDeskBDModel.FK_TasksHistory_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TasksHistory" EntitySet="TasksHistory" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TasksHistory">
+          <Key>
+            <PropertyRef Name="idTaskHistory" />
+          </Key>
+          <Property Name="idTaskHistory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTask" Type="Int32" />
+          <Property Name="dateTimeChange" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="idTaskStatus" Type="Int32" Nullable="false" />
+          <Property Name="idEmployeeCreator" Type="Int32" />
+          <Property Name="idEmployeeExecutor" Type="Int32" />
+          <Property Name="idDepartmentExecutor" Type="Int32" Nullable="false" />
+          <Property Name="createDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="doneDate" Type="DateTime" Precision="3" />
+          <Property Name="timeToDone" Type="Int32" />
+          <Property Name="idRegistrationMethod" Type="Int32" Nullable="false" />
+          <Property Name="idObject" Type="Int32" Nullable="false" />
+          <Property Name="idEmployeeMadeChanges" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Departments" Relationship="ServiceDeskBDModel.FK_TasksHistory_Departments" FromRole="TasksHistory" ToRole="Departments" />
+          <NavigationProperty Name="EmployeeCreator" Relationship="ServiceDeskBDModel.FK_TasksHistory_Employees" FromRole="TasksHistory" ToRole="Employees" />
+          <NavigationProperty Name="EmployeeExecutor" Relationship="ServiceDeskBDModel.FK_TasksHistory_Employees1" FromRole="TasksHistory" ToRole="Employees" />
+          <NavigationProperty Name="EmployeeMadeChanges" Relationship="ServiceDeskBDModel.FK_TasksHistory_Employees2" FromRole="TasksHistory" ToRole="Employees" />
+          <NavigationProperty Name="Objects" Relationship="ServiceDeskBDModel.FK_TasksHistory_Objects" FromRole="TasksHistory" ToRole="Objects" />
+          <NavigationProperty Name="RegistrationMethods" Relationship="ServiceDeskBDModel.FK_TasksHistory_RegistrationMethods" FromRole="TasksHistory" ToRole="RegistrationMethods" />
+          <NavigationProperty Name="TaskStatuses" Relationship="ServiceDeskBDModel.FK_TasksHistory_TaskStatuses" FromRole="TasksHistory" ToRole="TaskStatuses" />
+          <NavigationProperty Name="Tasks" Relationship="ServiceDeskBDModel.FK_TasksHistory_Tasks" FromRole="TasksHistory" ToRole="Tasks" />
+        </EntityType>
+        <Association Name="FK_TasksHistory_Departments">
+          <End Type="ServiceDeskBDModel.Departments" Role="Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ServiceDeskBDModel.TasksHistory" Role="TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="idDepartment" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idDepartmentExecutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_Employees">
+          <End Type="ServiceDeskBDModel.Employees" Role="Employees" Multiplicity="0..1" />
+          <End Type="ServiceDeskBDModel.TasksHistory" Role="TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idEmployeeCreator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_Employees1">
+          <End Type="ServiceDeskBDModel.Employees" Role="Employees" Multiplicity="0..1" />
+          <End Type="ServiceDeskBDModel.TasksHistory" Role="TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idEmployeeExecutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_Employees2">
+          <End Type="ServiceDeskBDModel.Employees" Role="Employees" Multiplicity="1" />
+          <End Type="ServiceDeskBDModel.TasksHistory" Role="TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idEmployeeMadeChanges" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_Objects">
+          <End Type="ServiceDeskBDModel.Objects" Role="Objects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ServiceDeskBDModel.TasksHistory" Role="TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Objects">
+              <PropertyRef Name="idObject" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idObject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_RegistrationMethods">
+          <End Type="ServiceDeskBDModel.RegistrationMethods" Role="RegistrationMethods" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ServiceDeskBDModel.TasksHistory" Role="TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistrationMethods">
+              <PropertyRef Name="idRegistrationMethod" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idRegistrationMethod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_TaskStatuses">
+          <End Type="ServiceDeskBDModel.TaskStatuses" Role="TaskStatuses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ServiceDeskBDModel.TasksHistory" Role="TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskStatuses">
+              <PropertyRef Name="idTaskStatus" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idTaskStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TasksHistory_Tasks">
+          <End Type="ServiceDeskBDModel.Tasks" Role="Tasks" Multiplicity="0..1" />
+          <End Type="ServiceDeskBDModel.TasksHistory" Role="TasksHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="idTask" />
+            </Principal>
+            <Dependent Role="TasksHistory">
+              <PropertyRef Name="idTask" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -806,6 +1135,27 @@
                 <ScalarProperty Name="idPermission" ColumnName="idPermission" />
                 <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
                 <ScalarProperty Name="block" ColumnName="block" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TasksHistory">
+            <EntityTypeMapping TypeName="ServiceDeskBDModel.TasksHistory">
+              <MappingFragment StoreEntitySet="TasksHistory">
+                <ScalarProperty Name="idEmployeeMadeChanges" ColumnName="idEmployeeMadeChanges" />
+                <ScalarProperty Name="idObject" ColumnName="idObject" />
+                <ScalarProperty Name="idRegistrationMethod" ColumnName="idRegistrationMethod" />
+                <ScalarProperty Name="timeToDone" ColumnName="timeToDone" />
+                <ScalarProperty Name="doneDate" ColumnName="doneDate" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="idDepartmentExecutor" ColumnName="idDepartmentExecutor" />
+                <ScalarProperty Name="idEmployeeExecutor" ColumnName="idEmployeeExecutor" />
+                <ScalarProperty Name="idEmployeeCreator" ColumnName="idEmployeeCreator" />
+                <ScalarProperty Name="idTaskStatus" ColumnName="idTaskStatus" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="dateTimeChange" ColumnName="dateTimeChange" />
+                <ScalarProperty Name="idTask" ColumnName="idTask" />
+                <ScalarProperty Name="idTaskHistory" ColumnName="idTaskHistory" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

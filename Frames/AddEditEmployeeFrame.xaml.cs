@@ -42,8 +42,8 @@ namespace ServiceDesk.Frames
             foreach (var role in allRoles)
                 roleComboBox.Items.Add(role.titlePermission);
 
-            try
-            {
+            //try
+            //{
                 var operation = (App.Current as App).actionWithEmployee;
 
                 if (operation == actions.edit)
@@ -56,10 +56,12 @@ namespace ServiceDesk.Frames
                     if (user != null && user.block == false)
                     {
                         loginPasswordPanel.Visibility = Visibility.Visible;
+                    (App.Current as App).actionWithPassword = passwordActionsEnum.decrypt;
+                    var decryptedPassword = DataSecurity.selectPasswordAction(user.password);
 
                         allowLogin.IsChecked = true;
-                        loginTextBox.Text = user.password;
-                        passwordTextBox.Password = user.password;
+                        loginTextBox.Text = user.username;
+                        passwordTextBox.Password = decryptedPassword;
                         roleComboBox.SelectedItem = user.Permissions.titlePermission;
                     }
 
@@ -74,18 +76,18 @@ namespace ServiceDesk.Frames
                 {
                     inactiveEmployeeBox.Visibility = Visibility.Hidden;
                 }
-            }
-            catch
-            {
-                Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения","Уведомление",MessageBoxButton.OK);
-            }
-                
+            //}
+            //catch
+            //{
+            //    Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения", "Уведомление", MessageBoxButton.OK);
+            //}
+
         }
 
 
         private void allowLogin_Click(object sender, RoutedEventArgs e)
         {
-            if((App.Current as App).actionWithEmployee == actions.edit)
+            if ((App.Current as App).actionWithEmployee == actions.edit)
             {
                 var currentEmployee = (App.Current as App).currentEmployee;
                 var currentUser = AppConnect.modelOdb.Users.FirstOrDefault(x => x.idEmployee == currentEmployee.idEmployee);
@@ -96,13 +98,14 @@ namespace ServiceDesk.Frames
                     passwordTextBox.Password = currentUser.password;
                     postComboBox.SelectedItem = currentUser.Permissions.titlePermission;
                 }
-                
+
                 AppConnect.modelOdb.SaveChanges();
             }
 
-            if (allowLogin.IsChecked == true) {
+            if (allowLogin.IsChecked == true)
+            {
                 loginPasswordPanel.Visibility = Visibility.Visible;
-            }   
+            }
             else
                 loginPasswordPanel.Visibility = Visibility.Hidden;
 
@@ -115,8 +118,8 @@ namespace ServiceDesk.Frames
 
         private void createEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 string fio = fioEmployeeTextBox.Text;
                 fio = fio.Trim();
 
@@ -132,22 +135,22 @@ namespace ServiceDesk.Frames
 
                 if (fio != "" && department != -1 && post != -1)
                 {
-                string secondName = "";
-                string firstName = "";
-                string patronymic = "";
-                try
-                {
-                    secondName = fio.Substring(0, fio.IndexOf(" ")).Trim();
-                    firstName = fio.Substring(fio.IndexOf(" "), fio.LastIndexOf(" ") - fio.IndexOf(" ")).Trim();
-                    patronymic = fio.Substring(secondName.Length + firstName.Length + 2, fio.Length - (secondName.Length + firstName.Length) - 2);
-                }
-                catch
-                {
-                    Xceed.Wpf.Toolkit.MessageBox.Show("Поле ФИО заполнено некорректно", "Уведомление", MessageBoxButton.OK);
-                    return;
-                }
+                    string secondName = "";
+                    string firstName = "";
+                    string patronymic = "";
+                    try
+                    {
+                        secondName = fio.Substring(0, fio.IndexOf(" ")).Trim();
+                        firstName = fio.Substring(fio.IndexOf(" "), fio.LastIndexOf(" ") - fio.IndexOf(" ")).Trim();
+                        patronymic = fio.Substring(secondName.Length + firstName.Length + 2, fio.Length - (secondName.Length + firstName.Length) - 2);
+                    }
+                    catch
+                    {
+                        Xceed.Wpf.Toolkit.MessageBox.Show("Поле ФИО заполнено некорректно", "Уведомление", MessageBoxButton.OK);
+                        return;
+                    }
 
-                if ((App.Current as App).actionWithEmployee == actions.edit)
+                    if ((App.Current as App).actionWithEmployee == actions.edit)
                     {
                         var currentEmployee = (App.Current as App).currentEmployee;
                         newEmployee = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.idEmployee == currentEmployee.idEmployee);
@@ -179,10 +182,10 @@ namespace ServiceDesk.Frames
                             if (currentUser != null)
                                 newUser = currentUser;
                         }
-                    
+
                         var loginedUser = (App.Current as App).currentUser;
 
-                        if(newUser.idUser != loginedUser.idUser)
+                        if (newUser.idUser != loginedUser.idUser)
                         {
                             if (allowLogin.IsChecked == true)
                             {
@@ -192,7 +195,6 @@ namespace ServiceDesk.Frames
                                     blockUser(newUser);
                                     return;
                                 }
-
                             }
                             else
                             {
@@ -202,11 +204,12 @@ namespace ServiceDesk.Frames
                         }
                         else
                         {
-                            Xceed.Wpf.Toolkit.MessageBox.Show("Невозможно заблокировать текущего пользователя","Уведомление",MessageBoxButton.OK);
+                            Xceed.Wpf.Toolkit.MessageBox.Show("Невозможно заблокировать текущего пользователя", "Уведомление", MessageBoxButton.OK);
                         }
-                        
+
+                        (App.Current as App).actionWithPassword = passwordActionsEnum.encrypt;
                         newUser.username = login;
-                        newUser.password = password;
+                        newUser.password = DataSecurity.selectPasswordAction(password);
                         newUser.idEmployee = newEmployee.idEmployee;
                         newUser.idPermission = AppConnect.modelOdb.Permissions.First(x => x.titlePermission == "Пользователь").idPermission;
 
@@ -214,15 +217,15 @@ namespace ServiceDesk.Frames
                             newUser.idPermission = AppConnect.modelOdb.Permissions.First(x => x.titlePermission == roleComboBox.SelectedItem.ToString()).idPermission;
 
                         if ((App.Current as App).actionWithEmployee == actions.add || currentUser == null)
-                    {
-                        if (AppConnect.modelOdb.Users.FirstOrDefault(x => x.username == newUser.username) != null)
                         {
-                            Xceed.Wpf.Toolkit.MessageBox.Show("Пользователь с таким логином уже существует", "Уведомление", MessageBoxButton.OK);
-                            return;
+                            if (AppConnect.modelOdb.Users.FirstOrDefault(x => x.username == newUser.username) != null)
+                            {
+                                Xceed.Wpf.Toolkit.MessageBox.Show("Пользователь с таким логином уже существует", "Уведомление", MessageBoxButton.OK);
+                                return;
+                            }
+                            AppConnect.modelOdb.Users.Add(newUser);
                         }
-                        AppConnect.modelOdb.Users.Add(newUser);
-                    }
-                            
+
                         AppConnect.modelOdb.SaveChanges();
 
                     }
@@ -232,11 +235,11 @@ namespace ServiceDesk.Frames
                 else
                     Xceed.Wpf.Toolkit.MessageBox.Show("Необходимо заполнить обязательные поля", "Уведомление", MessageBoxButton.OK);
 
-            }
-            catch
-            {
-                Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения", "Уведомление", MessageBoxButton.OK);
-            }
+            //}
+            //catch
+            //{
+            //    Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения", "Уведомление", MessageBoxButton.OK);
+            //}
         }
 
         void blockUser(Users user)

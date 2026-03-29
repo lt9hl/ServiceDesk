@@ -49,7 +49,10 @@ namespace ServiceDesk.Frames
                 {
                     var currentUser = listUsers.First(x => x.username == login);
 
-                    if (currentUser.password == password)
+                    (App.Current as App).actionWithPassword = passwordActionsEnum.decrypt;
+                    string decryptedPassword = DataSecurity.selectPasswordAction(currentUser.password);
+
+                    if (decryptedPassword == password)
                     {
                         if (currentUser.block)
                         {

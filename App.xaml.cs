@@ -18,18 +18,27 @@ namespace ServiceDesk
         public Posts currentPost { get; set; }
         public Employees currentEmployee { get; set; }
         public Departments currentDepartment {  get; set; }
+        public Tasks currentTask { get; set; }
+        public TasksHistory currentHistoryTask { get; set; }
+        public passwordActionsEnum actionWithPassword { get; set; }
         public actions actionWithTask {  get; set; }
         public actions actionWithEmployee {  get; set; }
         public actions actionWithPost {  get; set; }
         public actions actionWithDepartment { get; set; }
-        public Tasks currentTask { get; set; }  
         public reportOptions currentReportOption { get; set; }
 
+
+    }
+    public enum passwordActionsEnum
+    {
+        encrypt,
+        decrypt
     }
     public enum actions
     {
         edit,
-        add
+        add,
+        viewHistory
     }
     public enum reportOptions
     {
