@@ -121,13 +121,13 @@
                                             </Grid.ColumnDefinitions>
 
                                             <StackPanel Grid.Column="0" Margin="0 0 5 0" Style="{StaticResource tableData}">
-                                                <TextBlock Padding="0 0 5 0" TextWrapping="Wrap">
+                                                <TextBlock Padding="0 0 5 0" TextWrapping="NoWrap" TextTrimming="WordEllipsis">
                                                     <Run Text="{Binding createDate}" />
                                                 </TextBlock>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="1" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap">
+                                                <TextBlock TextWrapping="NoWrap" TextTrimming="WordEllipsis">
                                                     <Run Text="{Binding title}"/>
                                                 </TextBlock>
                                             </StackPanel>
@@ -137,13 +137,13 @@
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="3" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap">
+                                                <TextBlock TextWrapping="NoWrap" TextTrimming="WordEllipsis">
                                                     <Run Text="{Binding EmployeeExecutor.Departments.titleDepartment}"/>
                                                 </TextBlock>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="4" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap">
+                                                <TextBlock TextWrapping="NoWrap" TextTrimming="WordEllipsis">
                                                     <Run Text="{Binding EmployeeCreator.fio}"/>
                                                 </TextBlock>
                                             </StackPanel>

@@ -66,7 +66,7 @@
 
                 </Grid>
 
-                <Grid Background="Transparent" Grid.Row="1">
+                <Grid Background="Transparent" Grid.Row="1" MaxWidth="690">
                     <Border Margin="10" CornerRadius=" 10">
                         <Border.Background>
                             <SolidColorBrush Color="White" />
@@ -103,7 +103,7 @@
                                             </Grid.ColumnDefinitions>
 
                                             <StackPanel Grid.Column="0" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap">
+                                                <TextBlock TextWrapping="NoWrap" TextTrimming="WordEllipsis">
                                                     <Run Text="{Binding secondName}"/>
                                                     <Run Text="{Binding firstName}"/>
                                                     <Run Text="{Binding patronymic}"/>
@@ -111,13 +111,13 @@
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="1" Margin="0" Style="{StaticResource tableData}">
-                                                <TextBlock Padding="0" Margin="0" TextWrapping="Wrap">
+                                                <TextBlock Padding="0" Margin="0" TextWrapping="NoWrap" TextTrimming="WordEllipsis">
                                                 <Run Text="{Binding Posts.titlePost}"/>
                                                 </TextBlock>
                                             </StackPanel>
 
                                             <StackPanel HorizontalAlignment="Left" Height="auto" Grid.Column="2" Style="{StaticResource tableData}">
-                                                <TextBlock TextWrapping="Wrap">
+                                                <TextBlock TextWrapping="NoWrap" TextTrimming="WordEllipsis">
                                                 <Run Text="{Binding Departments.titleDepartment}"/>
                                                 </TextBlock>
                                             </StackPanel>
