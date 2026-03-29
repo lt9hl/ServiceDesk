@@ -29,6 +29,8 @@ namespace ServiceDesk.Frames
 
             AppConnect.modelOdb = new ServiceDeskBDEntities();
 
+            goToTaskHistory.Visibility = Visibility.Collapsed;
+
             try
             {
                 var allStatuses = AppConnect.modelOdb.TaskStatuses.ToList();
@@ -69,8 +71,10 @@ namespace ServiceDesk.Frames
                     timeToDone.Text = currentTask.timeToDone.ToString();
                     taskStatusComboBox.SelectedItem = currentTask.TaskStatuses.titleStatus;
                     departmentExecutorComboBox.SelectedItem = currentTask.Departments.titleDepartment;
-                    employeeExecutorComboBox.SelectedItem = currentTask.EmployeeExecutor.fio;
                     registrationMethodComboBox.SelectedItem = currentTask.RegistrationMethods.titleMethod;
+
+                    if (employeeExecutorComboBox.SelectedIndex != -1)
+                        employeeExecutorComboBox.SelectedItem = currentTask.EmployeeExecutor.fio;
 
                     var allEmployeesInDepartmentExecutor = AppConnect.modelOdb.Employees.Where(x => x.idDepartment == currentTask.idDepartmentExecutor).ToList();
                     var allEmployeesInDepartmentCreator = AppConnect.modelOdb.Employees.Where(x => x.idEmployee == currentTask.idEmployeeCreator).ToList();
@@ -101,26 +105,31 @@ namespace ServiceDesk.Frames
                         employeeCreatorTaskComboBox.IsEnabled = false;
                     }
 
-                    if(currentUser.Permissions.titlePermission == "Администратор" || currentUser.Permissions.titlePermission == "Менеджер")
+                    if (currentUser.Permissions.titlePermission == "Администратор" || currentUser.Permissions.titlePermission == "Менеджер")
                     {
                         viewHistoryButton.Visibility = Visibility.Visible;
                     }
+                }
+                else if((App.Current as App).actionWithTask == actions.edit)
+                {
+
                 }
                 else
                 {
                     dateCreateTaskDatePicker.SelectedDate = DateTime.Now;
                     taskStatusComboBox.SelectedItem = "Новая";
+                    registrationMethodComboBox.SelectedItem = "ServiceDesk";
                     employeeCreatorTaskComboBox.SelectedItem = currentUser.Employees.fio;
                 }
-                    checkStatusSelectVisible();
+                checkStatusSelectVisible();
 
-                
+
             }
             catch
             {
-                Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения","Уведомление",MessageBoxButton.OK);
+                Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения", "Уведомление", MessageBoxButton.OK);
             }
-            
+
 
         }
         private void checkStatusSelectVisible()
@@ -131,43 +140,30 @@ namespace ServiceDesk.Frames
                 {
                     if (taskStatusComboBox.SelectedItem.ToString() == "Закрыта")
                     {
-                        borderTimeToDone.Visibility = Visibility.Visible;
-                        borderDateDoneTask.Visibility = Visibility.Visible;
-                        labelDateDoneTask.Visibility = Visibility.Visible;
-                        labelTimeToDone.Visibility = Visibility.Visible;
+                        parametrsIfTaskDone.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        borderTimeToDone.Visibility = Visibility.Hidden;
-                        borderDateDoneTask.Visibility = Visibility.Hidden;
-                        labelDateDoneTask.Visibility = Visibility.Hidden;
-                        labelTimeToDone.Visibility = Visibility.Hidden;
+                        parametrsIfTaskDone.Visibility= Visibility.Collapsed;
                     }
                 }
                 else
                 {
-                    borderTimeToDone.Visibility = Visibility.Hidden;
-                    borderDateDoneTask.Visibility = Visibility.Hidden;
-                    labelDateDoneTask.Visibility = Visibility.Hidden;
-                    labelTimeToDone.Visibility = Visibility.Hidden;
+                    parametrsIfTaskDone.Visibility = Visibility.Collapsed;
                 }
 
                 if (departmentExecutorComboBox.SelectedIndex != -1)
                 {
-                    borderEmployeeExecutor.Visibility = Visibility.Visible;
-                    labelEmployeeExecutor.Visibility = Visibility.Visible;
-                    
+                    executorStackPanel.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    borderEmployeeExecutor.Visibility = Visibility.Hidden;
-                    labelEmployeeExecutor.Visibility = Visibility.Hidden;
-                    
-                }           
+                    executorStackPanel.Visibility = Visibility.Collapsed;
+                }
             }
             catch
             {
-                Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения","Уведомление",MessageBoxButton.OK);
+                Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения", "Уведомление", MessageBoxButton.OK);
             }
         }
 
@@ -186,6 +182,7 @@ namespace ServiceDesk.Frames
         {
             try
             {
+                var dateCreate = dateCreateTaskDatePicker.SelectedDate;
                 Tasks newTaskAdded = new Tasks();
                 var isEditMove = (App.Current as App).currentTask;
 
@@ -203,9 +200,20 @@ namespace ServiceDesk.Frames
                 if (objectComboBox.SelectedIndex >= 0
                         && titleTaskInput != "" && departmentExecutorComboBox.SelectedIndex >= 0)
                 {
-                    var employeeCreatorInput = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.fio == employeeCreatorTaskComboBox.SelectedItem.ToString());
-                    var employeeExecutorInput = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.fio == employeeExecutorComboBox.SelectedItem.ToString());
-                    ;
+                    var selectedEmployee = employeeCreatorTaskComboBox.SelectedItem.ToString();
+                    var employeeCreatorInput = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.fio == selectedEmployee);
+
+                    selectedEmployee = employeeExecutorComboBox.SelectedIndex.ToString();
+
+                    var employeeExecutorInput = new Employees();
+                    if (selectedEmployee != "-1")
+                    {
+                        employeeExecutorInput = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.fio == selectedEmployee);
+                    }
+                    else
+                        employeeExecutorInput = null;
+
+
                     var objectTaskInput = AppConnect.modelOdb.Objects.FirstOrDefault(x => x.titleObject == objectComboBox.SelectedItem.ToString());
                     var taskStatusInput = AppConnect.modelOdb.TaskStatuses.FirstOrDefault(x => x.titleStatus == taskStatusComboBox.SelectedItem.ToString());
                     var departmentExecutorInput = AppConnect.modelOdb.Departments.FirstOrDefault(x => x.titleDepartment == departmentExecutorComboBox.SelectedItem.ToString());
@@ -215,18 +223,46 @@ namespace ServiceDesk.Frames
                         doneDateIsSelectedInput = (DateTime)dateDoneTaskDatePicker.SelectedDate;
 
                     if (isEditMove != null)
-                    { 
+                    {
                         newTaskAdded = AppConnect.modelOdb.Tasks.FirstOrDefault(x => x.idTask == isEditMove.idTask);
                         newTaskAdded.idTaskStatus = taskStatusInput.idTaskStatus;
+
+                        var newTaskHistory = new TasksHistory()
+                        {
+                            idTask = newTaskAdded.idTask,
+                            dateTimeChange = DateTime.Now,
+                            title = newTaskAdded.title,
+                            description = newTaskAdded.description,
+                            idTaskStatus = newTaskAdded.idTaskStatus,
+                            idEmployeeCreator = newTaskAdded.idEmployeeCreator,
+                            idEmployeeExecutor = newTaskAdded.idEmployeeExecutor,
+                            idDepartmentExecutor = newTaskAdded.idDepartmentExecutor,
+                            createDate = newTaskAdded.createDate,
+                            doneDate = newTaskAdded.doneDate,
+                            timeToDone = newTaskAdded.timeToDone,
+                            idRegistrationMethod = newTaskAdded.idRegistrationMethod,
+                            idObject = newTaskAdded.idObject,
+                            idEmployeeMadeChanges = currentUser.idEmployee
+                        };
+
+                        AppConnect.modelOdb.TasksHistory.Add(newTaskHistory);
+                        AppConnect.modelOdb.SaveChanges();
+
                     }
+
+                    if (employeeExecutorInput != null)
+                        newTaskAdded.idEmployeeExecutor = employeeExecutorInput.idEmployee;
+                    else
+                        newTaskAdded.idEmployeeExecutor = null;
 
                     newTaskAdded.title = titleTaskInput;
                     newTaskAdded.description = descriptionInput;
                     newTaskAdded.idEmployeeCreator = employeeCreatorInput.idEmployee;
                     newTaskAdded.idDepartmentExecutor = departmentExecutorInput.idDepartment;
                     newTaskAdded.doneDate = doneDateIsSelectedInput;
-                    newTaskAdded.idEmployeeExecutor = employeeExecutorInput.idEmployee;
                     newTaskAdded.timeToDone = timeToDoneInput;
+                    newTaskAdded.idTaskStatus = taskStatusInput.idTaskStatus;
+                    newTaskAdded.createDate = (DateTime)dateCreate;
                     newTaskAdded.idRegistrationMethod = registrationMethodInput.idRegistrationMethod;
                     newTaskAdded.idObject = objectTaskInput.idObject;
 
@@ -261,9 +297,9 @@ namespace ServiceDesk.Frames
             {
                 var selectedDepartment = AppConnect.modelOdb.Departments.FirstOrDefault(x => x.titleDepartment == departmentExecutorComboBox.SelectedItem.ToString());
                 var allEmployeesExecutors = AppConnect.modelOdb.Employees.Where(x => x.Departments.titleDepartment == selectedDepartment.titleDepartment);
-                
-                foreach(var employee in allEmployeesExecutors) 
-                employeeExecutorComboBox.Items.Add(employee.fio);
+
+                foreach (var employee in allEmployeesExecutors)
+                    employeeExecutorComboBox.Items.Add(employee.fio);
             }
         }
 
@@ -291,6 +327,11 @@ namespace ServiceDesk.Frames
         private void viewHistory_MouseLeave(object sender, MouseEventArgs e)
         {
             imageViewHistory.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Icons\\controlButtons\\history.png"));
+        }
+
+        private void goToTaskHistory_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.workFrame.Navigate(new TaskHistoryFrame());
         }
     }
 }

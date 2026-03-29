@@ -36,5 +36,6 @@ namespace ServiceDesk
         public virtual DbSet<Tasks> Tasks { get; set; }
         public virtual DbSet<TaskStatuses> TaskStatuses { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<TasksHistory> TasksHistory { get; set; }
     }
 }

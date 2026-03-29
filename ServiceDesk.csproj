@@ -111,8 +111,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ApplicationData\reportResult.cs" />
+    <Compile Include="ApplicationData\DataSecurity.cs" />
+    <Compile Include="ApplicationData\ListViewNextPage.cs" />
+    <Compile Include="ApplicationData\ReportResult.cs" />
     <Compile Include="ApplicationData\SaveExcelDocument.cs" />
+    <Compile Include="ApplicationData\ViewTaskHistory.cs" />
     <Compile Include="Departments.cs">
       <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
@@ -189,6 +192,9 @@
       <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Tasks.cs">
+      <DependentUpon>ServiceDeskBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TasksHistory.cs">
       <DependentUpon>ServiceDeskBD.tt</DependentUpon>
     </Compile>
     <Compile Include="TaskStatuses.cs">

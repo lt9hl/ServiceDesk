@@ -18,6 +18,7 @@ namespace ServiceDesk
         public TaskStatuses()
         {
             this.Tasks = new HashSet<Tasks>();
+            this.TasksHistory = new HashSet<TasksHistory>();
         }
     
         public int idTaskStatus { get; set; }
@@ -26,5 +27,7 @@ namespace ServiceDesk
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tasks> Tasks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TasksHistory> TasksHistory { get; set; }
     }
 }

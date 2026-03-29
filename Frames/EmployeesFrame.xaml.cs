@@ -23,6 +23,7 @@ namespace ServiceDesk.Frames
     public partial class EmployeesFrame : Page
     {
         int countAscDesc = 0;
+        int countTasksInPage = 16;
         public EmployeesFrame()
         {
             InitializeComponent();
@@ -39,6 +40,7 @@ namespace ServiceDesk.Frames
 
             sortComboBox.SelectedIndex = 0;
         }
+
 
         private void addNewEmployeeButton_MouseEnter(object sender, MouseEventArgs e)
         {

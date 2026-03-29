@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace ServiceDesk.ApplicationData
 {
-    public class reportResult
+    internal class ReportResult
     {
-        public Employees employee {  get; set; }
-        public Departments department { get; set; }
-        public int countDoneTasks { get; set; }
-        public int countInWorkTasks { get; set; }
-        public int countNewTasks { get; set; }
-        public int countPlaningTasks { get; set; }
-        public int countWaitTasks { get; set; }
-
+            public Employees employee { get; set; }
+            public Departments department { get; set; }
+            public int countDoneTasks { get; set; }
+            public int countInWorkTasks { get; set; }
+            public int countNewTasks { get; set; }
+            public int countPlaningTasks { get; set; }
+            public int countWaitTasks { get; set; }
+        
     }
 }

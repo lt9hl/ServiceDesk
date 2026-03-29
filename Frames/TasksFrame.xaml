@@ -75,7 +75,7 @@
                 </Grid>
 
                 <Grid Background="Transparent" Grid.Row="1">
-                    <Border Margin="10 10 10 15" CornerRadius=" 10">
+                    <Border Margin="10 10 10 10" CornerRadius=" 10">
                         <Border.Background>
                             <SolidColorBrush Color="White" />
                         </Border.Background>
@@ -138,7 +138,7 @@
 
                                             <StackPanel Grid.Column="3" Style="{StaticResource tableData}">
                                                 <TextBlock TextWrapping="NoWrap" TextTrimming="WordEllipsis">
-                                                    <Run Text="{Binding EmployeeExecutor.Departments.titleDepartment}"/>
+                                                    <Run Text="{Binding Departments.titleDepartment}"/>
                                                 </TextBlock>
                                             </StackPanel>
 

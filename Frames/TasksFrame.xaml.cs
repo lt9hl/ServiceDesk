@@ -22,8 +22,10 @@ namespace ServiceDesk.Frames
     /// <summary>
     /// Логика взаимодействия для TasksFrame.xaml
     /// </summary>
+
     public partial class TasksFrame : Page
     {
+        int countTasksInPage = 16;
         int countSortAscDesc = 0;
         public TasksFrame()
         {
@@ -54,23 +56,8 @@ namespace ServiceDesk.Frames
         }
         Tasks[] goOverPage()
         {
-            var allTasks = getTasksList().ToList();
-            int currentPage = Convert.ToInt32(pageTextBox.Text);
-            int countTasksInPage = 10;
-
-            int startIndex = currentPage * countTasksInPage - 10;
-            int endIndex = currentPage * countTasksInPage;
-
-            if (allTasks.Count < endIndex)
-                endIndex = allTasks.Count;
-    
-            List<Tasks> tasksInCurrentPage = new List<Tasks>();
-            
-            for(int i = startIndex; i < endIndex; i++)
-            {
-                tasksInCurrentPage.Add(allTasks[i]);
-            }
-
+            var nextPage = new ListViewNextPage();
+            var tasksInCurrentPage = nextPage.NewTaskPage(countTasksInPage, Convert.ToInt32(pageTextBox.Text), getTasksList().ToList());
             return tasksInCurrentPage.ToArray();
         }
         private void goRightButton_MouseEnter(object sender, MouseEventArgs e)
@@ -172,7 +159,7 @@ namespace ServiceDesk.Frames
             }
             catch
             {
-                MessageBox.Show("","",MessageBoxButton.OK);
+                MessageBox.Show("", "", MessageBoxButton.OK);
                 return null;
             }
         }
@@ -201,7 +188,7 @@ namespace ServiceDesk.Frames
 
         private void selectStatusTask_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            listViewTasks.ItemsSource= goOverPage();
+            listViewTasks.ItemsSource = goOverPage();
         }
 
         private void addNewTaskButton_Click(object sender, RoutedEventArgs e)
@@ -222,8 +209,8 @@ namespace ServiceDesk.Frames
         {
             var allTasks = AppConnect.modelOdb.Tasks.ToList();
             var page = Convert.ToInt32(pageTextBox.Text) + 1;
-            
-            if (allTasks.Count > (page - 1) * 10)
+
+            if (allTasks.Count > (page - 1) * countTasksInPage)
             {
                 pageTextBox.Text = page.ToString();
                 listViewTasks.ItemsSource = goOverPage();

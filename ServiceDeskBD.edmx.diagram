@@ -28,6 +28,15 @@
         <AssociationConnector Association="ServiceDeskBDModel.FK_Users_Permissions" ManuallyRouted="false" />
         <AssociationConnector Association="ServiceDeskBDModel.FK_Applications_RegistrationMethods" ManuallyRouted="false" />
         <AssociationConnector Association="ServiceDeskBDModel.FK_Applications_ApplicationStatuses" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ServiceDeskBDModel.TasksHistory" Width="1.5" PointX="5.25" PointY="9.375" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_TasksHistory_Departments" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_TasksHistory_Employees" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_TasksHistory_Employees1" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_TasksHistory_Employees2" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_TasksHistory_Objects" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_TasksHistory_RegistrationMethods" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_TasksHistory_TaskStatuses" />
+        <AssociationConnector Association="ServiceDeskBDModel.FK_TasksHistory_Tasks" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

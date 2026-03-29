@@ -12,16 +12,11 @@ namespace ServiceDesk
     using System;
     using System.Collections.Generic;
     
-    public partial class Tasks
+    public partial class TasksHistory
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tasks()
-        {
-            this.Favourites = new HashSet<Favourites>();
-            this.TasksHistory = new HashSet<TasksHistory>();
-        }
-    
-        public int idTask { get; set; }
+        public int idTaskHistory { get; set; }
+        public Nullable<int> idTask { get; set; }
+        public System.DateTime dateTimeChange { get; set; }
         public string title { get; set; }
         public string description { get; set; }
         public int idTaskStatus { get; set; }
@@ -33,16 +28,15 @@ namespace ServiceDesk
         public Nullable<int> timeToDone { get; set; }
         public int idRegistrationMethod { get; set; }
         public int idObject { get; set; }
+        public int idEmployeeMadeChanges { get; set; }
     
         public virtual Departments Departments { get; set; }
         public virtual Employees EmployeeCreator { get; set; }
         public virtual Employees EmployeeExecutor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Favourites> Favourites { get; set; }
+        public virtual Employees EmployeeMadeChanges { get; set; }
         public virtual Objects Objects { get; set; }
         public virtual RegistrationMethods RegistrationMethods { get; set; }
         public virtual TaskStatuses TaskStatuses { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TasksHistory> TasksHistory { get; set; }
+        public virtual Tasks Tasks { get; set; }
     }
 }

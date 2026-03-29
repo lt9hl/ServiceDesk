@@ -92,7 +92,7 @@
                                 <Label Content="Отдел" Style="{StaticResource tasksTableLabel}"/>
                             </Border>
 
-                            <ListView ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemContainerStyle="{StaticResource itemsListViewTable}" Margin="0" Grid.Row="2" Grid.ColumnSpan="5" BorderBrush="Transparent" x:Name="listViewEmployees" MouseDoubleClick="listViewEmployees_MouseDoubleClick" >
+                            <ListView  ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemContainerStyle="{StaticResource itemsListViewTable}" Margin="0" Grid.Row="2" Grid.ColumnSpan="5" BorderBrush="Transparent" x:Name="listViewEmployees" MouseDoubleClick="listViewEmployees_MouseDoubleClick" >
                                 <ListView.ItemTemplate >
                                     <DataTemplate >
                                         <Grid  >
@@ -116,7 +116,7 @@
                                                 </TextBlock>
                                             </StackPanel>
 
-                                            <StackPanel HorizontalAlignment="Left" Height="auto" Grid.Column="2" Style="{StaticResource tableData}">
+                                            <StackPanel HorizontalAlignment="Left" Grid.Column="2" Style="{StaticResource tableData}">
                                                 <TextBlock TextWrapping="NoWrap" TextTrimming="WordEllipsis">
                                                 <Run Text="{Binding Departments.titleDepartment}"/>
                                                 </TextBlock>
@@ -137,7 +137,7 @@
                     <Border HorizontalAlignment="Right" Height="30" CornerRadius="10" Background="White" Width="100">
                         <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
                             <Border CornerRadius="5" BorderBrush="Transparent" Background="{StaticResource fon}">
-                                <TextBox  Width="25" Text="1" Background="Transparent" BorderThickness="0" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource darkGreenMenu}"/>
+                                <TextBox x:Name="pageTextBox" Width="25" Text="1" Background="Transparent" BorderThickness="0" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource darkGreenMenu}"/>
                             </Border>
                             <Button x:Name="goLeftButton" Style="{StaticResource buttonsWithImages}" Template="{StaticResource leftButtonMenu}" Margin="5 0 3 0" MouseEnter="goLeftButton_MouseEnter" MouseLeave="goLeftButton_MouseLeave">
                                 <Image x:Name="imageGoLeft"  Source="\Images\Icons\controlButtons\goLeft.png" Height="21"/>
