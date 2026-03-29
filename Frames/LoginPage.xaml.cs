@@ -32,7 +32,6 @@ namespace ServiceDesk.Frames
 
         private void goToStart_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"{System.AppDomain.CurrentDomain.BaseDirectory}","sdsd",MessageBoxButton.OK);
             try
             {
                 string login = loginTextBox.Text;

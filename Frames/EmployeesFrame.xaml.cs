@@ -23,7 +23,6 @@ namespace ServiceDesk.Frames
     public partial class EmployeesFrame : Page
     {
         int countAscDesc = 0;
-        int countTasksInPage = 16;
         public EmployeesFrame()
         {
             InitializeComponent();

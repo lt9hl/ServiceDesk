@@ -455,7 +455,6 @@
             <Setter Property="Foreground" Value="{StaticResource lightGreenMenu}"/>
             <Setter Property="FontFamily" Value="Montserrat"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
 

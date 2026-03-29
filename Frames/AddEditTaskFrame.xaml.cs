@@ -79,18 +79,6 @@ namespace ServiceDesk.Frames
                     var allEmployeesInDepartmentExecutor = AppConnect.modelOdb.Employees.Where(x => x.idDepartment == currentTask.idDepartmentExecutor).ToList();
                     var allEmployeesInDepartmentCreator = AppConnect.modelOdb.Employees.Where(x => x.idEmployee == currentTask.idEmployeeCreator).ToList();
 
-                    titleTaskTextBox.IsEnabled = true;
-                    descriptionTask.IsEnabled = true;
-                    employeeCreatorTaskComboBox.IsEnabled = true;
-                    objectComboBox.IsEnabled = true;
-                    dateCreateTaskDatePicker.IsEnabled = true;
-                    dateDoneTaskDatePicker.IsEnabled = true;
-                    timeToDone.IsEnabled = true;
-                    taskStatusComboBox.IsEnabled = true;
-                    departmentExecutorComboBox.IsEnabled = true;
-                    employeeExecutorComboBox.IsEnabled = true;
-                    registrationMethodComboBox.IsEnabled = true;
-                    createTaskButton.IsEnabled = true;
 
                     if (allEmployeesInDepartmentCreator.FirstOrDefault(x => currentUser.idEmployee == x.idEmployee) != null)
                     {
@@ -110,9 +98,20 @@ namespace ServiceDesk.Frames
                         viewHistoryButton.Visibility = Visibility.Visible;
                     }
                 }
-                else if((App.Current as App).actionWithTask == actions.edit)
+                else if((App.Current as App).actionWithTask == actions.viewHistory)
                 {
-
+                    titleTaskTextBox.IsEnabled = false;
+                    descriptionTask.IsEnabled = false;
+                    employeeCreatorTaskComboBox.IsEnabled = false;
+                    objectComboBox.IsEnabled = false;
+                    dateCreateTaskDatePicker.IsEnabled = false;
+                    dateDoneTaskDatePicker.IsEnabled = false;
+                    timeToDone.IsEnabled = false;
+                    taskStatusComboBox.IsEnabled = false;
+                    departmentExecutorComboBox.IsEnabled = false;
+                    employeeExecutorComboBox.IsEnabled = false;
+                    registrationMethodComboBox.IsEnabled = false;
+                    createTaskButton.IsEnabled = false;
                 }
                 else
                 {

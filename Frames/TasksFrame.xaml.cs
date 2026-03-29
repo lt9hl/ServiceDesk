@@ -6,7 +6,9 @@ using System.Globalization;
 using System.IO.Packaging;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -53,7 +55,23 @@ namespace ServiceDesk.Frames
             var currentUser = (App.Current as App).currentUser;
             if (currentUser.Permissions.titlePermission != "Администратор")
                 deleteTaskButton.Visibility = Visibility.Collapsed;
+            Init();
         }
+        static System.Threading.Timer timer;
+        long interval = 5000; // 5 сек
+        static object synclock = new object();
+        static bool sent = false;
+        public void Init()
+        {
+
+            timer = new System.Threading.Timer(new TimerCallback(fillList), null, 0, interval);
+        }
+        public void fillList(object obj)
+        {
+            MessageBox.Show("dfdfdf","",MessageBoxButton.OK);
+            getTasksList().ToList();
+        }
+
         Tasks[] goOverPage()
         {
             var nextPage = new ListViewNextPage();
