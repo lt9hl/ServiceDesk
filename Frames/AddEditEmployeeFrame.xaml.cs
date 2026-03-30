@@ -42,8 +42,8 @@ namespace ServiceDesk.Frames
             foreach (var role in allRoles)
                 roleComboBox.Items.Add(role.titlePermission);
 
-            //try
-            //{
+            try
+            {
                 var operation = (App.Current as App).actionWithEmployee;
 
                 if (operation == actions.edit)
@@ -76,13 +76,13 @@ namespace ServiceDesk.Frames
                 {
                     inactiveEmployeeBox.Visibility = Visibility.Hidden;
                 }
-            //}
-            //catch
-            //{
-            //    Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения", "Уведомление", MessageBoxButton.OK);
-            //}
-
         }
+            catch
+            {
+                Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения", "Уведомление", MessageBoxButton.OK);
+            }
+
+}
 
 
         private void allowLogin_Click(object sender, RoutedEventArgs e)
@@ -118,8 +118,8 @@ namespace ServiceDesk.Frames
 
         private void createEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 string fio = fioEmployeeTextBox.Text;
                 fio = fio.Trim();
 
@@ -235,11 +235,11 @@ namespace ServiceDesk.Frames
                 else
                     Xceed.Wpf.Toolkit.MessageBox.Show("Необходимо заполнить обязательные поля", "Уведомление", MessageBoxButton.OK);
 
-            //}
-            //catch
-            //{
-            //    Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения", "Уведомление", MessageBoxButton.OK);
-            //}
+            }
+            catch
+            {
+                Xceed.Wpf.Toolkit.MessageBox.Show("Произошла критическая ошибка в работе приложения", "Уведомление", MessageBoxButton.OK);
+            }
         }
 
         void blockUser(Users user)

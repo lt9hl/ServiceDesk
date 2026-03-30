@@ -73,7 +73,7 @@ namespace ServiceDesk.Frames
                     departmentExecutorComboBox.SelectedItem = currentTask.Departments.titleDepartment;
                     registrationMethodComboBox.SelectedItem = currentTask.RegistrationMethods.titleMethod;
 
-                    if (employeeExecutorComboBox.SelectedIndex != -1)
+                    if (currentTask.EmployeeExecutor != null )
                         employeeExecutorComboBox.SelectedItem = currentTask.EmployeeExecutor.fio;
 
                     var allEmployeesInDepartmentExecutor = AppConnect.modelOdb.Employees.Where(x => x.idDepartment == currentTask.idDepartmentExecutor).ToList();
@@ -202,12 +202,10 @@ namespace ServiceDesk.Frames
                     var selectedEmployee = employeeCreatorTaskComboBox.SelectedItem.ToString();
                     var employeeCreatorInput = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.fio == selectedEmployee);
 
-                    selectedEmployee = employeeExecutorComboBox.SelectedIndex.ToString();
-
                     var employeeExecutorInput = new Employees();
-                    if (selectedEmployee != "-1")
+                    if (employeeExecutorComboBox.SelectedIndex != -1)
                     {
-                        employeeExecutorInput = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.fio == selectedEmployee);
+                        employeeExecutorInput = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.fio == employeeExecutorComboBox.SelectedItem.ToString());
                     }
                     else
                         employeeExecutorInput = null;

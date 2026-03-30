@@ -54,7 +54,7 @@ namespace ServiceDesk.Frames
             listViewTopEmployees.ItemsSource = resultTop;
 
             var tasks = AppConnect.modelOdb.Tasks.OrderBy(x => x.title).OrderByDescending(x => x.createDate).ToList();
-            var userTasks = tasks.Where(x => x.idEmployeeExecutor == currentUser.idEmployee && x.TaskStatuses.titleStatus != "Закрыта").ToList();
+            var userTasks = tasks.Where(x => (x.idEmployeeExecutor == currentUser.idEmployee || x.idDepartmentExecutor == currentUser.Employees.idEmployee) && x.TaskStatuses.titleStatus != "Закрыта").ToList();
             var resulTask = new List<Tasks>();
 
             for (int i = 0; i <= 10; i++)

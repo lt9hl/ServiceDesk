@@ -29,6 +29,7 @@ namespace ServiceDesk.Frames
     {
         int countTasksInPage = 16;
         int countSortAscDesc = 0;
+        int currentPage = 1;
         public TasksFrame()
         {
             InitializeComponent();
@@ -55,10 +56,10 @@ namespace ServiceDesk.Frames
             var currentUser = (App.Current as App).currentUser;
             if (currentUser.Permissions.titlePermission != "Администратор")
                 deleteTaskButton.Visibility = Visibility.Collapsed;
-            Init();
+            
         }
         static System.Threading.Timer timer;
-        long interval = 5000; // 5 сек
+        long interval = 10000; // 5 сек
         static object synclock = new object();
         static bool sent = false;
         public void Init()
@@ -69,13 +70,14 @@ namespace ServiceDesk.Frames
         public void fillList(object obj)
         {
             MessageBox.Show("dfdfdf","",MessageBoxButton.OK);
-            getTasksList().ToList();
+            listViewTasks.ItemsSource = goOverPage();
         }
 
         Tasks[] goOverPage()
         {
             var nextPage = new ListViewNextPage();
-            var tasksInCurrentPage = nextPage.NewTaskPage(countTasksInPage, Convert.ToInt32(pageTextBox.Text), getTasksList().ToList());
+            var listTask = getTasksList().ToList();
+            var tasksInCurrentPage = nextPage.NewTaskPage(countTasksInPage, currentPage, listTask);
             return tasksInCurrentPage.ToArray();
         }
         private void goRightButton_MouseEnter(object sender, MouseEventArgs e)
@@ -231,6 +233,7 @@ namespace ServiceDesk.Frames
             if (allTasks.Count > (page - 1) * countTasksInPage)
             {
                 pageTextBox.Text = page.ToString();
+                currentPage = page;
                 listViewTasks.ItemsSource = goOverPage();
             }
         }
@@ -243,6 +246,7 @@ namespace ServiceDesk.Frames
                 return;
 
             pageTextBox.Text = (page - 1).ToString();
+            currentPage -= 1;
             listViewTasks.ItemsSource = goOverPage();
 
         }
