@@ -56,20 +56,25 @@ namespace ServiceDesk.Frames
             var currentUser = (App.Current as App).currentUser;
             if (currentUser.Permissions.titlePermission != "Администратор")
                 deleteTaskButton.Visibility = Visibility.Collapsed;
+
+            Init();
             
         }
+
         static System.Threading.Timer timer;
         long interval = 10000; // 5 сек
-        static object synclock = new object();
-        static bool sent = false;
+
         public void Init()
         {
 
             timer = new System.Threading.Timer(new TimerCallback(fillList), null, 0, interval);
+
         }
+
         public void fillList(object obj)
         {
             MessageBox.Show("dfdfdf","",MessageBoxButton.OK);
+            var kjhkjhk = goOverPage();
             listViewTasks.ItemsSource = goOverPage();
         }
 
@@ -80,6 +85,7 @@ namespace ServiceDesk.Frames
             var tasksInCurrentPage = nextPage.NewTaskPage(countTasksInPage, currentPage, listTask);
             return tasksInCurrentPage.ToArray();
         }
+
         private void goRightButton_MouseEnter(object sender, MouseEventArgs e)
         {
             imageGoRight.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "\\Images\\Icons\\controlButtons\\goRightGreen.png"));
